@@ -1,5 +1,6 @@
 package com.example.android.searchrepo;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -50,7 +51,7 @@ public class RepoListFragment extends Fragment {
         switch(item.getItemId()){
             case R.id.action_refresh:
                 FetchRepoTask repoTask = new FetchRepoTask();
-                repoTask.execute();
+                repoTask.execute("stars:>1");
                 return true;
             default:
                     return super.onOptionsItemSelected(item);
@@ -95,12 +96,15 @@ public class RepoListFragment extends Fragment {
         return rootView;
     }
 
-    public class FetchRepoTask extends AsyncTask<Void, Void, Void>{
+    public class FetchRepoTask extends AsyncTask<String, Void, Void>{
 
         private final String LOG_TAG = FetchRepoTask.class.getSimpleName();
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Void doInBackground(String... params) {
 
+            if(params.length == 0){
+                return null;
+            }
             // These two need to be declared outside the try/catch
             // so that they can be closed in the finally block.
             HttpURLConnection urlConnection = null;
@@ -109,6 +113,8 @@ public class RepoListFragment extends Fragment {
 
             // Will contain the raw JSON response as a string.
             String repoJsonStr = null;
+
+
 
 //        GithubReposClient client = new RepoSearchClient(getActivity(), username);
 //        client.observable()
@@ -123,10 +129,26 @@ public class RepoListFragment extends Fragment {
                 // hhttps://developer.github.com/v3/search/#search-repositories
 
 
-                URL url = new URL("https://api.github.com/search/repositories?q=stars:>1");
+               // URL url = new URL("https://api.github.com/search/repositories?q=stars:>1");
 
-                // Replace this token with your actual token
-                String token = "aa554744ae29e09a31af98c9e7968ea872d7f4bb";
+                final String REPO_BASE_URL = "https://api.github.com/search/repositories?";
+                final String QUERY_PARAM = "q";
+                final String SORT_PARAM = "sort";
+                final String ORDER_PARAM = "order";
+
+
+                String sortString = "stars";
+                String order = "desc";
+
+                Uri builtUri = Uri.parse(REPO_BASE_URL).buildUpon()
+                        .appendQueryParameter(QUERY_PARAM, params[0])
+                        .appendQueryParameter(SORT_PARAM, sortString)
+                        .appendQueryParameter(ORDER_PARAM, order)
+                        .build();
+
+                URL url = new URL(builtUri.toString());
+                Log.v(LOG_TAG, "Built URI " + builtUri.toString());
+
                 // Create the request to Github, and open the connection
                 urlConnection = (HttpURLConnection)url.openConnection();
                 urlConnection.setRequestMethod("GET");
