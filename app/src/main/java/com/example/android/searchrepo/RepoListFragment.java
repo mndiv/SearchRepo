@@ -1,6 +1,6 @@
 package com.example.android.searchrepo;
 
-   import android.content.Context;
+import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -113,18 +113,11 @@ public class RepoListFragment extends Fragment {
             this.context = context;
         }
 
-        private long timeStringtoMilis(String time) {
+        private long timeStringToMilis(String time) {
             long milis = 0;
-
-/* debug: is it local time? */
-
-
-            Log.v(LOG_TAG, "passed time : " + time);
-
             try {
                 SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
                 sd.setTimeZone(TimeZone.getTimeZone("GMT"));
-                //sd.setTimeZone(tz);
                 Log.d("Time zone: ", String.valueOf(sd.getTimeZone()));
                 Date date = sd.parse(time);
                 milis = date.getTime();
@@ -149,21 +142,12 @@ public class RepoListFragment extends Fragment {
             JSONObject repoJson = new JSONObject(repoJsonStr);
             JSONArray repoArray = repoJson.getJSONArray(OWM_ITEMS);
 
-
-//            Time dayTime = new Time();
-//            dayTime.setToNow();
-//
-//            // we start at the day returned by local time. Otherwise this is a mess.
-//            int julianStartDay = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
-//
-//            dayTime = new Time();
-
             int numRepos = repoArray.length();
             String[] resultStrs = new String[numRepos];
 
 
             for (int i = 0; i < numRepos; i++) {
-                String fullName, description, language, updated,pushed;
+                String fullName, description, language, updated, pushed;
 
                 JSONObject eachRepo = repoArray.getJSONObject(i);
                 fullName = eachRepo.getString(OWM_NAME);
@@ -172,39 +156,15 @@ public class RepoListFragment extends Fragment {
                 //updated = eachRepo.getString(OWM_UPDATED);
                 pushed = eachRepo.getString(OWM_PUSHED);
 
-                /*String date = updated.substring(0, updated.indexOf("T"));
-                String time = updated.substring(updated.indexOf("T") + 1, updated.indexOf("Z"));
-
-                String date_time = date + " " + time;
-                long updateAt = timeStringtoMilis(date_time);*/
-
-                String date = pushed.substring(0, pushed.indexOf("T"));
-                String time = pushed.substring(pushed.indexOf("T") + 1, pushed.indexOf("Z"));
-
-                //String date_time = date + " " + time;
-                //long updateAt = timeStringtoMilis(date_time);
-                long pushedAt = timeStringtoMilis(pushed);
+                long pushedAt = timeStringToMilis(pushed);
 
                 CharSequence str = DateUtils.getRelativeTimeSpanString(pushedAt,
                         System.currentTimeMillis(),
                         DateUtils.SECOND_IN_MILLIS);
 
-                resultStrs[i] = fullName + " - " + description + " - " + language + " - " + date + " - " + time + " - " + str;
-
-                //str represents updated time ago in seconds min resolution.
-                Log.v(LOG_TAG, "time ago " + i + " : " + str);
-
+                resultStrs[i] = fullName + " - " + description + " - " + language + "Updated " + str;
             }
-
-            for (String s : resultStrs) {
-                Log.v(LOG_TAG, "Repositories: " + s);
-
-            }
-
-
             return resultStrs;
-
-
         }
 
         @Override
@@ -313,5 +273,17 @@ public class RepoListFragment extends Fragment {
 
             return null;
         }
+
+        @Override
+        protected void onPostExecute(String[] result) {
+            if(result != null){
+                mRepoAdapter.clear();
+                for(String repoStr : result)
+                    mRepoAdapter.add(repoStr);
+
+                // New data is back from the server.  Hooray!
+            }
+        }
     }
+
 }
