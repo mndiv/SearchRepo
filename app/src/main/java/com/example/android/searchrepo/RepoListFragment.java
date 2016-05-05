@@ -1,11 +1,12 @@
 package com.example.android.searchrepo;
 
+   import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.format.Time;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,9 +27,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -56,7 +60,7 @@ public class RepoListFragment extends Fragment {
         //Handle item selection
         switch (item.getItemId()) {
             case R.id.action_refresh:
-                FetchRepoTask repoTask = new FetchRepoTask();
+                FetchRepoTask repoTask = new FetchRepoTask(getContext());
                 repoTask.execute("stars:>1");
                 return true;
             default:
@@ -102,7 +106,34 @@ public class RepoListFragment extends Fragment {
 
     public class FetchRepoTask extends AsyncTask<String, Void, String[]> {
 
+        Context context;
         private final String LOG_TAG = FetchRepoTask.class.getSimpleName();
+
+        public FetchRepoTask(Context context) {
+            this.context = context;
+        }
+
+        private long timeStringtoMilis(String time) {
+            long milis = 0;
+
+/* debug: is it local time? */
+
+
+            Log.v(LOG_TAG, "passed time : " + time);
+
+            try {
+                SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                sd.setTimeZone(TimeZone.getTimeZone("GMT"));
+                //sd.setTimeZone(tz);
+                Log.d("Time zone: ", String.valueOf(sd.getTimeZone()));
+                Date date = sd.parse(time);
+                milis = date.getTime();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return milis;
+        }
 
         private String[] getRepoDataFromJson(String repoJsonStr)
                 throws JSONException {
@@ -112,41 +143,66 @@ public class RepoListFragment extends Fragment {
             final String OWM_DESCRIPTION = "description";
             final String OWM_LANGUAGE = "language";
             final String OWM_UPDATED = "updated_at";
+            final String OWM_PUSHED = "pushed_at";
 
 
             JSONObject repoJson = new JSONObject(repoJsonStr);
             JSONArray repoArray = repoJson.getJSONArray(OWM_ITEMS);
 
 
-            Time dayTime = new Time();
-            dayTime.setToNow();
-
-            // we start at the day returned by local time. Otherwise this is a mess.
-            int julianStartDay = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
-
-            dayTime = new Time();
+//            Time dayTime = new Time();
+//            dayTime.setToNow();
+//
+//            // we start at the day returned by local time. Otherwise this is a mess.
+//            int julianStartDay = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
+//
+//            dayTime = new Time();
 
             int numRepos = repoArray.length();
             String[] resultStrs = new String[numRepos];
 
 
-            for(int i=0;i < numRepos;i++ ){
-                String fullName, description, language, updated;
+            for (int i = 0; i < numRepos; i++) {
+                String fullName, description, language, updated,pushed;
 
                 JSONObject eachRepo = repoArray.getJSONObject(i);
                 fullName = eachRepo.getString(OWM_NAME);
                 description = eachRepo.getString(OWM_DESCRIPTION);
                 language = eachRepo.getString(OWM_LANGUAGE);
-                updated = eachRepo.getString(OWM_UPDATED);
+                //updated = eachRepo.getString(OWM_UPDATED);
+                pushed = eachRepo.getString(OWM_PUSHED);
 
-                resultStrs[i] = fullName + " - " + description + " - " +language + " - " + updated;
+                /*String date = updated.substring(0, updated.indexOf("T"));
+                String time = updated.substring(updated.indexOf("T") + 1, updated.indexOf("Z"));
+
+                String date_time = date + " " + time;
+                long updateAt = timeStringtoMilis(date_time);*/
+
+                String date = pushed.substring(0, pushed.indexOf("T"));
+                String time = pushed.substring(pushed.indexOf("T") + 1, pushed.indexOf("Z"));
+
+                //String date_time = date + " " + time;
+                //long updateAt = timeStringtoMilis(date_time);
+                long pushedAt = timeStringtoMilis(pushed);
+
+                CharSequence str = DateUtils.getRelativeTimeSpanString(pushedAt,
+                        System.currentTimeMillis(),
+                        DateUtils.SECOND_IN_MILLIS);
+
+                resultStrs[i] = fullName + " - " + description + " - " + language + " - " + date + " - " + time + " - " + str;
+
+                //str represents updated time ago in seconds min resolution.
+                Log.v(LOG_TAG, "time ago " + i + " : " + str);
+
             }
 
-            for(String s:resultStrs)
+            for (String s : resultStrs) {
                 Log.v(LOG_TAG, "Repositories: " + s);
 
-            return resultStrs;
+            }
 
+
+            return resultStrs;
 
 
         }
