@@ -1,6 +1,7 @@
 package com.example.android.searchrepo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -106,6 +107,9 @@ public class RepoListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getContext(),mRepoAdapter.getItem(position),Toast.LENGTH_SHORT).show();
+
+                Intent detailIntent  = new Intent(getContext(),DetailActivity.class);
+                startActivity(detailIntent);
             }
         });
 
