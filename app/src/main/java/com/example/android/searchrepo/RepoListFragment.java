@@ -2,9 +2,11 @@ package com.example.android.searchrepo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.format.DateUtils;
@@ -42,6 +44,8 @@ import java.util.TimeZone;
  */
 public class RepoListFragment extends Fragment {
 
+    private final String LOG_TAG = RepoListFragment.class.getSimpleName();
+
     ArrayAdapter<String> mRepoAdapter;
 
     public RepoListFragment() {
@@ -64,6 +68,12 @@ public class RepoListFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.action_refresh:
                 FetchRepoTask repoTask = new FetchRepoTask(getContext());
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                String language = prefs.getString(getString(R.string.list_Of_Languages),
+                                    getString(R.string.pref_language_default));
+
+
+                Log.v(LOG_TAG,"language :"+language );
                 repoTask.execute("stars:>1");
                 return true;
             default:
