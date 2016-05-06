@@ -109,6 +109,7 @@ public class RepoListFragment extends Fragment {
                 Toast.makeText(getContext(),mRepoAdapter.getItem(position),Toast.LENGTH_SHORT).show();
 
                 Intent detailIntent  = new Intent(getContext(),DetailActivity.class);
+                detailIntent.putExtra(Intent.EXTRA_TEXT, mRepoAdapter.getItem(position));
                 startActivity(detailIntent);
             }
         });
