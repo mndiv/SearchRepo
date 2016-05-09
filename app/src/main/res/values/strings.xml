@@ -11,6 +11,9 @@
     <string name="pref_header_Language" translatable="false">Language</string>
     <string name="pref_language_default">anylanguage</string>
     <string name="list_Of_Languages">languageList</string>
+    <string name="pref_header_sortby">SortBy</string>
+    <string name="sortList">sortList</string>
+    <string name="pref_sort_default_MostStars">Most stars</string>
 
     <string-array name="pref_language_titles">
         <item>Any Language</item>
@@ -41,5 +44,20 @@
         <item>c#</item>
     </string-array>
 
+    <string-array name="pref_sort_titles">
+        <item>Most stars</item>
+        <item>Fewest stars</item>
+        <item>Most forks</item>
+        <item>Fewest forks</item>
+        <item>Recently Updated</item>
+    </string-array>
+
+    <string-array name="pref_sort_values">
+        <item>stars-desc</item>
+        <item>stars-asc</item>
+        <item>forks-desc</item>
+        <item>forks-asc</item>
+        <item>updated-desc</item>
+    </string-array>
 
 </resources>

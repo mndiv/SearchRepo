@@ -84,7 +84,12 @@ public class RepoListFragment extends Fragment {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String language = prefs.getString(getString(R.string.list_Of_Languages),
                 getString(R.string.pref_language_default));
-        repoTask.execute("stars:>1 language:" +language);
+
+        String sortOrder = prefs.getString(getString(R.string.sortList),
+                getString(R.string.pref_sort_default_MostStars));
+
+        Log.v(LOG_TAG, "sortOrder : " + sortOrder);
+        repoTask.execute("stars:>1 language:" +language,sortOrder);
     }
 
     @Override
@@ -233,12 +238,15 @@ public class RepoListFragment extends Fragment {
                 final String ORDER_PARAM = "order";
 
 
-                String sortString = "stars";
-                String order = "desc";
+                String sortOrder = params[1];
+                String sort = sortOrder.substring(0,sortOrder.indexOf('-'));
+                String order = sortOrder.substring(sortOrder.indexOf('-')+1);
+
+                Log.v(LOG_TAG, "sort:" + sort + " order:" +order);
 
                 Uri builtUri = Uri.parse(REPO_BASE_URL).buildUpon()
                         .appendQueryParameter(QUERY_PARAM, params[0])
-                        .appendQueryParameter(SORT_PARAM, sortString)
+                        .appendQueryParameter(SORT_PARAM, sort)
                         .appendQueryParameter(ORDER_PARAM, order)
                         .build();
 

@@ -102,6 +102,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         // guidelines.
         // bindPreferenceSummaryToValue(findPreference("example_text"));
         bindPreferenceSummaryToValue(findPreference(getString(R.string.list_Of_Languages)));
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.sortList)));
     }
 
     /**
