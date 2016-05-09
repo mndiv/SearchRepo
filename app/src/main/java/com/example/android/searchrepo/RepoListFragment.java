@@ -34,9 +34,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import java.util.TimeZone;
 
 /**
@@ -58,6 +56,12 @@ public class RepoListFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        updateRepositories();
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.repofragment, menu);
     }
@@ -67,21 +71,20 @@ public class RepoListFragment extends Fragment {
         //Handle item selection
         switch (item.getItemId()) {
             case R.id.action_refresh:
-                FetchRepoTask repoTask = new FetchRepoTask(getContext());
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                String language = prefs.getString(getString(R.string.list_Of_Languages),
-                                    getString(R.string.pref_language_default));
-
-
-
-                //StringBuilder stringBuilder  = new StringBuilder("stars:>1").append("+language:").append(language);
-                //Log.v(LOG_TAG,"query:" + stringBuilder.toString() );
-                repoTask.execute("stars:>1 language:" +language);
+                updateRepositories();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    private void updateRepositories() {
+        FetchRepoTask repoTask = new FetchRepoTask(getContext());
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String language = prefs.getString(getString(R.string.list_Of_Languages),
+                getString(R.string.pref_language_default));
+        repoTask.execute("stars:>1 language:" +language);
     }
 
     @Override
@@ -90,7 +93,7 @@ public class RepoListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
 
-        String[] data = {
+        /*String[] data = {
                 "FreeCodeCamp/FreeCodeCamp",
                 "twbs/bootstrap",
                 "FreeCodeCamp/FreeCodeCamp",
@@ -105,12 +108,12 @@ public class RepoListFragment extends Fragment {
                 "twbs/bootstrap"
         };
 
-        List<String> repoList = new ArrayList<String>(Arrays.asList(data));
+        List<String> repoList = new ArrayList<String>(Arrays.asList(data));*/
 
         mRepoAdapter = new ArrayAdapter<String>(getActivity(),
                 R.layout.list_item_repo,
                 R.id.list_item_repo_textView,
-                repoList);
+                new ArrayList<String>());
 
         ListView listView = (ListView) rootView.findViewById(R.id.listitem_repo);
         listView.setAdapter(mRepoAdapter);
@@ -188,7 +191,7 @@ public class RepoListFragment extends Fragment {
                         System.currentTimeMillis(),
                         DateUtils.SECOND_IN_MILLIS);
 
-                resultStrs[i] = fullName + " - " + description + " - " + language + "Updated " + str;
+                resultStrs[i] = fullName + " - " + description + " - " + language + " Updated " + str;
             }
             return resultStrs;
         }
