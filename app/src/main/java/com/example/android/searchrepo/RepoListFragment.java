@@ -73,8 +73,10 @@ public class RepoListFragment extends Fragment {
                                     getString(R.string.pref_language_default));
 
 
-                Log.v(LOG_TAG,"language :"+language );
-                repoTask.execute("stars:>1");
+
+                //StringBuilder stringBuilder  = new StringBuilder("stars:>1").append("+language:").append(language);
+                //Log.v(LOG_TAG,"query:" + stringBuilder.toString() );
+                repoTask.execute("stars:>1 language:" +language);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
