@@ -25,6 +25,25 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     private final String LOG_TAG = RepoListFragment.class.getSimpleName();
     private static final int REPO_LOADER = 0;
 
+    // For the Repo view we're showing only a small subset of the stored data.
+    // Specify the columns we need.
+    private static final String[] REPO_MOSTSTARS_COLUMNS = {
+            // In this case the id needs to be fully qualified with a table name
+            RepoContract.MostStarsRepoEntry.TABLE_NAME + "." + RepoContract.MostStarsRepoEntry._ID,
+            RepoContract.MostStarsRepoEntry.COLUMN_FULL_NAME,
+            RepoContract.MostStarsRepoEntry.COLUMN_DESCRIPTION,
+            RepoContract.MostStarsRepoEntry.COLUMN_LANGUAGE,
+            RepoContract.MostStarsRepoEntry.COLUMN_UPDATED
+    };
+
+    // These indices are tied to REPO_MOSTSTARS_COLUMNS.  If REPO_MOSTSTARS_COLUMNS changes, these
+    // must change.
+    static final int COL_REPO_MOSTSTARS_ID = 0;
+    static final int COL_REPO_MOSTSTARS_FULLNAME = 1;
+    static final int COL_REPO_MOSTSTARS_DESC = 2;
+    static final int COL_REPO_MOSTSTARS_LANG = 3;
+    static final int COL_REPO_MOSTSTARS_UPDATED = 4;
+
     RepoAdapter mRepoAdapter;
 
     public RepoListFragment() {
@@ -106,7 +125,7 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(getActivity(),
                 RepoContract.MostStarsRepoEntry.CONTENT_URI,
-                null,
+                REPO_MOSTSTARS_COLUMNS,
                 null,
                 null,
                 null);

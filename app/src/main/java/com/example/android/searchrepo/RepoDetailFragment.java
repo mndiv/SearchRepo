@@ -35,7 +35,9 @@ public class RepoDetailFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         repoStr = intent.getStringExtra(Intent.EXTRA_TEXT);
 
-        ((TextView) rootView.findViewById(R.id.repo_detail_textView)).setText(repoStr);
+        if(repoStr != null) {
+            ((TextView) rootView.findViewById(R.id.repo_detail_textView)).setText(repoStr);
+        }
         return rootView;
     }
 

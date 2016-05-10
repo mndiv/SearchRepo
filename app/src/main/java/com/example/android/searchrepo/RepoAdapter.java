@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-import com.example.android.searchrepo.data.RepoContract;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
@@ -47,13 +45,15 @@ public class RepoAdapter extends CursorAdapter {
     */
     private String convertCursorRowToUXFormat(Cursor cursor) {
         // get row indices for our cursor
-        int idx_fullName = cursor.getColumnIndex(RepoContract.MostStarsRepoEntry.COLUMN_FULL_NAME);
-        int idx_desc = cursor.getColumnIndex(RepoContract.MostStarsRepoEntry.COLUMN_DESCRIPTION);
-        int idx_lang = cursor.getColumnIndex(RepoContract.MostStarsRepoEntry.COLUMN_LANGUAGE);
-        int idx_update = cursor.getColumnIndex(RepoContract.MostStarsRepoEntry.COLUMN_UPDATED);
+//        int idx_fullName = cursor.getColumnIndex(RepoContract.MostStarsRepoEntry.COLUMN_FULL_NAME);
+//        int idx_desc = cursor.getColumnIndex(RepoContract.MostStarsRepoEntry.COLUMN_DESCRIPTION);
+//        int idx_lang = cursor.getColumnIndex(RepoContract.MostStarsRepoEntry.COLUMN_LANGUAGE);
+//        int idx_update = cursor.getColumnIndex(RepoContract.MostStarsRepoEntry.COLUMN_UPDATED);
 
-        String result = cursor.getString(idx_fullName) + " - " + cursor.getString(idx_desc) + " - " +
-                cursor.getString(idx_lang)+ " Updated " + cursor.getString(idx_update);
+        String result = cursor.getString(RepoListFragment.COL_REPO_MOSTSTARS_FULLNAME) + " - " +
+                cursor.getString(RepoListFragment.COL_REPO_MOSTSTARS_DESC) + " - " +
+                cursor.getString(RepoListFragment.COL_REPO_MOSTSTARS_LANG) +
+                " Updated " + cursor.getString(RepoListFragment.COL_REPO_MOSTSTARS_UPDATED);
 
         return result;
     }
