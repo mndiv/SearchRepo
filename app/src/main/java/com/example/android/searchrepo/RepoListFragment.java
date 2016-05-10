@@ -1,5 +1,6 @@
 package com.example.android.searchrepo;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.android.searchrepo.data.RepoContract;
@@ -100,16 +102,22 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
         ListView listView = (ListView) rootView.findViewById(R.id.listitem_repo);
         listView.setAdapter(mRepoAdapter);
 
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(getContext(),mRepoAdapter.getItem(position),Toast.LENGTH_SHORT).show();
-//
-//                Intent detailIntent  = new Intent(getContext(),DetailActivity.class);
-//                detailIntent.putExtra(Intent.EXTRA_TEXT, mRepoAdapter.getItem(position));
-//                startActivity(detailIntent);
-//            }
-//        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                // CursorAdapter returns a cursor at the correct position for getItem(), or null
+                // if it cannot seek to that position.
+
+                Cursor cursor = (Cursor) adapterView.getItemAtPosition(position);
+                if(cursor != null) {
+
+                    Intent detailIntent = new Intent(getContext(), DetailActivity.class)
+                            .setData(RepoContract.MostStarsRepoEntry.CONTENT_URI);
+
+                    startActivity(detailIntent);
+                }
+            }
+        });
 
 
         return rootView;
