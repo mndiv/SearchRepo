@@ -1,24 +1,18 @@
 package com.example.android.searchrepo;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.example.android.searchrepo.data.RepoContract;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -27,7 +21,7 @@ public class RepoListFragment extends Fragment {
 
     private final String LOG_TAG = RepoListFragment.class.getSimpleName();
 
-    ArrayAdapter<String> mRepoAdapter;
+    RepoAdapter mRepoAdapter;
 
     public RepoListFragment() {
     }
@@ -63,15 +57,12 @@ public class RepoListFragment extends Fragment {
     }
 
     private void updateRepositories() {
-        FetchRepoTask repoTask = new FetchRepoTask(getContext(),mRepoAdapter);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String language = prefs.getString(getString(R.string.list_Of_Languages),
-                getString(R.string.pref_language_default));
+        FetchRepoTask repoTask = new FetchRepoTask(getContext());
 
-        String sortOrder = prefs.getString(getString(R.string.sortList),
-                getString(R.string.pref_sort_default_MostStars));
+        String language =Utility.getLanguageOption(getActivity());
+        String sortOrder = Utility.getSortOption(getActivity());
 
-        Log.v(LOG_TAG, "sortOrder : " + sortOrder);
+        //Log.v(LOG_TAG, "sortOrder : " + sortOrder);
         repoTask.execute("stars:>1 language:" +language,sortOrder);
     }
 
@@ -80,42 +71,29 @@ public class RepoListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
+        String sortOrder = Utility.getSortOption(getActivity());
 
-        /*String[] data = {
-                "FreeCodeCamp/FreeCodeCamp",
-                "twbs/bootstrap",
-                "FreeCodeCamp/FreeCodeCamp",
-                "twbs/bootstrap",
-                "FreeCodeCamp/FreeCodeCamp",
-                "twbs/bootstrap",
-                "FreeCodeCamp/FreeCodeCamp",
-                "twbs/bootstrap",
-                "FreeCodeCamp/FreeCodeCamp",
-                "twbs/bootstrap",
-                "FreeCodeCamp/FreeCodeCamp",
-                "twbs/bootstrap"
-        };
+        Cursor cur = getActivity().getContentResolver().query(RepoContract.MostStarsRepoEntry.CONTENT_URI,
+                null, null, null, null);
 
-        List<String> repoList = new ArrayList<String>(Arrays.asList(data));*/
-
-        mRepoAdapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.list_item_repo,
-                R.id.list_item_repo_textView,
-                new ArrayList<String>());
+        // The CursorAdapter will take data from our cursor and populate the ListView
+        // However, we cannot use FLAG_AUTO_REQUERY since it is deprecated, so we will end
+        // up with an empty list the first time we run.
+        mRepoAdapter = new RepoAdapter(getActivity(), cur, 0);
 
         ListView listView = (ListView) rootView.findViewById(R.id.listitem_repo);
         listView.setAdapter(mRepoAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(),mRepoAdapter.getItem(position),Toast.LENGTH_SHORT).show();
-
-                Intent detailIntent  = new Intent(getContext(),DetailActivity.class);
-                detailIntent.putExtra(Intent.EXTRA_TEXT, mRepoAdapter.getItem(position));
-                startActivity(detailIntent);
-            }
-        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(getContext(),mRepoAdapter.getItem(position),Toast.LENGTH_SHORT).show();
+//
+//                Intent detailIntent  = new Intent(getContext(),DetailActivity.class);
+//                detailIntent.putExtra(Intent.EXTRA_TEXT, mRepoAdapter.getItem(position));
+//                startActivity(detailIntent);
+//            }
+//        });
 
 
         return rootView;

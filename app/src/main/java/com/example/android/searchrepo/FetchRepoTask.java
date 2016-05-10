@@ -2,13 +2,10 @@ package com.example.android.searchrepo;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.text.format.DateUtils;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
 import com.example.android.searchrepo.data.RepoContract.MostStarsRepoEntry;
 
@@ -30,16 +27,14 @@ import java.util.Vector;
 /**
  * Created by KeerthanaS on 5/10/2016.
  */
-public class FetchRepoTask extends AsyncTask<String, Void, String[]> {
+public class FetchRepoTask extends AsyncTask<String, Void, Void> {
 
-    private ArrayAdapter<String> mRepoAdapter;
     private final Context mContext;
 
     private final String LOG_TAG = FetchRepoTask.class.getSimpleName();
 
-    public FetchRepoTask(Context context, ArrayAdapter<String> repoAdapter) {
+    public FetchRepoTask(Context context) {
         mContext = context;
-        mRepoAdapter = repoAdapter;
     }
 
     private long timeStringToMilis(String time) {
@@ -57,7 +52,7 @@ public class FetchRepoTask extends AsyncTask<String, Void, String[]> {
         return milis;
     }
 
-    private String[] getRepoDataFromJson(String repoJsonStr)
+    private void getRepoDataFromJson(String repoJsonStr)
             throws JSONException {
 // These are the names of the JSON objects that need to be extracted.
         final String OWM_ITEMS = "items";
@@ -115,32 +110,16 @@ public class FetchRepoTask extends AsyncTask<String, Void, String[]> {
                 inserted = mContext.getContentResolver().bulkInsert(MostStarsRepoEntry.CONTENT_URI, cvArray);
             }
 
-            Cursor cur = mContext.getContentResolver().query(MostStarsRepoEntry.CONTENT_URI,
-                    null, null, null, null);
+            Log.d(LOG_TAG, "FetchRepoTask Complete. " + inserted + " Inserted");
 
-            cVVector = new Vector<ContentValues>(cur.getCount());
-            if ( cur.moveToFirst() ) {
-            do {
-            ContentValues cv = new ContentValues();
-            DatabaseUtils.cursorRowToContentValues(cur, cv);
-            cVVector.add(cv);
-            } while (cur.moveToNext());
-            }
-
-
-
-            Log.d(LOG_TAG, "FetchRepoTask Complete. " + cVVector.size() + " Inserted");
-            return resultStrs;
         } catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage(), e);
             e.printStackTrace();
         }
-
-        return null;
     }
 
     @Override
-    protected String[] doInBackground(String... params) {
+    protected Void doInBackground(String... params) {
 
         if (params.length == 0) {
             return null;
@@ -241,24 +220,13 @@ public class FetchRepoTask extends AsyncTask<String, Void, String[]> {
 
         try {
             //Log.v(LOG_TAG,"No. of repos in page = " + getRepoDataFromJson(repoJsonStr));
-            return getRepoDataFromJson(repoJsonStr);
+            getRepoDataFromJson(repoJsonStr);
         } catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage() + e);
             e.printStackTrace();
         }
 
         return null;
-    }
-
-    @Override
-    protected void onPostExecute(String[] result) {
-        if (result != null) {
-            mRepoAdapter.clear();
-            for (String repoStr : result)
-                mRepoAdapter.add(repoStr);
-
-            // New data is back from the server.  Hooray!
-        }
     }
 
 }
