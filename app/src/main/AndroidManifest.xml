@@ -38,6 +38,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.searchrepo.MainActivity" />
         </activity>
+
+        <provider
+            android:name=".data.RepoProvider"
+            android:authorities="com.example.android.searchrepo"
+            android:enabled="true"
+            android:exported="false">
+        </provider>
     </application>
+
+
 
 </manifest>

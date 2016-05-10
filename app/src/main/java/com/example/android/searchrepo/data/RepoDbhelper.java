@@ -34,7 +34,7 @@ public class RepoDbHelper extends SQLiteOpenHelper{
                 // the ID of the location entry associated with this weather data
                 MostStarsRepoEntry.COLUMN_FULL_NAME + " TEXT NOT NULL, " +
                 MostStarsRepoEntry.COLUMN_DESCRIPTION + " TEXT , " +
-                MostStarsRepoEntry.COLUMN_LANGUAGE + " TEXT NOT NULL, " +
+                MostStarsRepoEntry.COLUMN_LANGUAGE + " TEXT , " +
                 MostStarsRepoEntry.COLUMN_UPDATED + " TEXT NOT NULL" + " );";
 
 
