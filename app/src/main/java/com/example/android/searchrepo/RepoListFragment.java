@@ -4,6 +4,9 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,9 +20,10 @@ import com.example.android.searchrepo.data.RepoContract;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class RepoListFragment extends Fragment {
+public class RepoListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private final String LOG_TAG = RepoListFragment.class.getSimpleName();
+    private static final int REPO_LOADER = 0;
 
     RepoAdapter mRepoAdapter;
 
@@ -71,15 +75,8 @@ public class RepoListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        String sortOrder = Utility.getSortOption(getActivity());
-
-        Cursor cur = getActivity().getContentResolver().query(RepoContract.MostStarsRepoEntry.CONTENT_URI,
-                null, null, null, null);
-
-        // The CursorAdapter will take data from our cursor and populate the ListView
-        // However, we cannot use FLAG_AUTO_REQUERY since it is deprecated, so we will end
-        // up with an empty list the first time we run.
-        mRepoAdapter = new RepoAdapter(getActivity(), cur, 0);
+        // The CursorAdapter will take data from our cursor and populate the ListView.
+        mRepoAdapter = new RepoAdapter(getActivity(), null, 0);
 
         ListView listView = (ListView) rootView.findViewById(R.id.listitem_repo);
         listView.setAdapter(mRepoAdapter);
@@ -99,6 +96,31 @@ public class RepoListFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        getLoaderManager().initLoader(REPO_LOADER, null, this);
+        super.onActivityCreated(savedInstanceState);
+    }
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(getActivity(),
+                RepoContract.MostStarsRepoEntry.CONTENT_URI,
+                null,
+                null,
+                null,
+                null);
+    }
 
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        mRepoAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
+        mRepoAdapter.swapCursor(null);
+
+    }
 }
