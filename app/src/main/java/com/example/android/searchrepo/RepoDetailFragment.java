@@ -19,7 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.android.searchrepo.data.RepoContract.MostStarsRepoEntry;
+import com.example.android.searchrepo.data.RepoContract.RepoEntry;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -37,11 +37,11 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
     // Specify the columns we need.
     private static final String[] REPO_MOSTSTARS_COLUMNS = {
             // In this case the id needs to be fully qualified with a table name
-            MostStarsRepoEntry.TABLE_NAME + "." + MostStarsRepoEntry._ID,
-            MostStarsRepoEntry.COLUMN_FULL_NAME,
-            MostStarsRepoEntry.COLUMN_DESCRIPTION,
-            MostStarsRepoEntry.COLUMN_LANGUAGE,
-            MostStarsRepoEntry.COLUMN_UPDATED
+            RepoEntry.TABLE_NAME + "." + RepoEntry._ID,
+            RepoEntry.COLUMN_FULL_NAME,
+            RepoEntry.COLUMN_DESCRIPTION,
+            RepoEntry.COLUMN_LANGUAGE,
+            RepoEntry.COLUMN_UPDATED
     };
 
     // These indices are tied to REPO_MOSTSTARS_COLUMNS.  If REPO_MOSTSTARS_COLUMNS changes, these

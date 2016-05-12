@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.android.searchrepo.data.RepoContract.MostStarsRepoEntry;
+import com.example.android.searchrepo.data.RepoContract.RepoEntry;
 
 /**
  * Created by DivyaM on 5/9/2016.
@@ -14,7 +14,7 @@ public class RepoDbHelper extends SQLiteOpenHelper{
     // If you change the database schema, you must increment the database version.
     private static final int DATABASE_VERSION =1;
 
-    static final String DATABASE_NAME = "repos.db";
+    static final String DATABASE_NAME = "repositories.db";
 
     public RepoDbHelper(Context context){
         super(context,DATABASE_NAME, null, DATABASE_VERSION);
@@ -23,19 +23,19 @@ public class RepoDbHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
-        final String SQL_CREATE_REPO_TABLE = "CREATE TABLE " + MostStarsRepoEntry.TABLE_NAME + " (" +
+        final String SQL_CREATE_REPO_TABLE = "CREATE TABLE " + RepoEntry.TABLE_NAME + " (" +
                 // Why AutoIncrement here, and not above?
                 // Unique keys will be auto-generated in either case.  But for weather
                 // forecasting, it's reasonable to assume the user will want information
                 // for a certain date and all dates *following*, so the forecast data
                 // should be sorted accordingly.
-                MostStarsRepoEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                RepoEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
 
-                // the ID of the location entry associated with this weather data
-                MostStarsRepoEntry.COLUMN_FULL_NAME + " TEXT NOT NULL, " +
-                MostStarsRepoEntry.COLUMN_DESCRIPTION + " TEXT , " +
-                MostStarsRepoEntry.COLUMN_LANGUAGE + " TEXT , " +
-                MostStarsRepoEntry.COLUMN_UPDATED + " TEXT NOT NULL" + " );";
+                // the ID of the location entry associated with this repo data
+                RepoEntry.COLUMN_FULL_NAME + " TEXT NOT NULL, " +
+                RepoEntry.COLUMN_DESCRIPTION + " TEXT , " +
+                RepoEntry.COLUMN_LANGUAGE + " TEXT , " +
+                RepoEntry.COLUMN_UPDATED + " TEXT NOT NULL" + " );";
 
 
         sqLiteDatabase.execSQL(SQL_CREATE_REPO_TABLE);
@@ -52,7 +52,7 @@ public class RepoDbHelper extends SQLiteOpenHelper{
         // If you want to update the schema without wiping data, commenting out the next 2 lines
         // should be your top priority before modifying this method.
        // sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + LocationEntry.TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + MostStarsRepoEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + RepoEntry.TABLE_NAME);
         onCreate(sqLiteDatabase);
 
     }

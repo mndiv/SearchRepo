@@ -30,24 +30,26 @@ public class RepoContract {
     // looking at weather data. content://com.example.android.sunshine.app/givemeroot/ will fail,
     // as the ContentProvider hasn't been given any information on what to do with "givemeroot".
     // At least, let's hope not.  Don't be that dev, reader.  Don't be that dev.
+    /*
     public static final String PATH_MOSTSTARS = "moststars";
     public static final String PATH_FEWERSTARS = "fewerstars";
     public static final String PATH_MOSTFORKS = "mostforks";
     public static final String PATH_FEWERFORKS = "fewerforks";
     public static final String PATH_UPDATEDRECENTLY = "recentUpdated";
+*/
+    public static final String PATH_REPO = "repoList";
 
 
 
-
-    public static final class MostStarsRepoEntry implements BaseColumns {
+    public static final class RepoEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI =
-                BASE_CONTENT_URI.buildUpon().appendPath(PATH_MOSTSTARS).build();
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_REPO).build();
 
         public static final String CONTENT_TYPE =
-                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_MOSTSTARS;
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_REPO;
         public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_MOSTSTARS;
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_REPO;
 
 
 
@@ -62,11 +64,20 @@ public class RepoContract {
         //description about the repo (stored as String)
         public static final String COLUMN_DESCRIPTION = "short_desc";
 
+        //repo url for the repo (stored as String)
+        public static final String COLUMN_REPO_URL = "repo_url";
+
         //language of the repo provided by API
         public static final String COLUMN_LANGUAGE = "language";
 
         //updated time ago stored as String
         public static final String COLUMN_UPDATED = "updated";
+
+        //Created time ago stored as String
+        public static final String COLUMN_CREATED = "created";
+
+        //pushed time ago stored as String
+        public static final String COLUMN_PUSHED = "pushed";
 
         //stargazer count as provided by API
         public static final String COLUMN_STARCOUNT = "star_count";
@@ -83,7 +94,7 @@ public class RepoContract {
         }
 
     }
-
+/*
     public static final class FewerStarsRepoEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI =
@@ -250,6 +261,6 @@ public class RepoContract {
         public static Uri buildRecentUpdateUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
-    }
+    }*/
 
 }

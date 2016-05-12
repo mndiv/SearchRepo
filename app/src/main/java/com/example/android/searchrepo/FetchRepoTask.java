@@ -7,7 +7,7 @@ import android.os.AsyncTask;
 import android.text.format.DateUtils;
 import android.util.Log;
 
-import com.example.android.searchrepo.data.RepoContract.MostStarsRepoEntry;
+import com.example.android.searchrepo.data.RepoContract.RepoEntry;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -92,10 +92,10 @@ public class FetchRepoTask extends AsyncTask<String, Void, Void> {
 
                 ContentValues RepoValues = new ContentValues();
 
-                RepoValues.put(MostStarsRepoEntry.COLUMN_FULL_NAME, fullName);
-                RepoValues.put(MostStarsRepoEntry.COLUMN_DESCRIPTION, description);
-                RepoValues.put(MostStarsRepoEntry.COLUMN_LANGUAGE, language);
-                RepoValues.put(MostStarsRepoEntry.COLUMN_UPDATED, str.toString());
+                RepoValues.put(RepoEntry.COLUMN_FULL_NAME, fullName);
+                RepoValues.put(RepoEntry.COLUMN_DESCRIPTION, description);
+                RepoValues.put(RepoEntry.COLUMN_LANGUAGE, language);
+                RepoValues.put(RepoEntry.COLUMN_UPDATED, str.toString());
                 cVVector.add(RepoValues);
                 resultStrs[i] = fullName + " - " + description + " - " + language + " Updated " + str;
 
@@ -107,7 +107,7 @@ public class FetchRepoTask extends AsyncTask<String, Void, Void> {
             if (cVVector.size() > 0) {
                 ContentValues[] cvArray = new ContentValues[cVVector.size()];
                 cVVector.toArray(cvArray);
-                inserted = mContext.getContentResolver().bulkInsert(MostStarsRepoEntry.CONTENT_URI, cvArray);
+                inserted = mContext.getContentResolver().bulkInsert(RepoEntry.CONTENT_URI, cvArray);
             }
 
             Log.d(LOG_TAG, "FetchRepoTask Complete. " + inserted + " Inserted");

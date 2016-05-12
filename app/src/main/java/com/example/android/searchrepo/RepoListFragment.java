@@ -31,11 +31,11 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     // Specify the columns we need.
     private static final String[] REPO_MOSTSTARS_COLUMNS = {
             // In this case the id needs to be fully qualified with a table name
-            RepoContract.MostStarsRepoEntry.TABLE_NAME + "." + RepoContract.MostStarsRepoEntry._ID,
-            RepoContract.MostStarsRepoEntry.COLUMN_FULL_NAME,
-            RepoContract.MostStarsRepoEntry.COLUMN_DESCRIPTION,
-            RepoContract.MostStarsRepoEntry.COLUMN_LANGUAGE,
-            RepoContract.MostStarsRepoEntry.COLUMN_UPDATED
+            RepoContract.RepoEntry.TABLE_NAME + "." + RepoContract.RepoEntry._ID,
+            RepoContract.RepoEntry.COLUMN_FULL_NAME,
+            RepoContract.RepoEntry.COLUMN_DESCRIPTION,
+            RepoContract.RepoEntry.COLUMN_LANGUAGE,
+            RepoContract.RepoEntry.COLUMN_UPDATED
     };
 
     // These indices are tied to REPO_MOSTSTARS_COLUMNS.  If REPO_MOSTSTARS_COLUMNS changes, these
@@ -112,7 +112,7 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
                 if(cursor != null) {
 
                     Intent detailIntent = new Intent(getContext(), DetailActivity.class)
-                            .setData(RepoContract.MostStarsRepoEntry.CONTENT_URI);
+                            .setData(RepoContract.RepoEntry.CONTENT_URI);
 
                     startActivity(detailIntent);
                 }
@@ -132,7 +132,7 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(getActivity(),
-                RepoContract.MostStarsRepoEntry.CONTENT_URI,
+                RepoContract.RepoEntry.CONTENT_URI,
                 REPO_MOSTSTARS_COLUMNS,
                 null,
                 null,
