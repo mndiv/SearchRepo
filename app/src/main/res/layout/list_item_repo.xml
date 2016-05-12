@@ -1,9 +1,44 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!-- Layout for Repositories list item-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/list_item_repo_textView"
-    android:gravity="center_vertical"
-    android:minHeight="?android:attr/listPreferredItemHeight">
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-</TextView>
+    <TextView
+        android:id="@+id/list_item_fullName_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FreeCodeCamp/FreeCodeCamp"
+        android:textSize="20sp"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:id="@+id/list_item_desc_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This project is from FREECODECAMP and this is the sample description to check how warp content works"></TextView>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/list_item_lang_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/list_item_update_textView"
+            android:text="JavaScript"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/list_item_update_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="Updated 5 days ago" />
+    </RelativeLayout>
+</LinearLayout>
