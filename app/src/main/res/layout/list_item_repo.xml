@@ -11,15 +11,14 @@
         android:id="@+id/list_item_fullName_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FreeCodeCamp/FreeCodeCamp"
         android:textSize="20sp"
-        android:textStyle="bold"></TextView>
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/list_item_desc_textView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="This project is from FREECODECAMP and this is the sample description to check how warp content works"></TextView>
+        android:layout_height="wrap_content">
+    </TextView>
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -30,8 +29,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_toLeftOf="@+id/list_item_update_textView"
-            android:text="JavaScript"
+            android:layout_toStartOf="@+id/list_item_update_textView"
             android:textStyle="bold"/>
 
         <TextView
@@ -39,6 +39,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="Updated 5 days ago" />
+            android:layout_alignParentEnd="true"/>
     </RelativeLayout>
 </LinearLayout>
