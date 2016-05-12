@@ -2,11 +2,13 @@ package com.example.android.searchrepo;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.text.format.DateUtils;
 import android.util.Log;
 
+import com.example.android.searchrepo.data.RepoContract;
 import com.example.android.searchrepo.data.RepoContract.RepoEntry;
 
 import org.json.JSONArray;
@@ -100,6 +102,20 @@ public class FetchRepoTask extends AsyncTask<String, Void, Void> {
                 resultStrs[i] = fullName + " - " + description + " - " + language + " Updated " + str;
 
 
+            }
+
+            // First, check if the location with this city name exists in the db
+            Cursor repoCursor = mContext.getContentResolver().query(
+                    RepoContract.RepoEntry.CONTENT_URI,
+                    new String[]{RepoContract.RepoEntry._ID},
+                    null,
+                    null,
+                    null);
+
+            int deleted = 0;
+            if(repoCursor.getCount()>0){
+                deleted = mContext.getContentResolver().delete(RepoEntry.CONTENT_URI, null,null);
+                Log.v(LOG_TAG, "deleted : " + deleted);
             }
 
             int inserted = 0;
