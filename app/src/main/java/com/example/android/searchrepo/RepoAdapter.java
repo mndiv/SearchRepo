@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -66,12 +67,28 @@ public class RepoAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
+        // Read full Name of Repo from cursor
+        String fullName = cursor.getString(RepoListFragment.COL_REPO_MOSTSTARS_FULLNAME);
+        // Find TextView and set name on it
+        TextView nameView = (TextView)view.findViewById(R.id.list_item_fullName_textView);
+        nameView.setText(fullName);
 
-        // our view is pretty simple here --- just a text view
-        // we'll keep the UI functional with a simple (and slow!) binding.
+        // Read full Name of Repo from cursor
+        String desc = cursor.getString(RepoListFragment.COL_REPO_MOSTSTARS_DESC);
+        // Find TextView and set name on it
+        TextView descView = (TextView)view.findViewById(R.id.list_item_desc_textView);
+        descView.setText(desc);
 
-        //TextView tv = (TextView)view;
-        //tv.setText(convertCursorRowToUXFormat(cursor));
+        // Read full Name of Repo from cursor
+        String lang = cursor.getString(RepoListFragment.COL_REPO_MOSTSTARS_LANG);
+        // Find TextView and set name on it
+        TextView langView = (TextView)view.findViewById(R.id.list_item_lang_textView);
+        langView.setText(lang);
 
+        // Read full Name of Repo from cursor
+        String updated = cursor.getString(RepoListFragment.COL_REPO_MOSTSTARS_UPDATED);
+        // Find TextView and set name on it
+        TextView updateView = (TextView)view.findViewById(R.id.list_item_update_textView);
+        updateView.setText(updated);
     }
 }
