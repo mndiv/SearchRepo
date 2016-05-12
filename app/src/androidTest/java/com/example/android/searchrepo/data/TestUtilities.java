@@ -15,10 +15,10 @@ public class TestUtilities extends AndroidTestCase {
     static ContentValues createRepositoryValues() {
         // Create a new map of values, where column names are the keys
         ContentValues testValues = new ContentValues();
-        testValues.put(RepoContract.MostStarsRepoEntry.COLUMN_FULL_NAME, "FreeCodeCamp/FreeCodeCamp");
-        testValues.put(RepoContract.MostStarsRepoEntry.COLUMN_DESCRIPTION, "Working on JavaScript Projects");
-        testValues.put(RepoContract.MostStarsRepoEntry.COLUMN_LANGUAGE, "Java Script");
-        testValues.put(RepoContract.MostStarsRepoEntry.COLUMN_UPDATED, "Updated 5 days ago");
+        testValues.put(RepoContract.RepoEntry.COLUMN_FULL_NAME, "FreeCodeCamp/FreeCodeCamp");
+        testValues.put(RepoContract.RepoEntry.COLUMN_DESCRIPTION, "Working on JavaScript Projects");
+        testValues.put(RepoContract.RepoEntry.COLUMN_LANGUAGE, "Java Script");
+        testValues.put(RepoContract.RepoEntry.COLUMN_UPDATED, "Updated 5 days ago");
 
         return testValues;
     }

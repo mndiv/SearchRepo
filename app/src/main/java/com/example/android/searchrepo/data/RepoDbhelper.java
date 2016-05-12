@@ -35,7 +35,14 @@ public class RepoDbHelper extends SQLiteOpenHelper{
                 RepoEntry.COLUMN_FULL_NAME + " TEXT NOT NULL, " +
                 RepoEntry.COLUMN_DESCRIPTION + " TEXT , " +
                 RepoEntry.COLUMN_LANGUAGE + " TEXT , " +
-                RepoEntry.COLUMN_UPDATED + " TEXT NOT NULL" + " );";
+                RepoEntry.COLUMN_PUSHED + " TEXT NOT NULL ,  " +
+                RepoEntry.COLUMN_AVATAR_URL + " TEXT , " +
+                RepoEntry.COLUMN_REPO_URL + " TEXT NOT NULL , " +
+                RepoEntry.COLUMN_UPDATED + " TEXT NOT NULL , " +
+                RepoEntry.COLUMN_STARCOUNT + " INTEGER , " +
+                RepoEntry.COLUMN_WATCHCOUNT + " INTEGER , " +
+                RepoEntry.COLUMN_FORKCOUNT + " INTEGER , " +
+                RepoEntry.COLUMN_ISSUECOUNT + " INTEGER  " + " );";
 
 
         sqLiteDatabase.execSQL(SQL_CREATE_REPO_TABLE);

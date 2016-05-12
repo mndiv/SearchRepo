@@ -45,10 +45,10 @@ public class RepoAdapter extends CursorAdapter {
 //        int idx_lang = cursor.getColumnIndex(RepoContract.MostStarsRepoEntry.COLUMN_LANGUAGE);
 //        int idx_update = cursor.getColumnIndex(RepoContract.MostStarsRepoEntry.COLUMN_UPDATED);
 
-        String result = cursor.getString(RepoListFragment.COL_REPO_MOSTSTARS_FULLNAME) + " - " +
-                cursor.getString(RepoListFragment.COL_REPO_MOSTSTARS_DESC) + " - " +
-                cursor.getString(RepoListFragment.COL_REPO_MOSTSTARS_LANG) +
-                " Updated " + cursor.getString(RepoListFragment.COL_REPO_MOSTSTARS_UPDATED);
+        String result = cursor.getString(RepoListFragment.COL_REPO_FULLNAME) + " - " +
+                cursor.getString(RepoListFragment.COL_REPO_DESC) + " - " +
+                cursor.getString(RepoListFragment.COL_REPO_LANG) +
+                " Updated " + cursor.getString(RepoListFragment.COL_REPO_UPDATED);
 
         return result;
     }
@@ -69,22 +69,22 @@ public class RepoAdapter extends CursorAdapter {
         ViewHolder viewHolder = (ViewHolder) view.getTag();
 
         // Read full Name of Repo from cursor
-        String fullName = cursor.getString(RepoListFragment.COL_REPO_MOSTSTARS_FULLNAME);
+        String fullName = cursor.getString(RepoListFragment.COL_REPO_FULLNAME);
         // set name on it
         viewHolder.nameView.setText(fullName);
 
         // Read full Name of Repo from cursor
-        String desc = cursor.getString(RepoListFragment.COL_REPO_MOSTSTARS_DESC);
+        String desc = cursor.getString(RepoListFragment.COL_REPO_DESC);
         // set description on it
         viewHolder.descView.setText(desc);
 
         // Read full Name of Repo from cursor
-        String lang = cursor.getString(RepoListFragment.COL_REPO_MOSTSTARS_LANG);
+        String lang = cursor.getString(RepoListFragment.COL_REPO_LANG);
         // set language on it
         viewHolder.langView.setText(lang);
 
         // Read full Name of Repo from cursor
-        String updated = cursor.getString(RepoListFragment.COL_REPO_MOSTSTARS_UPDATED);
+        String updated = cursor.getString(RepoListFragment.COL_REPO_UPDATED);
         // set Updated repo on it
         viewHolder.updateView.setText("Updated " + updated);
     }

@@ -59,10 +59,19 @@ public class FetchRepoTask extends AsyncTask<String, Void, Void> {
 // These are the names of the JSON objects that need to be extracted.
         final String OWM_ITEMS = "items";
         final String OWM_NAME = "full_name";
+        final String OWM_OWNER = "owner";
+        final String OWM_AVATAR_URL = "avatar_url";
         final String OWM_DESCRIPTION = "description";
         final String OWM_LANGUAGE = "language";
+        final String OWM_CREATED = "created_at";
         final String OWM_UPDATED = "updated_at";
         final String OWM_PUSHED = "pushed_at";
+        final String OWM_HTML_URL = "html_url";
+        final String OWM_ISSUES_COUNT = "open_issues_count";
+        final String OWM_STARS_COUNT = "stargazers_count";
+        final String OWM_WATCHERS_COUNT = "watchers_count";
+        final String OWM_FORK_COUNT = "forks_count";
+
 
         try {
             JSONObject repoJson = new JSONObject(repoJsonStr);
@@ -77,17 +86,40 @@ public class FetchRepoTask extends AsyncTask<String, Void, Void> {
 
             for (int i = 0; i < numRepos; i++) {
                 String fullName, description, language, updated, pushed;
+                String avatar_url, created, html_url ;
+                int issue_count, stars_count, watch_count, fork_count;
 
                 JSONObject eachRepo = repoArray.getJSONObject(i);
+
                 fullName = eachRepo.getString(OWM_NAME);
+
+                JSONObject ownerObject = eachRepo.getJSONObject(OWM_OWNER);
+                avatar_url = ownerObject.getString(OWM_AVATAR_URL);
+
                 description = eachRepo.getString(OWM_DESCRIPTION);
                 language = eachRepo.getString(OWM_LANGUAGE);
-                //updated = eachRepo.getString(OWM_UPDATED);
+                html_url = eachRepo.getString(OWM_HTML_URL);
+                issue_count = eachRepo.getInt(OWM_ISSUES_COUNT);
+                stars_count = eachRepo.getInt(OWM_STARS_COUNT);
+                watch_count = eachRepo.getInt(OWM_WATCHERS_COUNT);
+                fork_count = eachRepo.getInt(OWM_FORK_COUNT);
+
+                updated = eachRepo.getString(OWM_UPDATED);
+                created = eachRepo.getString(OWM_CREATED);
                 pushed = eachRepo.getString(OWM_PUSHED);
 
                 long pushedAt = timeStringToMilis(pushed);
+                CharSequence pushedStr = DateUtils.getRelativeTimeSpanString(pushedAt,
+                        System.currentTimeMillis(),
+                        DateUtils.SECOND_IN_MILLIS);
 
-                CharSequence str = DateUtils.getRelativeTimeSpanString(pushedAt,
+                long createdAt = timeStringToMilis(created);
+                CharSequence createdStr = DateUtils.getRelativeTimeSpanString(createdAt,
+                        System.currentTimeMillis(),
+                        DateUtils.SECOND_IN_MILLIS);
+
+                long updatedAt = timeStringToMilis(updated);
+                CharSequence updatedStr = DateUtils.getRelativeTimeSpanString(updatedAt,
                         System.currentTimeMillis(),
                         DateUtils.SECOND_IN_MILLIS);
 
@@ -97,12 +129,24 @@ public class FetchRepoTask extends AsyncTask<String, Void, Void> {
                 RepoValues.put(RepoEntry.COLUMN_FULL_NAME, fullName);
                 RepoValues.put(RepoEntry.COLUMN_DESCRIPTION, description);
                 RepoValues.put(RepoEntry.COLUMN_LANGUAGE, language);
-                RepoValues.put(RepoEntry.COLUMN_UPDATED, str.toString());
+                RepoValues.put(RepoEntry.COLUMN_PUSHED, pushedStr.toString());
+                RepoValues.put(RepoEntry.COLUMN_AVATAR_URL, avatar_url);
+                RepoValues.put(RepoEntry.COLUMN_REPO_URL, html_url);
+                RepoValues.put(RepoEntry.COLUMN_UPDATED, updatedStr.toString());
+                RepoValues.put(RepoEntry.COLUMN_STARCOUNT, stars_count);
+                RepoValues.put(RepoEntry.COLUMN_WATCHCOUNT, watch_count);
+                RepoValues.put(RepoEntry.COLUMN_FORKCOUNT, fork_count);
+                RepoValues.put(RepoEntry.COLUMN_ISSUECOUNT, issue_count);
+
                 cVVector.add(RepoValues);
-                resultStrs[i] = fullName + " - " + description + " - " + language + " Updated " + str;
+                resultStrs[i] = fullName + " - " + description + " - " + language + " Pushed " + pushedStr + " - " + avatar_url
+                        + " - Created " + createdStr + " - Updated " + updatedStr + " - " + html_url + " - "
+                        + stars_count + " - " + watch_count + " - " + fork_count + " - " + issue_count;
 
 
             }
+            Log.v(LOG_TAG, "ResultStrs : " + resultStrs[0]);
+
 
             // First, check if the location with this city name exists in the db
             Cursor repoCursor = mContext.getContentResolver().query(
@@ -113,6 +157,7 @@ public class FetchRepoTask extends AsyncTask<String, Void, Void> {
                     null);
 
             int deleted = 0;
+            assert repoCursor != null;
             if(repoCursor.getCount()>0){
                 deleted = mContext.getContentResolver().delete(RepoEntry.CONTENT_URI, null,null);
                 Log.v(LOG_TAG, "deleted : " + deleted);
@@ -127,6 +172,7 @@ public class FetchRepoTask extends AsyncTask<String, Void, Void> {
             }
 
             Log.d(LOG_TAG, "FetchRepoTask Complete. " + inserted + " Inserted");
+            repoCursor.close();
 
         } catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage(), e);

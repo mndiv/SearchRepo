@@ -53,7 +53,7 @@ public class RepoContract {
 
 
 
-        public static final String TABLE_NAME = "moststars";
+        public static final String TABLE_NAME = "RepoTable";
 
         //full name of the repo as provided by API
         public static final String COLUMN_FULL_NAME = "full_name";
@@ -87,6 +87,9 @@ public class RepoContract {
 
         //fork count as provided by API
         public static final String COLUMN_FORKCOUNT = "fork_count";
+
+        //issue count as provided by API
+        public static final String COLUMN_ISSUECOUNT = "issue_count";
 
         public static Uri buildMostStarsUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);

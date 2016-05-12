@@ -35,16 +35,31 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
             RepoContract.RepoEntry.COLUMN_FULL_NAME,
             RepoContract.RepoEntry.COLUMN_DESCRIPTION,
             RepoContract.RepoEntry.COLUMN_LANGUAGE,
-            RepoContract.RepoEntry.COLUMN_UPDATED
+            RepoContract.RepoEntry.COLUMN_PUSHED,
+            RepoContract.RepoEntry.COLUMN_AVATAR_URL,
+            RepoContract.RepoEntry.COLUMN_REPO_URL,
+            RepoContract.RepoEntry.COLUMN_UPDATED,
+            RepoContract.RepoEntry.COLUMN_STARCOUNT,
+            RepoContract.RepoEntry.COLUMN_WATCHCOUNT,
+            RepoContract.RepoEntry.COLUMN_FORKCOUNT,
+            RepoContract.RepoEntry.COLUMN_ISSUECOUNT
     };
 
     // These indices are tied to REPO_MOSTSTARS_COLUMNS.  If REPO_MOSTSTARS_COLUMNS changes, these
     // must change.
     static final int COL_REPO_MOSTSTARS_ID = 0;
-    static final int COL_REPO_MOSTSTARS_FULLNAME = 1;
-    static final int COL_REPO_MOSTSTARS_DESC = 2;
-    static final int COL_REPO_MOSTSTARS_LANG = 3;
-    static final int COL_REPO_MOSTSTARS_UPDATED = 4;
+    static final int COL_REPO_FULLNAME = 1;
+    static final int COL_REPO_DESC = 2;
+    static final int COL_REPO_LANG = 3;
+    static final int COL_REPO_PUSHED = 4;
+    static final int COL_REPO_AVATAR_URL = 5;
+    static final int COL_REPO_REPO_URL = 6;
+    static final int COL_REPO_UPDATED = 7;
+    static final int COL_REPO_STARCOUNT = 8;
+    static final int COL_REPO_WATCHCOUNT = 9;
+    static final int COL_REPO_FORKCOUNT = 10;
+    static final int COL_REPO_ISSUECOUNT = 11;
+
 
     RepoAdapter mRepoAdapter;
 

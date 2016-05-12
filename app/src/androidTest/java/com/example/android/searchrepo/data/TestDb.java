@@ -35,7 +35,7 @@ public class TestDb extends AndroidTestCase {
         // Note that there will be another table in the DB that stores the
         // Android metadata (db version information)
         final HashSet<String> tableNameHashSet = new HashSet<String>();
-        tableNameHashSet.add(RepoContract.MostStarsRepoEntry.TABLE_NAME);
+        tableNameHashSet.add(RepoContract.RepoEntry.TABLE_NAME);
 
         mContext.deleteDatabase(RepoDbHelper.DATABASE_NAME);
         SQLiteDatabase db = new RepoDbHelper(
@@ -59,7 +59,7 @@ public class TestDb extends AndroidTestCase {
                 tableNameHashSet.isEmpty());
 
         // now, do our tables contain the correct columns?
-        c = db.rawQuery("PRAGMA table_info(" + RepoContract.MostStarsRepoEntry.TABLE_NAME + ")",
+        c = db.rawQuery("PRAGMA table_info(" + RepoContract.RepoEntry.TABLE_NAME + ")",
                 null);
 
         assertTrue("Error: This means that we were unable to query the database for table information.",
@@ -67,11 +67,11 @@ public class TestDb extends AndroidTestCase {
 
         // Build a HashSet of all of the column names we want to look for
         final HashSet<String> repomostarsColumnHashSet = new HashSet<String>();
-        repomostarsColumnHashSet.add(RepoContract.MostStarsRepoEntry._ID);
-        repomostarsColumnHashSet.add(RepoContract.MostStarsRepoEntry.COLUMN_FULL_NAME);
-        repomostarsColumnHashSet.add(RepoContract.MostStarsRepoEntry.COLUMN_DESCRIPTION);
-        repomostarsColumnHashSet.add(RepoContract.MostStarsRepoEntry.COLUMN_LANGUAGE);
-        repomostarsColumnHashSet.add(RepoContract.MostStarsRepoEntry.COLUMN_UPDATED);
+        repomostarsColumnHashSet.add(RepoContract.RepoEntry._ID);
+        repomostarsColumnHashSet.add(RepoContract.RepoEntry.COLUMN_FULL_NAME);
+        repomostarsColumnHashSet.add(RepoContract.RepoEntry.COLUMN_DESCRIPTION);
+        repomostarsColumnHashSet.add(RepoContract.RepoEntry.COLUMN_LANGUAGE);
+        repomostarsColumnHashSet.add(RepoContract.RepoEntry.COLUMN_UPDATED);
 
         int columnNameIndex = c.getColumnIndex("name");
         do {
@@ -100,7 +100,7 @@ public class TestDb extends AndroidTestCase {
 
         // Third Step: Insert ContentValues into database and get a row ID back
         long repoRowId;
-        repoRowId = db.insert(RepoContract.MostStarsRepoEntry.TABLE_NAME, null, testValues);
+        repoRowId = db.insert(RepoContract.RepoEntry.TABLE_NAME, null, testValues);
 
         // Verify we got a row back.
         assertTrue(repoRowId != -1);
@@ -111,7 +111,7 @@ public class TestDb extends AndroidTestCase {
         // Fourth Step: Query the database and receive a Cursor back
         // A cursor is your primary interface to the query results.
         Cursor cursor = db.query(
-                RepoContract.MostStarsRepoEntry.TABLE_NAME,  // Table to Query
+                RepoContract.RepoEntry.TABLE_NAME,  // Table to Query
                 null, // all columns
                 null, // Columns for the "where" clause
                 null, // Values for the "where" clause
