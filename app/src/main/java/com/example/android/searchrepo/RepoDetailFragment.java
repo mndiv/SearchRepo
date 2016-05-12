@@ -157,8 +157,16 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
         mRepoStr = String.format("%s - %s - %s - Pushed %s - %s - %s - Updated %s - %d - %d - %d - %d ",
                 fullName, description, lang, pushed, avatar_url, repo_url, updated, star_count, watch_count,fork_count,issue_count);
 
-        TextView detailTextView = (TextView) getView().findViewById(R.id.repo_detail_textView);
-        detailTextView.setText(mRepoStr);
+//        TextView detailTextView = (TextView) getView().findViewById(R.id.repo_detail_textView);
+//        detailTextView.setText(mRepoStr);
+
+       // Picasso.with(getActivity()).load(avatar_url).into((ImageView)getView().findViewById(R.id.avatar_view));
+
+        TextView descTextView =(TextView) getView().findViewById(R.id.detail_description);
+        descTextView.setText(description);
+
+        TextView repoURL = (TextView)getView().findViewById(R.id.repo_url);
+        repoURL.setText(repo_url);
 
         // If onCreateOptionsMenu has already happened, we need to update the share intent now.
         if (mShareActionProvider != null) {
