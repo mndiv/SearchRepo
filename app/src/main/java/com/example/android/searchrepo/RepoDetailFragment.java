@@ -41,16 +41,30 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
             RepoEntry.COLUMN_FULL_NAME,
             RepoEntry.COLUMN_DESCRIPTION,
             RepoEntry.COLUMN_LANGUAGE,
-            RepoEntry.COLUMN_UPDATED
+            RepoEntry.COLUMN_PUSHED,
+            RepoEntry.COLUMN_AVATAR_URL,
+            RepoEntry.COLUMN_REPO_URL,
+            RepoEntry.COLUMN_UPDATED,
+            RepoEntry.COLUMN_STARCOUNT,
+            RepoEntry.COLUMN_WATCHCOUNT,
+            RepoEntry.COLUMN_FORKCOUNT,
+            RepoEntry.COLUMN_ISSUECOUNT
     };
 
     // These indices are tied to REPO_MOSTSTARS_COLUMNS.  If REPO_MOSTSTARS_COLUMNS changes, these
     // must change.
     static final int COL_REPO_MOSTSTARS_ID = 0;
-    static final int COL_REPO_MOSTSTARS_FULLNAME = 1;
-    static final int COL_REPO_MOSTSTARS_DESC = 2;
-    static final int COL_REPO_MOSTSTARS_LANG = 3;
-    static final int COL_REPO_MOSTSTARS_UPDATED = 4;
+    static final int COL_REPO_FULLNAME = 1;
+    static final int COL_REPO_DESC = 2;
+    static final int COL_REPO_LANG = 3;
+    static final int COL_REPO_PUSHED = 4;
+    static final int COL_REPO_AVATAR_URL = 5;
+    static final int COL_REPO_REPO_URL = 6;
+    static final int COL_REPO_UPDATED = 7;
+    static final int COL_REPO_STARCOUNT = 8;
+    static final int COL_REPO_WATCHCOUNT = 9;
+    static final int COL_REPO_FORKCOUNT = 10;
+    static final int COL_REPO_ISSUECOUNT = 11;
 
     public RepoDetailFragment() {
         setHasOptionsMenu(true);
@@ -126,13 +140,22 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
             return;
         }
 
-        String fullName = data.getString(COL_REPO_MOSTSTARS_FULLNAME);
-        String description = data.getString(COL_REPO_MOSTSTARS_DESC);
-        String lang = data.getString(COL_REPO_MOSTSTARS_LANG);
-        String updated = data.getString(COL_REPO_MOSTSTARS_UPDATED);
+        String fullName = data.getString(COL_REPO_FULLNAME);
+        String description = data.getString(COL_REPO_DESC);
+        String lang = data.getString(COL_REPO_LANG);
+        String pushed = data.getString(COL_REPO_PUSHED);
+        String avatar_url = data.getString(COL_REPO_AVATAR_URL);
+        String repo_url = data.getString(COL_REPO_REPO_URL);
+        String updated = data.getString(COL_REPO_UPDATED);
+        int star_count = data.getInt(COL_REPO_STARCOUNT);
+        int watch_count = data.getInt(COL_REPO_WATCHCOUNT);
+        int fork_count = data.getInt(COL_REPO_FORKCOUNT);
+        int issue_count = data.getInt(COL_REPO_ISSUECOUNT);
 
 
-        mRepoStr = String.format("%s - %s - %s - Updated %s", fullName, description, lang, updated);
+
+        mRepoStr = String.format("%s - %s - %s - Pushed %s - %s - %s - Updated %s - %d - %d - %d - %d ",
+                fullName, description, lang, pushed, avatar_url, repo_url, updated, star_count, watch_count,fork_count,issue_count);
 
         TextView detailTextView = (TextView) getView().findViewById(R.id.repo_detail_textView);
         detailTextView.setText(mRepoStr);
