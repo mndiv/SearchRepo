@@ -40,6 +40,7 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
             RepoContract.RepoEntry.COLUMN_AVATAR_URL,
             RepoContract.RepoEntry.COLUMN_REPO_URL,
             RepoContract.RepoEntry.COLUMN_UPDATED,
+            RepoContract.RepoEntry.COLUMN_CREATED,
             RepoContract.RepoEntry.COLUMN_STARCOUNT,
             RepoContract.RepoEntry.COLUMN_WATCHCOUNT,
             RepoContract.RepoEntry.COLUMN_FORKCOUNT,
@@ -56,10 +57,11 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     static final int COL_REPO_AVATAR_URL = 5;
     static final int COL_REPO_REPO_URL = 6;
     static final int COL_REPO_UPDATED = 7;
-    static final int COL_REPO_STARCOUNT = 8;
-    static final int COL_REPO_WATCHCOUNT = 9;
-    static final int COL_REPO_FORKCOUNT = 10;
-    static final int COL_REPO_ISSUECOUNT = 11;
+    static final int COL_REPO_CREATED = 8;
+    static final int COL_REPO_STARCOUNT = 9;
+    static final int COL_REPO_WATCHCOUNT = 10;
+    static final int COL_REPO_FORKCOUNT = 11;
+    static final int COL_REPO_ISSUECOUNT = 12;
 
 
     RepoAdapter mRepoAdapter;

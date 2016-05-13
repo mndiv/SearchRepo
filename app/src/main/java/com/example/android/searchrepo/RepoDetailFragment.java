@@ -50,6 +50,7 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
             RepoEntry.COLUMN_AVATAR_URL,
             RepoEntry.COLUMN_REPO_URL,
             RepoEntry.COLUMN_UPDATED,
+            RepoEntry.COLUMN_CREATED,
             RepoEntry.COLUMN_STARCOUNT,
             RepoEntry.COLUMN_WATCHCOUNT,
             RepoEntry.COLUMN_FORKCOUNT,
@@ -66,10 +67,11 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
     static final int COL_REPO_AVATAR_URL = 5;
     static final int COL_REPO_REPO_URL = 6;
     static final int COL_REPO_UPDATED = 7;
-    static final int COL_REPO_STARCOUNT = 8;
-    static final int COL_REPO_WATCHCOUNT = 9;
-    static final int COL_REPO_FORKCOUNT = 10;
-    static final int COL_REPO_ISSUECOUNT = 11;
+    static final int COL_REPO_CREATED = 8;
+    static final int COL_REPO_STARCOUNT = 9;
+    static final int COL_REPO_WATCHCOUNT = 10;
+    static final int COL_REPO_FORKCOUNT = 11;
+    static final int COL_REPO_ISSUECOUNT = 12;
 
     public RepoDetailFragment() {
         setHasOptionsMenu(true);
@@ -155,6 +157,7 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
         String avatar_url = data.getString(COL_REPO_AVATAR_URL);
         String repo_url = data.getString(COL_REPO_REPO_URL);
         String updated = data.getString(COL_REPO_UPDATED);
+        String created = data.getString(COL_REPO_CREATED);
         int star_count = data.getInt(COL_REPO_STARCOUNT);
         int watch_count = data.getInt(COL_REPO_WATCHCOUNT);
         int fork_count = data.getInt(COL_REPO_FORKCOUNT);
@@ -177,6 +180,25 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
 
         TextView repoURL = (TextView) getView().findViewById(R.id.repo_url);
         repoURL.setText(repo_url);
+
+
+        TextView createdView = (TextView) getView().findViewById(R.id.created_view);
+        createdView.setText("Created: " + created);
+
+        TextView pushedView = (TextView) getView().findViewById(R.id.pushed_view);
+        pushedView.setText("Pushed: " + pushed);
+
+        TextView updatedView = (TextView) getView().findViewById(R.id.updated_view);
+        updatedView.setText("Updated: " + updated);
+
+        //Button issuesbtn = (Button)getView().findViewById(R.id.buttonissues);
+
+        TextView issuesCount = (TextView) getView().findViewById(R.id.issues_text);
+        issuesCount.setText(Integer.toString(issue_count));
+
+        TextView watchCount = (TextView) getView().findViewById(R.id.watch_text);
+        watchCount.setText(Integer.toString(watch_count));
+
 
         // If onCreateOptionsMenu has already happened, we need to update the share intent now.
         if (mShareActionProvider != null) {

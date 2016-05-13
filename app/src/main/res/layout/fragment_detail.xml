@@ -1,5 +1,4 @@
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootLayout"
@@ -18,14 +17,14 @@
             android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
             app:collapsedTitleTextAppearance="@style/Toolbar.CollapsedTitleText"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginStart="48dp"
             app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp"
             app:expandedTitleTextAppearance="@style/Toolbar.ExpandedTitleText"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            android:fitsSystemWindows="true">
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <ImageView
                 android:id="@+id/avatar_view"
@@ -68,13 +67,11 @@
 
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            >
+            android:layout_marginTop="25dp">
 
             <TextView
                 android:id="@+id/detail_description_title"
@@ -88,52 +85,208 @@
                 android:id="@+id/detail_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/detail_description_title"
                 android:paddingLeft="15dp"
-                android:textSize="15sp"
-                android:layout_below="@+id/detail_description_title"/>
+                android:textSize="15sp" />
 
             <View
                 android:id="@+id/divider"
                 android:layout_width="fill_parent"
                 android:layout_height="3dp"
+                android:layout_below="@+id/detail_description"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:background="#c0c0c0"
                 android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:layout_below="@+id/detail_description"/>
+                android:paddingTop="5dp" />
 
             <LinearLayout
+                android:id="@+id/repo_url_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_below="@+id/divider"
-                android:id="@+id/repo_url_layout">
-            <TextView
-                android:id="@+id/repo_url_Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Repo_URL:"
-                android:textStyle="bold"/>
-            <TextView
-                android:id="@+id/repo_url"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:autoLink="web"
-                android:paddingLeft="15dp"
-                android:text="http://www.google.com"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/repo_url_Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Repo_URL:"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/repo_url"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autoLink="web"
+                    android:paddingLeft="15dp"
+                    android:text="http://www.google.com"
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <View
                 android:id="@+id/divider2"
                 android:layout_width="fill_parent"
                 android:layout_height="3dp"
+                android:layout_below="@+id/repo_url_layout"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:background="#c0c0c0"
                 android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:layout_below="@+id/repo_url_layout"/>
+                android:paddingTop="5dp" />
+
+            <LinearLayout
+                android:id="@+id/created_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/divider2"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/created_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Created : "
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/created_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/pushed_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/created_layout"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/pushed_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pushed : "
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/pushed_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/updated_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pushed_layout"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/updated_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Updated : "
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/updated_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/countlayout1"
+                android:layout_below="@+id/updated_layout"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/issues_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    >
+
+                    <Button
+                        android:id="@+id/buttonissues"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/darker_gray"
+                        android:clickable="true"
+                        android:drawableLeft="@drawable/ic_issues"
+                        android:text="Issues"
+                        android:textColor="@android:color/white" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="0.007"
+                        android:background="#FF8C00"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/issues_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="10dp"
+                        android:textSize="23sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/watch_layout"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="5dp"
+                    >
+
+                    <Button
+                        android:id="@+id/buttonWatch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/darker_gray"
+                        android:clickable="true"
+                        android:drawableLeft="@drawable/ic_watch"
+                        android:text="Watch"
+                        android:textColor="@android:color/white" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="0.007"
+                        android:background="#FF8C00"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/watch_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="10dp"
+                        android:textSize="23sp" />
+                </LinearLayout>
+
+            </LinearLayout>
 
         </RelativeLayout>
 

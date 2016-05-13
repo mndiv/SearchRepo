@@ -133,6 +133,7 @@ public class FetchRepoTask extends AsyncTask<String, Void, Void> {
                 RepoValues.put(RepoEntry.COLUMN_AVATAR_URL, avatar_url);
                 RepoValues.put(RepoEntry.COLUMN_REPO_URL, html_url);
                 RepoValues.put(RepoEntry.COLUMN_UPDATED, updatedStr.toString());
+                RepoValues.put(RepoEntry.COLUMN_CREATED, createdStr.toString());
                 RepoValues.put(RepoEntry.COLUMN_STARCOUNT, stars_count);
                 RepoValues.put(RepoEntry.COLUMN_WATCHCOUNT, watch_count);
                 RepoValues.put(RepoEntry.COLUMN_FORKCOUNT, fork_count);

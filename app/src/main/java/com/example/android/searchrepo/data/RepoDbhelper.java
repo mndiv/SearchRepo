@@ -39,6 +39,7 @@ public class RepoDbHelper extends SQLiteOpenHelper{
                 RepoEntry.COLUMN_AVATAR_URL + " TEXT , " +
                 RepoEntry.COLUMN_REPO_URL + " TEXT NOT NULL , " +
                 RepoEntry.COLUMN_UPDATED + " TEXT NOT NULL , " +
+                RepoEntry.COLUMN_CREATED + " TEXT NOT NULL , " +
                 RepoEntry.COLUMN_STARCOUNT + " INTEGER , " +
                 RepoEntry.COLUMN_WATCHCOUNT + " INTEGER , " +
                 RepoEntry.COLUMN_FORKCOUNT + " INTEGER , " +
