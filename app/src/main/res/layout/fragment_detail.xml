@@ -65,13 +65,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fillViewport="true"
+
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="25dp"
+            >
 
             <TextView
                 android:id="@+id/detail_description_title"
@@ -86,7 +89,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:layout_below="@+id/detail_description_title"/>
 
             <View
                 android:id="@+id/divider"
@@ -96,25 +100,42 @@
                 android:layout_marginTop="10dp"
                 android:background="#c0c0c0"
                 android:paddingBottom="5dp"
-                android:paddingTop="5dp" />
+                android:paddingTop="5dp"
+                android:layout_below="@+id/detail_description"/>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/divider"
+                android:id="@+id/repo_url_layout">
             <TextView
                 android:id="@+id/repo_url_Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Repo_URL:"
-                android:textStyle="bold" />
-
-
+                android:textStyle="bold"/>
             <TextView
                 android:id="@+id/repo_url"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:autoLink="web"
                 android:paddingLeft="15dp"
-                android:text="http://www.google.com" />
+                android:text="http://www.google.com"/>
+            </LinearLayout>
 
-        </LinearLayout>
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="fill_parent"
+                android:layout_height="3dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#c0c0c0"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:layout_below="@+id/repo_url_layout"/>
+
+        </RelativeLayout>
 
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

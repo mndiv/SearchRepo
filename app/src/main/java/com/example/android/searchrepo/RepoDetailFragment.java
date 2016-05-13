@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -78,9 +79,9 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
-        Toolbar  toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return rootView;
     }
 
@@ -160,24 +161,26 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
         int issue_count = data.getInt(COL_REPO_ISSUECOUNT);
 
 
-
         mRepoStr = String.format("%s - %s - %s - Pushed %s - %s - %s - Updated %s - %d - %d - %d - %d ",
-                fullName, description, lang, pushed, avatar_url, repo_url, updated, star_count, watch_count,fork_count,issue_count);
+                fullName, description, lang, pushed, avatar_url, repo_url, updated, star_count, watch_count, fork_count, issue_count);
 
 //        TextView detailTextView = (TextView) getView().findViewById(R.id.repo_detail_textView);
 //        detailTextView.setText(mRepoStr);
 
-        Picasso.with(getActivity()).load(avatar_url).into((ImageView)getView().findViewById(R.id.avatar_view));
+        CollapsingToolbarLayout collapsingToolbarLayout = ((CollapsingToolbarLayout) getView().findViewById(R.id.collapsingToolbarLayout));
+        collapsingToolbarLayout.setTitle(fullName);
 
-        TextView descTextView =(TextView) getView().findViewById(R.id.detail_description);
+        Picasso.with(getActivity()).load(avatar_url).into((ImageView) getView().findViewById(R.id.avatar_view));
+
+        TextView descTextView = (TextView) getView().findViewById(R.id.detail_description);
         descTextView.setText(description);
 
-        TextView repoURL = (TextView)getView().findViewById(R.id.repo_url);
+        TextView repoURL = (TextView) getView().findViewById(R.id.repo_url);
         repoURL.setText(repo_url);
 
         // If onCreateOptionsMenu has already happened, we need to update the share intent now.
         if (mShareActionProvider != null) {
-        mShareActionProvider.setShareIntent(createShareRepoIntent());
+            mShareActionProvider.setShareIntent(createShareRepoIntent());
         }
 
     }

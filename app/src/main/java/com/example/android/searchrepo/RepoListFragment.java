@@ -1,5 +1,6 @@
 package com.example.android.searchrepo;
 
+import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -127,7 +128,7 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
                 if(cursor != null) {
 
                     Intent detailIntent = new Intent(getContext(), DetailActivity.class)
-                            .setData(RepoContract.RepoEntry.CONTENT_URI);
+                            .setData(ContentUris.withAppendedId(RepoContract.RepoEntry.CONTENT_URI,position+1));
 
                     startActivity(detailIntent);
                 }
