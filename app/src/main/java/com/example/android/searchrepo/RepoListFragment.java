@@ -1,8 +1,8 @@
 package com.example.android.searchrepo;
 
 import android.content.ContentUris;
-import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -65,6 +65,18 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
 
 
     RepoAdapter mRepoAdapter;
+
+    /**
+     * A callback interface that all activities containing this fragment must
+     * implement. This mechanism allows activities to be notified of item
+     * selections.
+     */
+    public interface Callback {
+        /**
+         * DetailFragmentCallback for when an item has been selected.
+         */
+        public void onItemSelected(Uri dateUri);
+    }
 
     public RepoListFragment() {
     }
@@ -129,10 +141,13 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
                 Cursor cursor = (Cursor) adapterView.getItemAtPosition(position);
                 if(cursor != null) {
 
-                    Intent detailIntent = new Intent(getContext(), DetailActivity.class)
-                            .setData(ContentUris.withAppendedId(RepoContract.RepoEntry.CONTENT_URI,position+1));
+//                    Intent detailIntent = new Intent(getContext(), DetailActivity.class)
+//                            .setData(ContentUris.withAppendedId(RepoContract.RepoEntry.CONTENT_URI,position+1));
 
-                    startActivity(detailIntent);
+                    ((Callback) getActivity())
+                            .onItemSelected(ContentUris.withAppendedId(RepoContract.RepoEntry.CONTENT_URI, position+1));
+
+                    //startActivity(detailIntent);
                 }
             }
         });

@@ -2,8 +2,10 @@ package com.example.android.searchrepo;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -19,8 +21,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.android.searchrepo.data.RepoContract.RepoEntry;
+import com.squareup.picasso.Picasso;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -28,11 +33,19 @@ import com.example.android.searchrepo.data.RepoContract.RepoEntry;
 public class RepoDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String LOG_TAG = RepoDetailFragment.class.getSimpleName();
+    public static final String DETAIL_URI = "URI";
+    private Uri mUri;
+
     private String mRepoStr;
     private ShareActionProvider mShareActionProvider;
     private static final String REPO_SHARE_HASHTAG = "#GitSearchRepo";
 
     private static final int DETAIL_LOADER = 0;
+
+    private CollapsingToolbarLayout collapsingToolbarLayout;
+    private TextView descTextView;
+    private  TextView repoURL;
+    private TextView createdView;
 
     // For the Repo view we're showing only a small subset of the stored data.
     // Specify the columns we need.
@@ -68,6 +81,13 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
     static final int COL_REPO_WATCHCOUNT = 10;
     static final int COL_REPO_FORKCOUNT = 11;
     static final int COL_REPO_ISSUECOUNT = 12;
+    private TextView pushedView;
+    private TextView updatedView;
+    private TextView languageView;
+    private TextView issuesCount;
+    private TextView watchCount;
+    private TextView starCount;
+    private TextView forkCount;
 
     public RepoDetailFragment() {
         setHasOptionsMenu(true);
@@ -76,10 +96,28 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        Bundle arguments = getArguments();
+        if(arguments != null){
+            mUri = arguments.getParcelable(RepoDetailFragment.DETAIL_URI);
+        }
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        collapsingToolbarLayout = ((CollapsingToolbarLayout) rootView.findViewById(R.id.collapsingToolbarLayout));
+        descTextView = (TextView)rootView.findViewById(R.id.detail_description);
+        repoURL = (TextView)rootView.findViewById(R.id.repo_url);
+        createdView = (TextView)rootView.findViewById(R.id.created_view);
+        pushedView = (TextView)rootView.findViewById(R.id.pushed_view);
+        updatedView = (TextView)rootView.findViewById(R.id.updated_view);
+        languageView = (TextView)rootView.findViewById(R.id.lang_textView);
+        issuesCount = (TextView)rootView.findViewById(R.id.issues_text);
+        watchCount = (TextView)rootView.findViewById(R.id.watch_text);
+        starCount = (TextView)rootView.findViewById(R.id.star_text);
+        forkCount = (TextView)rootView.findViewById(R.id.fork_text);
+
         return rootView;
     }
 
@@ -123,20 +161,22 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Log.v(LOG_TAG, "In onCreateLoader");
-        Intent intent = getActivity().getIntent();
-        if (intent == null || intent.getData() == null){
-            return null;
-        }
+
         // Now create and return a CursorLoader that will take care of
         // creating a Cursor for the data being displayed.
-        return new CursorLoader(
-                getActivity(),
-                intent.getData(),
-                REPO_MOSTSTARS_COLUMNS,
-                null,
-                null,
-                null
-        );
+
+        if(null != mUri) {
+            return new CursorLoader(
+                    getActivity(),
+                    mUri,
+                    REPO_MOSTSTARS_COLUMNS,
+                    null,
+                    null,
+                    null
+
+            );
+        }
+        return null;
     }
 
     @Override
@@ -166,45 +206,24 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
 //        TextView detailTextView = (TextView) getView().findViewById(R.id.repo_detail_textView);
 //        detailTextView.setText(mRepoStr);
 
-    /*   CollapsingToolbarLayout collapsingToolbarLayout = ((CollapsingToolbarLayout) getView().findViewById(R.id.collapsingToolbarLayout));
         collapsingToolbarLayout.setTitle(fullName);
 
         Picasso.with(getActivity()).load(avatar_url).into((ImageView) getView().findViewById(R.id.avatar_view));
 
-        TextView descTextView = (TextView) getView().findViewById(R.id.detail_description);
         descTextView.setText(description);
-
-        TextView repoURL = (TextView) getView().findViewById(R.id.repo_url);
         repoURL.setText(repo_url);
-
-
-        TextView createdView = (TextView) getView().findViewById(R.id.created_view);
         createdView.setText(created);
-
-        TextView pushedView = (TextView) getView().findViewById(R.id.pushed_view);
         pushedView.setText(pushed);
-
-        TextView updatedView = (TextView) getView().findViewById(R.id.updated_view);
         updatedView.setText(updated);
-
-        TextView languageView = (TextView) getView().findViewById(R.id.lang_textView);
         languageView.setText(lang);
 
         //Button issuesbtn = (Button)getView().findViewById(R.id.buttonissues);
-
-        TextView issuesCount = (TextView) getView().findViewById(R.id.issues_text);
         issuesCount.setText(String.valueOf(issue_count));
-
-        TextView watchCount = (TextView) getView().findViewById(R.id.watch_text);
         watchCount.setText(String.valueOf(watch_count));
-
-        TextView starCount = (TextView) getView().findViewById(R.id.star_text);
         starCount.setText(String.valueOf(star_count));
-
-        TextView forkCount = (TextView) getView().findViewById(R.id.fork_text);
         forkCount.setText(String.valueOf(fork_count));
 
-*/
+
         // If onCreateOptionsMenu has already happened, we need to update the share intent now.
         if (mShareActionProvider != null) {
             mShareActionProvider.setShareIntent(createShareRepoIntent());

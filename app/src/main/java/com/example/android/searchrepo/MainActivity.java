@@ -1,6 +1,7 @@
 package com.example.android.searchrepo;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,7 +10,7 @@ import android.view.MenuItem;
 
 import com.facebook.stetho.Stetho;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RepoListFragment.Callback {
 
     private static final String DETAILFRAGMENT_TAG = "DFTAG";
     private boolean mTwoPane;
@@ -98,6 +99,28 @@ public class MainActivity extends AppCompatActivity {
             }
             mSortOrder = sortOrder;
             mLang = lang;
+        }
+    }
+
+    @Override
+    public void onItemSelected(Uri contentUri) {
+        if (mTwoPane) {
+            // In two-pane mode, show the detail view in this activity by
+            // adding or replacing the detail fragment using a
+            // fragment transaction.
+            Bundle args = new Bundle();
+            args.putParcelable(RepoDetailFragment.DETAIL_URI, contentUri);
+
+            RepoDetailFragment fragment = new RepoDetailFragment();
+            fragment.setArguments(args);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.repo_detail_container, fragment, DETAILFRAGMENT_TAG)
+                    .commit();
+        } else {
+            Intent intent = new Intent(this,DetailActivity.class)
+                    .setData(contentUri);
+            startActivity(intent);
         }
     }
 }

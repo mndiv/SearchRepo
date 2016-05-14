@@ -26,8 +26,18 @@ public class DetailActivity extends AppCompatActivity {
        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null) {
+
+            // Create the detail fragment and add it to the activity
+            // using a fragment transaction.
+
+            Bundle arguments = new Bundle();
+            arguments.putParcelable(RepoDetailFragment.DETAIL_URI, getIntent().getData());
+
+            RepoDetailFragment fragment = new RepoDetailFragment();
+            fragment.setArguments(arguments);
+
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.repo_detail_container, new RepoDetailFragment())
+                    .add(R.id.repo_detail_container, fragment)
                     .commit();
         }
 
