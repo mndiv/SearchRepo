@@ -75,11 +75,11 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
         setHasOptionsMenu(true);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        updateRepositories();
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        updateRepositories();
+//    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -167,5 +167,12 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
 
         mRepoAdapter.swapCursor(null);
 
+    }
+
+    // since we read the location when we create the loader, all we need to do is restart things
+    public void onSettingsChanged() {
+
+        updateRepositories();
+        getLoaderManager().restartLoader(REPO_LOADER, null, this);
     }
 }

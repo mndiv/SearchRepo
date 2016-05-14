@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -20,11 +19,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.android.searchrepo.data.RepoContract.RepoEntry;
-import com.squareup.picasso.Picasso;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -128,7 +124,7 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Log.v(LOG_TAG, "In onCreateLoader");
         Intent intent = getActivity().getIntent();
-        if (intent == null) {
+        if (intent == null || intent.getData() == null){
             return null;
         }
         // Now create and return a CursorLoader that will take care of
@@ -170,7 +166,7 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
 //        TextView detailTextView = (TextView) getView().findViewById(R.id.repo_detail_textView);
 //        detailTextView.setText(mRepoStr);
 
-        CollapsingToolbarLayout collapsingToolbarLayout = ((CollapsingToolbarLayout) getView().findViewById(R.id.collapsingToolbarLayout));
+    /*   CollapsingToolbarLayout collapsingToolbarLayout = ((CollapsingToolbarLayout) getView().findViewById(R.id.collapsingToolbarLayout));
         collapsingToolbarLayout.setTitle(fullName);
 
         Picasso.with(getActivity()).load(avatar_url).into((ImageView) getView().findViewById(R.id.avatar_view));
@@ -208,7 +204,7 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
         TextView forkCount = (TextView) getView().findViewById(R.id.fork_text);
         forkCount.setText(String.valueOf(fork_count));
 
-
+*/
         // If onCreateOptionsMenu has already happened, we need to update the share intent now.
         if (mShareActionProvider != null) {
             mShareActionProvider.setShareIntent(createShareRepoIntent());
