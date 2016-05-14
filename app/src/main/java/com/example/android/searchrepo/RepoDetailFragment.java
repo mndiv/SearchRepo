@@ -164,8 +164,8 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
         int issue_count = data.getInt(COL_REPO_ISSUECOUNT);
 
 
-        mRepoStr = String.format("%s - %s - %s - Pushed %s - %s - %s - Updated %s - %d - %d - %d - %d ",
-                fullName, description, lang, pushed, avatar_url, repo_url, updated, star_count, watch_count, fork_count, issue_count);
+       // mRepoStr = String.format("%s - %s - %s - Pushed %s - %s - %s - Updated %s - %d - %d - %d - %d ",
+         //       fullName, description, lang, pushed, avatar_url, repo_url, updated, star_count, watch_count, fork_count, issue_count);
 
 //        TextView detailTextView = (TextView) getView().findViewById(R.id.repo_detail_textView);
 //        detailTextView.setText(mRepoStr);
@@ -183,21 +183,30 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
 
 
         TextView createdView = (TextView) getView().findViewById(R.id.created_view);
-        createdView.setText("Created: " + created);
+        createdView.setText(created);
 
         TextView pushedView = (TextView) getView().findViewById(R.id.pushed_view);
-        pushedView.setText("Pushed: " + pushed);
+        pushedView.setText(pushed);
 
         TextView updatedView = (TextView) getView().findViewById(R.id.updated_view);
-        updatedView.setText("Updated: " + updated);
+        updatedView.setText(updated);
+
+        TextView languageView = (TextView) getView().findViewById(R.id.lang_textView);
+        languageView.setText(lang);
 
         //Button issuesbtn = (Button)getView().findViewById(R.id.buttonissues);
 
         TextView issuesCount = (TextView) getView().findViewById(R.id.issues_text);
-        issuesCount.setText(Integer.toString(issue_count));
+        issuesCount.setText(String.valueOf(issue_count));
 
         TextView watchCount = (TextView) getView().findViewById(R.id.watch_text);
-        watchCount.setText(Integer.toString(watch_count));
+        watchCount.setText(String.valueOf(watch_count));
+
+        TextView starCount = (TextView) getView().findViewById(R.id.star_text);
+        starCount.setText(String.valueOf(star_count));
+
+        TextView forkCount = (TextView) getView().findViewById(R.id.fork_text);
+        forkCount.setText(String.valueOf(fork_count));
 
 
         // If onCreateOptionsMenu has already happened, we need to update the share intent now.
