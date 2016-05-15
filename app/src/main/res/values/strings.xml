@@ -15,6 +15,9 @@
     <string name="sortList">sortList</string>
     <string name="pref_sort_default_MostStars">stars-desc</string>
     <string name="action_share">Share</string>
+    <string name="watchView">Watch Count for the Repo</string>
+    <string name="forkView">Fork Count of the Repo</string>
+    <string name="starView">Star Count of the repo</string>
 
     <string-array name="pref_language_titles">
         <item>Any Language</item>

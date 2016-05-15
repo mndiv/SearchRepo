@@ -109,9 +109,17 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width = "match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:id="@+id/layout1"
+                android:layout_below="@id/repo_url_layout"
+                android:layout_marginTop="15dp">
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/repo_url_layout"
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:background="@drawable/back">
@@ -120,12 +128,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_star"
-                    android:background="@drawable/imageback"/>
+                    android:background="@drawable/imageback"
+                    android:contentDescription="@string/starView"/>
                 
                 <View
                     android:layout_width="2dp"
                     android:layout_height="match_parent"
-                    android:background="#4fa5d5"
+                    android:background="@color/colorPrimary"
                     />
 
                 <TextView
@@ -133,283 +142,76 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
-                    android:layout_margin="10dp"
-
-                    />
-            </LinearLayout>
-
-            <!--View
-                android:id="@+id/divider2"
-                android:layout_width="fill_parent"
-                android:layout_height="3dp"
-                android:layout_below="@+id/repo_url_layout"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:background="#c0c0c0"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp" />
-
-            <LinearLayout
-                android:id="@+id/created_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/divider"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/created_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Created : "
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/created_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15sp" />
-            </LinearLayout-->
-
-            <!--LinearLayout
-                android:id="@+id/pushed_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/created_layout"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/pushed_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Pushed : "
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/pushed_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout-->
-
-            <!--LinearLayout
-                android:id="@+id/updated_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/created_layout"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/updated_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Updated : "
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/updated_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15sp" />
+                    android:layout_margin="10dp"/>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/language_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/updated_layout"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/lang_text"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Language : "
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/lang_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15sp" />
-
-            </LinearLayout-->
-
-            <!--LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/countlayout1"
-                android:layout_below="@+id/repo_url_layout"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/star_layout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/border"
                     android:orientation="horizontal"
-                    android:layout_weight="1"
-                    >
+                    android:gravity="center"
+                    android:background="@drawable/back"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp">
 
-                    <Button
-                        android:id="@+id/buttonstar"
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@android:color/darker_gray"
-                        android:clickable="true"
-                        android:drawableLeft="@drawable/ic_star"
-                        android:text="Star"
-                        android:textColor="@android:color/white" />
+                        android:src="@drawable/ic_fork"
+                        android:background="@drawable/imageback"
+                        android:contentDescription="@string/forkView"/>
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_weight="0.007"
-                        android:background="#FF8C00"
-                        android:orientation="vertical">
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/star_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="10dp"
-                        android:textSize="23sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/fork_layout"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/border"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="5dp"
-                    >
-
-                    <Button
-                        android:id="@+id/buttonfork"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/darker_gray"
-                        android:clickable="true"
-                        android:drawableLeft="@drawable/ic_fork"
-                        android:text="Fork"
-                        android:textColor="@android:color/white" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_weight="0.007"
-                        android:background="#FF8C00"
-                        android:orientation="vertical">
-
-                    </LinearLayout>
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorPrimary"
+                        />
 
                     <TextView
                         android:id="@+id/fork_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="10dp"
-                        android:textSize="23sp" />
+                        android:textSize="15sp"
+                        android:layout_margin="10dp"
+
+                        />
                 </LinearLayout>
+            </LinearLayout>
 
-            </LinearLayout-->
 
-            <!--CountLayout  2-->
-            <!--LinearLayout
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/countlayout2"
-                android:layout_below="@+id/countlayout1"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="@drawable/back"
+                android:layout_below="@+id/layout1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp">
 
-                <LinearLayout
-                    android:id="@+id/issues_layout"
-                    android:layout_width="0dp"
+                <ImageView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
-                    android:orientation="horizontal"
-                    android:layout_weight="1"
-                    >
+                    android:src="@drawable/ic_watch"
+                    android:background="@drawable/imageback"
+                    android:contentDescription="@string/watchView" />
 
-                    <Button
-                        android:id="@+id/buttonissues"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/darker_gray"
-                        android:clickable="true"
-                        android:drawableLeft="@drawable/ic_issues"
-                        android:text="Issues"
-                        android:textColor="@android:color/white" />
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary"
+                    />
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_weight="0.007"
-                        android:background="#FF8C00"
-                        android:orientation="vertical">
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/issues_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="10dp"
-                        android:textSize="23sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/watch_layout"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                <TextView
+                    android:id="@+id/watch_text"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="5dp"
-                    >
+                    android:textSize="15sp"
+                    android:layout_margin="10dp"
 
-                    <Button
-                        android:id="@+id/buttonWatch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/darker_gray"
-                        android:clickable="true"
-                        android:drawableLeft="@drawable/ic_watch"
-                        android:text="Watch"
-                        android:textColor="@android:color/white" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_weight="0.007"
-                        android:background="#FF8C00"
-                        android:orientation="vertical">
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/watch_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="10dp"
-                        android:textSize="23sp" />
-                </LinearLayout>
-
-            </LinearLayout-->
-
+                    />
+            </LinearLayout>
         </RelativeLayout>
 
     </android.support.v4.widget.NestedScrollView>

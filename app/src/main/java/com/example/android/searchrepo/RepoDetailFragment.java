@@ -118,9 +118,9 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
        // updatedView = (TextView)rootView.findViewById(R.id.updated_view);
        // languageView = (TextView)rootView.findViewById(R.id.lang_textView);
        // issuesCount = (TextView)rootView.findViewById(R.id.issues_text);
-        //watchCount = (TextView)rootView.findViewById(R.id.watch_text);
+        watchCount = (TextView)rootView.findViewById(R.id.watch_text);
         starCount = (TextView)rootView.findViewById(R.id.star_text);
-//        forkCount = (TextView)rootView.findViewById(R.id.fork_text);
+        forkCount = (TextView)rootView.findViewById(R.id.fork_text);
 
         return rootView;
     }
@@ -205,6 +205,7 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
         int issue_count = data.getInt(COL_REPO_ISSUECOUNT);
 
 
+
        // mRepoStr = String.format("%s - %s - %s - Pushed %s - %s - %s - Updated %s - %d - %d - %d - %d ",
          //       fullName, description, lang, pushed, avatar_url, repo_url, updated, star_count, watch_count, fork_count, issue_count);
 
@@ -227,9 +228,9 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
 
         //Button issuesbtn = (Button)getView().findViewById(R.id.buttonissues);
         //issuesCount.setText(String.valueOf(issue_count));
-//        watchCount.setText(String.valueOf(watch_count));
+        watchCount.setText(String.valueOf(watch_count));
         starCount.setText(String.valueOf(star_count));
-//        forkCount.setText(String.valueOf(fork_count));
+        forkCount.setText(String.valueOf(fork_count));
 
 
         // If onCreateOptionsMenu has already happened, we need to update the share intent now.
