@@ -27,6 +27,11 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
 
     private final String LOG_TAG = RepoListFragment.class.getSimpleName();
     private static final int REPO_LOADER = 0;
+    private RepoAdapter mRepoAdapter;
+    private ListView mListView;
+    private int mPosition = ListView.INVALID_POSITION;
+    private static final String SELECTED_KEY = "selected_position";
+
 
     // For the Repo view we're showing only a small subset of the stored data.
     // Specify the columns we need.
@@ -63,8 +68,6 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     static final int COL_REPO_FORKCOUNT = 11;
     static final int COL_REPO_ISSUECOUNT = 12;
 
-
-    RepoAdapter mRepoAdapter;
 
     /**
      * A callback interface that all activities containing this fragment must
@@ -114,11 +117,11 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     private void updateRepositories() {
         FetchRepoTask repoTask = new FetchRepoTask(getContext());
 
-        String language =Utility.getLanguageOption(getActivity());
+        String language = Utility.getLanguageOption(getActivity());
         String sortOrder = Utility.getSortOption(getActivity());
 
         //Log.v(LOG_TAG, "sortOrder : " + sortOrder);
-        repoTask.execute("stars:>1 language:" +language,sortOrder);
+        repoTask.execute("stars:>1 language:" + language, sortOrder);
     }
 
     @Override
@@ -129,29 +132,42 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
         // The CursorAdapter will take data from our cursor and populate the ListView.
         mRepoAdapter = new RepoAdapter(getActivity(), null, 0);
 
-        ListView listView = (ListView) rootView.findViewById(R.id.listitem_repo);
-        listView.setAdapter(mRepoAdapter);
+        mListView = (ListView) rootView.findViewById(R.id.listitem_repo);
+        mListView.setAdapter(mRepoAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 // CursorAdapter returns a cursor at the correct position for getItem(), or null
                 // if it cannot seek to that position.
 
                 Cursor cursor = (Cursor) adapterView.getItemAtPosition(position);
-                if(cursor != null) {
+                if (cursor != null) {
 
 //                    Intent detailIntent = new Intent(getContext(), DetailActivity.class)
 //                            .setData(ContentUris.withAppendedId(RepoContract.RepoEntry.CONTENT_URI,position+1));
 
                     ((Callback) getActivity())
-                            .onItemSelected(ContentUris.withAppendedId(RepoContract.RepoEntry.CONTENT_URI, position+1));
+                            .onItemSelected(ContentUris.withAppendedId(RepoContract.RepoEntry.CONTENT_URI, position + 1));
 
                     //startActivity(detailIntent);
                 }
+                mPosition = position;
             }
         });
 
+        // If there's instance state, mine it for useful information.
+        // The end-goal here is that the user never knows that turning their device sideways
+        // does crazy lifecycle related things.  It should feel like some stuff stretched out,
+        // or magically appeared to take advantage of room, but data or place in the app was never
+        // actually *lost*.
+        if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)) {
+            // The listview probably hasn't even been populated yet.  Actually perform the
+            // swapout in onLoadFinished.
+            mPosition = savedInstanceState.getInt(SELECTED_KEY);
+        }
+
+        updateRepositories();
 
         return rootView;
     }
@@ -160,6 +176,17 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         getLoaderManager().initLoader(REPO_LOADER, null, this);
         super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        // When tablets rotate, the currently selected list item needs to be saved.
+        // When no item is selected, mPosition will be set to Listview.INVALID_POSITION,
+        // so check for that before storing.
+        if (mPosition != ListView.INVALID_POSITION) {
+            outState.putInt(SELECTED_KEY, mPosition);
+        }
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -175,6 +202,11 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mRepoAdapter.swapCursor(data);
+        if (mPosition != ListView.INVALID_POSITION) {
+       // If we don't need to restart the loader, and there's a desired position to restore
+        // to, do so now.
+        mListView.smoothScrollToPosition(mPosition);
+        }
     }
 
     @Override

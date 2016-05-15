@@ -101,6 +101,8 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
         if(arguments != null){
             mUri = arguments.getParcelable(RepoDetailFragment.DETAIL_URI);
         }
+
+
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
