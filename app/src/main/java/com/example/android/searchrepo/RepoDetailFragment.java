@@ -117,7 +117,7 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
        // pushedView = (TextView)rootView.findViewById(R.id.pushed_view);
        // updatedView = (TextView)rootView.findViewById(R.id.updated_view);
        // languageView = (TextView)rootView.findViewById(R.id.lang_textView);
-       // issuesCount = (TextView)rootView.findViewById(R.id.issues_text);
+        issuesCount = (TextView)rootView.findViewById(R.id.issues_text);
         watchCount = (TextView)rootView.findViewById(R.id.watch_text);
         starCount = (TextView)rootView.findViewById(R.id.star_text);
         forkCount = (TextView)rootView.findViewById(R.id.fork_text);
@@ -227,7 +227,7 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
         //languageView.setText(lang);
 
         //Button issuesbtn = (Button)getView().findViewById(R.id.buttonissues);
-        //issuesCount.setText(String.valueOf(issue_count));
+        issuesCount.setText(String.valueOf(issue_count));
         watchCount.setText(String.valueOf(watch_count));
         starCount.setText(String.valueOf(star_count));
         forkCount.setText(String.valueOf(fork_count));
