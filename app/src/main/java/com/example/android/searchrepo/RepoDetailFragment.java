@@ -46,6 +46,7 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
     private TextView descTextView;
     private  TextView repoURL;
     private TextView createdView;
+    private ImageView mAvatar;
 
     // For the Repo view we're showing only a small subset of the stored data.
     // Specify the columns we need.
@@ -109,12 +110,13 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         collapsingToolbarLayout = ((CollapsingToolbarLayout) rootView.findViewById(R.id.collapsingToolbarLayout));
+        mAvatar = (ImageView)rootView.findViewById(R.id.avatar_view);
         descTextView = (TextView)rootView.findViewById(R.id.detail_description);
         repoURL = (TextView)rootView.findViewById(R.id.repo_url);
-        createdView = (TextView)rootView.findViewById(R.id.created_view);
-        pushedView = (TextView)rootView.findViewById(R.id.pushed_view);
-        updatedView = (TextView)rootView.findViewById(R.id.updated_view);
-        languageView = (TextView)rootView.findViewById(R.id.lang_textView);
+       // createdView = (TextView)rootView.findViewById(R.id.created_view);
+       // pushedView = (TextView)rootView.findViewById(R.id.pushed_view);
+       // updatedView = (TextView)rootView.findViewById(R.id.updated_view);
+       // languageView = (TextView)rootView.findViewById(R.id.lang_textView);
         issuesCount = (TextView)rootView.findViewById(R.id.issues_text);
         watchCount = (TextView)rootView.findViewById(R.id.watch_text);
         starCount = (TextView)rootView.findViewById(R.id.star_text);
@@ -181,6 +183,7 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
         return null;
     }
 
+
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         Log.v(LOG_TAG, "In onLoadFinished");
@@ -208,16 +211,19 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
 //        TextView detailTextView = (TextView) getView().findViewById(R.id.repo_detail_textView);
 //        detailTextView.setText(mRepoStr);
 
+
         collapsingToolbarLayout.setTitle(fullName);
 
-        Picasso.with(getActivity()).load(avatar_url).into((ImageView) getView().findViewById(R.id.avatar_view));
+        Picasso.with(getActivity()).load(avatar_url).into(mAvatar);
 
-        descTextView.setText(description);
+        String about = description + "\nCreated " + created + "\nUpdated " + updated
+                + "\nLanguage " + lang;
+        descTextView.setText(about);
         repoURL.setText(repo_url);
-        createdView.setText(created);
-        pushedView.setText(pushed);
-        updatedView.setText(updated);
-        languageView.setText(lang);
+        //createdView.setText(created);
+        //pushedView.setText(pushed);
+        //updatedView.setText(updated);
+        //languageView.setText(lang);
 
         //Button issuesbtn = (Button)getView().findViewById(R.id.buttonissues);
         issuesCount.setText(String.valueOf(issue_count));
