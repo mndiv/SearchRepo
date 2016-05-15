@@ -29,9 +29,7 @@
             android:id="@+id/list_item_lang_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/list_item_update_textView"
             android:layout_toStartOf="@+id/list_item_update_textView"
             android:textStyle="bold"/>
 
@@ -39,7 +37,6 @@
             android:id="@+id/list_item_update_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"/>
     </RelativeLayout>
 </LinearLayout>

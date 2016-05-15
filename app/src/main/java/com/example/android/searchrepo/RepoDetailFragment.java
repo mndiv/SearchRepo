@@ -115,8 +115,8 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
         repoURL = (TextView)rootView.findViewById(R.id.repo_url);
        // createdView = (TextView)rootView.findViewById(R.id.created_view);
        // pushedView = (TextView)rootView.findViewById(R.id.pushed_view);
-       // updatedView = (TextView)rootView.findViewById(R.id.updated_view);
-       // languageView = (TextView)rootView.findViewById(R.id.lang_textView);
+        updatedView = (TextView)rootView.findViewById(R.id.list_item_update_textView);
+        languageView = (TextView)rootView.findViewById(R.id.list_item_lang_textView);
         issuesCount = (TextView)rootView.findViewById(R.id.issues_text);
         watchCount = (TextView)rootView.findViewById(R.id.watch_text);
         starCount = (TextView)rootView.findViewById(R.id.star_text);
@@ -217,9 +217,11 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
 
         Picasso.with(getActivity()).load(avatar_url).into(mAvatar);
 
-        String about = description + "\nCreated " + created + "\nUpdated " + updated
-                + "\nLanguage " + lang;
+        String about = description + ", Created " + created;
         descTextView.setText(about);
+        languageView.setText("Language : " + lang);
+        updatedView.setText("Updated " + updated);
+
         repoURL.setText(repo_url);
         //createdView.setText(created);
         //pushedView.setText(pushed);
