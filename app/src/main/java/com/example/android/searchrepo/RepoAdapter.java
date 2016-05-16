@@ -72,6 +72,11 @@ public class RepoAdapter extends CursorAdapter {
         String fullName = cursor.getString(RepoListFragment.COL_REPO_FULLNAME);
         // Read full Name of Repo from cursor
         String desc = cursor.getString(RepoListFragment.COL_REPO_DESC);
+        // Read full Name of Repo from cursor
+        String lang = cursor.getString(RepoListFragment.COL_REPO_LANG);
+        // Read full Name of Repo from cursor
+        String updated = cursor.getString(RepoListFragment.COL_REPO_UPDATED);
+        String empty = "null";
         // set name on it
         if(fullName.equals("Validation Failed")){
 
@@ -83,15 +88,15 @@ public class RepoAdapter extends CursorAdapter {
         }else {
             viewHolder.nameView.setText(fullName);
             // set description on it
-            viewHolder.descView.setText(desc);
-
-            // Read full Name of Repo from cursor
-            String lang = cursor.getString(RepoListFragment.COL_REPO_LANG);
+            if(desc.equals(empty))
+                viewHolder.descView.setText("");
+            else
+                viewHolder.descView.setText(desc);
             // set language on it
-            viewHolder.langView.setText(lang);
-
-            // Read full Name of Repo from cursor
-            String updated = cursor.getString(RepoListFragment.COL_REPO_UPDATED);
+            if(lang.equals(empty))
+                viewHolder.langView.setText("");
+            else
+                viewHolder.langView.setText(lang);
             // set Updated repo on it
             viewHolder.updateView.setText("Updated " + updated);
         }

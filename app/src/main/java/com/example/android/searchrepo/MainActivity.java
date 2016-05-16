@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements RepoListFragment.
         String sortOrder = Utility.getSortOption(this);
         String lang = Utility.getLanguageOption(this);
         //update the sortOrder in our second pane using the fragment manager
-        if(sortOrder != null && !sortOrder.equals(mSortOrder) && lang != null && !lang.equals(mLang)){
+        if((sortOrder != null && !sortOrder.equals(mSortOrder)) || ( lang != null && !lang.equals(mLang))){
             RepoListFragment rf = (RepoListFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_repo);
             if(null != rf){
                 rf.onSettingsChanged();

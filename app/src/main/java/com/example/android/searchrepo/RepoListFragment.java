@@ -181,26 +181,6 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
         });
 
         searchView.setQuery("",true);
-
-       /* ImageView closeButton = (ImageView)searchView.findViewById(R.id.search_close_btn);
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(LOG_TAG, "Search close button clicked");
-                //Find EditText view
-                EditText et = (EditText) searchView.findViewById(R.id.search_src_text);
-
-                //Clear the text from EditText view
-                et.setText("");
-                //Clear query
-                searchView.setQuery("", false);
-                mQueryText = null;
-                updateRepositories("");
-            }
-        });*/
-
-
-
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {

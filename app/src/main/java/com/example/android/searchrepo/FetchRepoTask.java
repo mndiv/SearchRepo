@@ -171,8 +171,8 @@ public class FetchRepoTask extends AsyncTask<String, Void, Void> {
                             + " - Created " + createdStr + " - Updated " + updatedStr + " - " + html_url + " - "
                             + stars_count + " - " + watch_count + " - " + fork_count + " - " + issue_count;
 
-
                 }
+
                 Log.v(LOG_TAG, "ResultStrs : " + resultStrs[0]);
 
                 int inserted = 0;
@@ -267,7 +267,8 @@ public class FetchRepoTask extends AsyncTask<String, Void, Void> {
             String order = sortOrder.substring(sortOrder.indexOf('-') + 1);
 
 
-            Log.v(LOG_TAG, "sort:" + sort + " order:" + order);
+
+            Log.v(LOG_TAG, "query : " + params[0] + "sort:" + sort + " order:" + order);
 
             Uri builtUri = Uri.parse(REPO_BASE_URL).buildUpon()
                     .appendQueryParameter(QUERY_PARAM, params[0])
