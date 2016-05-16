@@ -64,4 +64,6 @@
         <item>updated-desc</item>
     </string-array>
 
+    <string name="search_label">Search</string>
+    <string name="search_hint">Search Repositories</string>
 </resources>

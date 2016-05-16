@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.example.android.searchrepo.data.RepoContract;
 
@@ -31,7 +32,8 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     private ListView mListView;
     private int mPosition = ListView.INVALID_POSITION;
     private static final String SELECTED_KEY = "selected_position";
-
+    private SearchView searchView;
+    String mQueryText = null;
 
     // For the Repo view we're showing only a small subset of the stored data.
     // Specify the columns we need.
@@ -106,7 +108,7 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
         //Handle item selection
         switch (item.getItemId()) {
             case R.id.action_refresh:
-                updateRepositories();
+                updateRepositories(mQueryText);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -114,14 +116,22 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
 
     }
 
-    private void updateRepositories() {
+    private void updateRepositories(String query) {
         FetchRepoTask repoTask = new FetchRepoTask(getContext());
 
         String language = Utility.getLanguageOption(getActivity());
         String sortOrder = Utility.getSortOption(getActivity());
 
         //Log.v(LOG_TAG, "sortOrder : " + sortOrder);
-        repoTask.execute("stars:>1 language:" + language, sortOrder);
+        if(query == null) {
+            repoTask.execute("stars:>1 language:" + language, sortOrder);
+        }
+        else {
+            repoTask.execute(query + " language:" + language, sortOrder);
+        }
+        searchView.clearFocus();
+
+
     }
 
     @Override
@@ -134,6 +144,42 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
 
         mListView = (ListView) rootView.findViewById(R.id.listitem_repo);
         mListView.setAdapter(mRepoAdapter);
+
+        searchView = (SearchView) rootView.findViewById(R.id.search);
+        searchView.setIconifiedByDefault(false);
+        searchView.clearFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                mQueryText = query;
+                updateRepositories(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+//                if (!newText.isEmpty()){
+//                    mQueryText = newText;
+//                    updateRepositories(newText);
+//                } else {
+//                    mListView.setAdapter(mRepoAdapter);
+//                }
+                return false;
+            }
+
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                mListView.setAdapter(mRepoAdapter);
+                return false;
+            }
+        });
+
+        searchView.setQuery("",true);
+
+
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -167,7 +213,7 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
             mPosition = savedInstanceState.getInt(SELECTED_KEY);
         }
 
-        updateRepositories();
+        updateRepositories(mQueryText);
 
         return rootView;
     }
@@ -219,7 +265,7 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     // since we read the location when we create the loader, all we need to do is restart things
     public void onSettingsChanged() {
 
-        updateRepositories();
+        updateRepositories(mQueryText);
         getLoaderManager().restartLoader(REPO_LOADER, null, this);
     }
 }
