@@ -73,7 +73,9 @@
                     android:layout_height="wrap_content"
                     android:text="Description:"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textAppearance="?android:textAppearanceLarge"/>
 
 
                 <TextView
@@ -81,7 +83,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="15dp"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textAppearance="?android:textAppearanceMedium"/>
             </LinearLayout>
 
 
@@ -98,14 +102,18 @@
                     android:layout_height="wrap_content"
                     android:text="Language :"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textAppearance="?android:textAppearanceLarge"/>
 
                 <TextView
                     android:id="@+id/list_item_lang_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="15dp"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textAppearance="?android:textAppearanceMedium"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/Updated_layout"
@@ -120,14 +128,18 @@
                     android:layout_height="wrap_content"
                     android:text="Updated on"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textAppearance="?android:textAppearanceLarge"/>
 
                 <TextView
                     android:id="@+id/list_item_update_textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="15dp"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textAppearance="?android:textAppearanceMedium"/>
             </LinearLayout>
 
             <LinearLayout
@@ -143,7 +155,9 @@
                     android:layout_height="wrap_content"
                     android:text="Repo_URL:"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textAppearance="?android:textAppearanceLarge"/>
 
                 <TextView
                     android:id="@+id/repo_url"
@@ -152,7 +166,9 @@
                     android:autoLink="web"
                     android:paddingLeft="15dp"
                     android:text="http://www.google.com"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textAppearance="?android:textAppearanceMedium"/>
             </LinearLayout>
 
             <LinearLayout
@@ -186,7 +202,9 @@
                         android:textSize="15sp"
                         android:layout_weight="0.3"
                         android:background="@drawable/textbackground"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:fontFamily="sans-serif-condensed"
+                        android:textAppearance="?android:textAppearanceMedium"/>
 
                     <View
                         android:layout_width="2dp"
@@ -199,7 +217,9 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:textSize="15sp"
-                        android:layout_weight="0.6"/>
+                        android:layout_weight="0.6"
+                        android:fontFamily="sans-serif-condensed"
+                        android:textAppearance="?android:textAppearanceMedium"/>
 
                 </LinearLayout>
 
@@ -227,7 +247,9 @@
                         android:textSize="15sp"
                         android:layout_weight="0.3"
                         android:background="@drawable/textbackground"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:fontFamily="sans-serif-condensed"
+                        android:textAppearance="?android:textAppearanceMedium"/>
 
                     <View
                         android:layout_width="2dp"
@@ -240,7 +262,9 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:textSize="15sp"
-                        android:layout_weight="0.6" />
+                        android:layout_weight="0.6"
+                        android:fontFamily="sans-serif-condensed"
+                        android:textAppearance="?android:textAppearanceMedium"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -279,7 +303,9 @@
                         android:textSize="15sp"
                         android:layout_weight="0.3"
                         android:background="@drawable/textbackground"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:fontFamily="sans-serif-condensed"
+                        android:textAppearance="?android:textAppearanceMedium"/>
 
                     <View
                         android:layout_width="2dp"
@@ -293,6 +319,8 @@
                         android:layout_margin="10dp"
                         android:textSize="15sp"
                         android:layout_weight="0.6"
+                        android:fontFamily="sans-serif-condensed"
+                        android:textAppearance="?android:textAppearanceMedium"
 
                         />
                 </LinearLayout>
@@ -313,7 +341,8 @@
                         android:contentDescription="@string/issueView"
                         android:src="@drawable/ic_issues"
                         android:layout_weight="0.1"
-                        android:layout_gravity="left"/>
+                        android:layout_gravity="left"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -323,7 +352,9 @@
                         android:textSize="15sp"
                         android:layout_weight="0.3"
                         android:background="@drawable/textbackground"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:fontFamily="sans-serif-condensed"
+                        android:textAppearance="?android:textAppearanceMedium"/>
 
                     <View
                         android:layout_width="2dp"
@@ -337,6 +368,8 @@
                         android:layout_margin="10dp"
                         android:textSize="15sp"
                         android:layout_weight="0.6"
+                        android:fontFamily="sans-serif-condensed"
+                        android:textAppearance="?android:textAppearanceMedium"
 
                         />
                 </LinearLayout>
