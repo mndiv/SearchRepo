@@ -206,8 +206,8 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
 
 
 
-       // mRepoStr = String.format("%s - %s - %s - Pushed %s - %s - %s - Updated %s - %d - %d - %d - %d ",
-         //       fullName, description, lang, pushed, avatar_url, repo_url, updated, star_count, watch_count, fork_count, issue_count);
+        mRepoStr = String.format("%s - %s - %s - Pushed %s - %s - %s - Updated %s - %d - %d - %d - %d ",
+              fullName, description, lang, pushed, avatar_url, repo_url, updated, star_count, watch_count, fork_count, issue_count);
 
 
 
@@ -219,7 +219,7 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
         if(description.equals("null")){
             about = "Created on" + created;
         }else{
-            about = description + ", Created on" + created;
+            about = description + ", Created on " + created;
         }
         descTextView.setText(about);
 

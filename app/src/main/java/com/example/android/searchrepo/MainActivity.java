@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements RepoListFragment.
             }
         }else{
             mTwoPane = false;
+            getSupportActionBar().setElevation(0f);
         }
     }
 

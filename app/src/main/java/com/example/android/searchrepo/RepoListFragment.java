@@ -35,7 +35,7 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     private int mPosition = ListView.INVALID_POSITION;
     private static final String SELECTED_KEY = "selected_position";
     private SearchView searchView;
-    public String mQueryText = null;
+    public String mQueryText = "";
 
     // For the Repo view we're showing only a small subset of the stored data.
     // Specify the columns we need.
@@ -163,8 +163,11 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
             public boolean onQueryTextChange(String newText) {
                 Log.v(LOG_TAG, "newText : " + newText);
                 if(newText.equals("")){
-                    mQueryText = "";
-                    updateRepositories(mQueryText);
+
+                    if(!newText.equals(mQueryText)) {
+                        mQueryText = "";
+                        updateRepositories(mQueryText);
+                    }
                     searchView.clearFocus();
                 }
                 return false;
