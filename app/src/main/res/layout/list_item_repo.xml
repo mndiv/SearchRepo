@@ -13,14 +13,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed"
+        android:textAppearance="?android:textAppearanceLarge"/>
 
     <TextView
         android:id="@+id/list_item_desc_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="2"
-        android:ellipsize="end">
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-condensed"
+        android:textAppearance="?android:textAppearanceMedium">
     </TextView>
 
     <RelativeLayout
@@ -33,12 +37,16 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@+id/list_item_update_textView"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed"
+            android:textAppearance="?android:textAppearanceSmall"/>
 
         <TextView
             android:id="@+id/list_item_update_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"/>
+            android:layout_alignParentEnd="true"
+            android:fontFamily="sans-serif-condensed"
+        android:textAppearance="?android:textAppearanceSmall"/>
     </RelativeLayout>
 </LinearLayout>
