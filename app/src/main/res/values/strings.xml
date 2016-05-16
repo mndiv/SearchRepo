@@ -18,6 +18,7 @@
     <string name="watchView">Watch Count for the Repo</string>
     <string name="forkView">Fork Count of the Repo</string>
     <string name="starView">Star Count of the repo</string>
+    <string name="issueView">Open Issues Count of the repo</string>
 
     <string-array name="pref_language_titles">
         <item>Any Language</item>

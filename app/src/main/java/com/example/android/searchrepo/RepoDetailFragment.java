@@ -209,26 +209,29 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
        // mRepoStr = String.format("%s - %s - %s - Pushed %s - %s - %s - Updated %s - %d - %d - %d - %d ",
          //       fullName, description, lang, pushed, avatar_url, repo_url, updated, star_count, watch_count, fork_count, issue_count);
 
-//        TextView detailTextView = (TextView) getView().findViewById(R.id.repo_detail_textView);
-//        detailTextView.setText(mRepoStr);
 
 
         collapsingToolbarLayout.setTitle(fullName);
 
         Picasso.with(getActivity()).load(avatar_url).into(mAvatar);
 
-        String about = description + ", Created " + created;
+        String about;
+        if(description.equals("null")){
+            about = "Created on" + created;
+        }else{
+            about = description + ", Created on" + created;
+        }
         descTextView.setText(about);
-        languageView.setText("Language : " + lang);
-        updatedView.setText("Updated " + updated);
+
+        if(lang.equals("null")){
+            languageView.setText("");
+        }else {
+            languageView.setText(lang);
+        }
+        updatedView.setText(pushed);
 
         repoURL.setText(repo_url);
-        //createdView.setText(created);
-        //pushedView.setText(pushed);
-        //updatedView.setText(updated);
-        //languageView.setText(lang);
 
-        //Button issuesbtn = (Button)getView().findViewById(R.id.buttonissues);
         issuesCount.setText(String.valueOf(issue_count));
         watchCount.setText(String.valueOf(watch_count));
         starCount.setText(String.valueOf(star_count));
