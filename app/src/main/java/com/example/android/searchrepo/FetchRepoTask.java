@@ -57,6 +57,8 @@ public class FetchRepoTask extends AsyncTask<String, Void, Void> {
     private void getRepoDataFromJson(String repoJsonStr)
             throws JSONException {
 // These are the names of the JSON objects that need to be extracted.
+        final String OWM_TOTAL_COUNT = "total_count";
+        final String OWM_MESSAGE = "message";
         final String OWM_ITEMS = "items";
         final String OWM_NAME = "full_name";
         final String OWM_OWNER = "owner";
@@ -72,107 +74,147 @@ public class FetchRepoTask extends AsyncTask<String, Void, Void> {
         final String OWM_WATCHERS_COUNT = "watchers_count";
         final String OWM_FORK_COUNT = "forks_count";
 
+        int totalCount = 0;
+        String message = null;
+
+
+        // First, check if the location with this city name exists in the db
+        Cursor repoCursor = mContext.getContentResolver().query(
+                RepoContract.RepoEntry.CONTENT_URI,
+                new String[]{RepoContract.RepoEntry._ID},
+                null,
+                null,
+                null);
+
+        int deleted = 0;
+        assert repoCursor != null;
+        if (repoCursor.getCount() > 0) {
+            deleted = mContext.getContentResolver().delete(RepoEntry.CONTENT_URI, null, null);
+            Log.v(LOG_TAG, "deleted : " + deleted);
+        }
+
 
         try {
             JSONObject repoJson = new JSONObject(repoJsonStr);
-            JSONArray repoArray = repoJson.getJSONArray(OWM_ITEMS);
+            totalCount = repoJson.getInt(OWM_TOTAL_COUNT);
 
-            int numRepos = repoArray.length();
-            String[] resultStrs = new String[numRepos];
+            Log.v(LOG_TAG, "total_count : " + totalCount);
+            if (totalCount > 0) {
+                JSONArray repoArray = repoJson.getJSONArray(OWM_ITEMS);
 
-
-            // Insert the new weather information into the database
-            Vector<ContentValues> cVVector = new Vector<ContentValues>(numRepos);
-
-            for (int i = 0; i < numRepos; i++) {
-                String fullName, description, language, updated, pushed;
-                String avatar_url, created, html_url ;
-                int issue_count, stars_count, watch_count, fork_count;
-
-                JSONObject eachRepo = repoArray.getJSONObject(i);
-
-                fullName = eachRepo.getString(OWM_NAME);
-
-                JSONObject ownerObject = eachRepo.getJSONObject(OWM_OWNER);
-                avatar_url = ownerObject.getString(OWM_AVATAR_URL);
-
-                description = eachRepo.getString(OWM_DESCRIPTION);
-                language = eachRepo.getString(OWM_LANGUAGE);
-                html_url = eachRepo.getString(OWM_HTML_URL);
-                issue_count = eachRepo.getInt(OWM_ISSUES_COUNT);
-                stars_count = eachRepo.getInt(OWM_STARS_COUNT);
-                watch_count = eachRepo.getInt(OWM_WATCHERS_COUNT);
-                fork_count = eachRepo.getInt(OWM_FORK_COUNT);
-
-                updated = eachRepo.getString(OWM_UPDATED);
-                created = eachRepo.getString(OWM_CREATED);
-                pushed = eachRepo.getString(OWM_PUSHED);
-
-                long pushedAt = timeStringToMilis(pushed);
-                CharSequence pushedStr = DateUtils.getRelativeTimeSpanString(pushedAt,
-                        System.currentTimeMillis(),
-                        DateUtils.SECOND_IN_MILLIS);
-
-                long createdAt = timeStringToMilis(created);
-                CharSequence createdStr = DateUtils.getRelativeTimeSpanString(createdAt,
-                        System.currentTimeMillis(),
-                        DateUtils.SECOND_IN_MILLIS);
-
-                long updatedAt = timeStringToMilis(updated);
-                CharSequence updatedStr = DateUtils.getRelativeTimeSpanString(updatedAt,
-                        System.currentTimeMillis(),
-                        DateUtils.SECOND_IN_MILLIS);
+                int numRepos = repoArray.length();
+                String[] resultStrs = new String[numRepos];
 
 
+                // Insert the new weather information into the database
+                Vector<ContentValues> cVVector = new Vector<ContentValues>(numRepos);
+
+                for (int i = 0; i < numRepos; i++) {
+                    String fullName, description, language, updated, pushed;
+                    String avatar_url, created, html_url;
+                    int issue_count, stars_count, watch_count, fork_count;
+
+                    JSONObject eachRepo = repoArray.getJSONObject(i);
+
+                    fullName = eachRepo.getString(OWM_NAME);
+
+                    JSONObject ownerObject = eachRepo.getJSONObject(OWM_OWNER);
+                    avatar_url = ownerObject.getString(OWM_AVATAR_URL);
+
+                    description = eachRepo.getString(OWM_DESCRIPTION);
+                    language = eachRepo.getString(OWM_LANGUAGE);
+                    html_url = eachRepo.getString(OWM_HTML_URL);
+                    issue_count = eachRepo.getInt(OWM_ISSUES_COUNT);
+                    stars_count = eachRepo.getInt(OWM_STARS_COUNT);
+                    watch_count = eachRepo.getInt(OWM_WATCHERS_COUNT);
+                    fork_count = eachRepo.getInt(OWM_FORK_COUNT);
+
+                    updated = eachRepo.getString(OWM_UPDATED);
+                    created = eachRepo.getString(OWM_CREATED);
+                    pushed = eachRepo.getString(OWM_PUSHED);
+
+                    long pushedAt = timeStringToMilis(pushed);
+                    CharSequence pushedStr = DateUtils.getRelativeTimeSpanString(pushedAt,
+                            System.currentTimeMillis(),
+                            DateUtils.SECOND_IN_MILLIS);
+
+                    long createdAt = timeStringToMilis(created);
+                    CharSequence createdStr = DateUtils.getRelativeTimeSpanString(createdAt,
+                            System.currentTimeMillis(),
+                            DateUtils.SECOND_IN_MILLIS);
+
+                    long updatedAt = timeStringToMilis(updated);
+                    CharSequence updatedStr = DateUtils.getRelativeTimeSpanString(updatedAt,
+                            System.currentTimeMillis(),
+                            DateUtils.SECOND_IN_MILLIS);
+
+
+                    ContentValues RepoValues = new ContentValues();
+
+                    RepoValues.put(RepoEntry.COLUMN_FULL_NAME, fullName);
+                    RepoValues.put(RepoEntry.COLUMN_DESCRIPTION, description);
+                    RepoValues.put(RepoEntry.COLUMN_LANGUAGE, language);
+                    RepoValues.put(RepoEntry.COLUMN_PUSHED, pushedStr.toString());
+                    RepoValues.put(RepoEntry.COLUMN_AVATAR_URL, avatar_url);
+                    RepoValues.put(RepoEntry.COLUMN_REPO_URL, html_url);
+                    RepoValues.put(RepoEntry.COLUMN_UPDATED, updatedStr.toString());
+                    RepoValues.put(RepoEntry.COLUMN_CREATED, createdStr.toString());
+                    RepoValues.put(RepoEntry.COLUMN_STARCOUNT, stars_count);
+                    RepoValues.put(RepoEntry.COLUMN_WATCHCOUNT, watch_count);
+                    RepoValues.put(RepoEntry.COLUMN_FORKCOUNT, fork_count);
+                    RepoValues.put(RepoEntry.COLUMN_ISSUECOUNT, issue_count);
+
+                    cVVector.add(RepoValues);
+                    resultStrs[i] = fullName + " - " + description + " - " + language + " Pushed " + pushedStr + " - " + avatar_url
+                            + " - Created " + createdStr + " - Updated " + updatedStr + " - " + html_url + " - "
+                            + stars_count + " - " + watch_count + " - " + fork_count + " - " + issue_count;
+
+
+                }
+                Log.v(LOG_TAG, "ResultStrs : " + resultStrs[0]);
+
+                int inserted = 0;
+                // add to database
+                if (cVVector.size() > 0) {
+                    ContentValues[] cvArray = new ContentValues[cVVector.size()];
+                    cVVector.toArray(cvArray);
+                    inserted = mContext.getContentResolver().bulkInsert(RepoEntry.CONTENT_URI, cvArray);
+                }
+
+                Log.d(LOG_TAG, "FetchRepoTask Complete. " + inserted + " Inserted");
+
+            } else {
+
+
+                String empty = null;
+                // Insert the new weather information into the database
+                Vector<ContentValues> cVVector = new Vector<ContentValues>(1);
                 ContentValues RepoValues = new ContentValues();
-
-                RepoValues.put(RepoEntry.COLUMN_FULL_NAME, fullName);
-                RepoValues.put(RepoEntry.COLUMN_DESCRIPTION, description);
-                RepoValues.put(RepoEntry.COLUMN_LANGUAGE, language);
-                RepoValues.put(RepoEntry.COLUMN_PUSHED, pushedStr.toString());
-                RepoValues.put(RepoEntry.COLUMN_AVATAR_URL, avatar_url);
-                RepoValues.put(RepoEntry.COLUMN_REPO_URL, html_url);
-                RepoValues.put(RepoEntry.COLUMN_UPDATED, updatedStr.toString());
-                RepoValues.put(RepoEntry.COLUMN_CREATED, createdStr.toString());
-                RepoValues.put(RepoEntry.COLUMN_STARCOUNT, stars_count);
-                RepoValues.put(RepoEntry.COLUMN_WATCHCOUNT, watch_count);
-                RepoValues.put(RepoEntry.COLUMN_FORKCOUNT, fork_count);
-                RepoValues.put(RepoEntry.COLUMN_ISSUECOUNT, issue_count);
+                RepoValues.put(RepoEntry.COLUMN_FULL_NAME, "Validation Failed");
+                RepoValues.put(RepoEntry.COLUMN_DESCRIPTION, "description");
+                RepoValues.put(RepoEntry.COLUMN_LANGUAGE, "language");
+                RepoValues.put(RepoEntry.COLUMN_PUSHED, "pushed");
+                RepoValues.put(RepoEntry.COLUMN_AVATAR_URL, "avatar");
+                RepoValues.put(RepoEntry.COLUMN_REPO_URL, "repourl");
+                RepoValues.put(RepoEntry.COLUMN_UPDATED, "updated");
+                RepoValues.put(RepoEntry.COLUMN_CREATED, "created");
+                RepoValues.put(RepoEntry.COLUMN_STARCOUNT, 0);
+                RepoValues.put(RepoEntry.COLUMN_WATCHCOUNT, 0);
+                RepoValues.put(RepoEntry.COLUMN_FORKCOUNT, 0);
+                RepoValues.put(RepoEntry.COLUMN_ISSUECOUNT, 0);
 
                 cVVector.add(RepoValues);
-                resultStrs[i] = fullName + " - " + description + " - " + language + " Pushed " + pushedStr + " - " + avatar_url
-                        + " - Created " + createdStr + " - Updated " + updatedStr + " - " + html_url + " - "
-                        + stars_count + " - " + watch_count + " - " + fork_count + " - " + issue_count;
 
-
+                int inserted = 0;
+                // add to database
+                if (cVVector.size() > 0) {
+                    ContentValues[] cvArray = new ContentValues[cVVector.size()];
+                    cVVector.toArray(cvArray);
+                    inserted = mContext.getContentResolver().bulkInsert(RepoEntry.CONTENT_URI, cvArray);
+                }
+                Log.d(LOG_TAG, "FetchRepoTask Complete. " + inserted + " Inserted");
+                repoCursor.close();
             }
-            Log.v(LOG_TAG, "ResultStrs : " + resultStrs[0]);
-
-
-            // First, check if the location with this city name exists in the db
-            Cursor repoCursor = mContext.getContentResolver().query(
-                    RepoContract.RepoEntry.CONTENT_URI,
-                    new String[]{RepoContract.RepoEntry._ID},
-                    null,
-                    null,
-                    null);
-
-            int deleted = 0;
-            assert repoCursor != null;
-            if(repoCursor.getCount()>0){
-                deleted = mContext.getContentResolver().delete(RepoEntry.CONTENT_URI, null,null);
-                Log.v(LOG_TAG, "deleted : " + deleted);
-            }
-
-            int inserted = 0;
-            // add to database
-            if (cVVector.size() > 0) {
-                ContentValues[] cvArray = new ContentValues[cVVector.size()];
-                cVVector.toArray(cvArray);
-                inserted = mContext.getContentResolver().bulkInsert(RepoEntry.CONTENT_URI, cvArray);
-            }
-
-            Log.d(LOG_TAG, "FetchRepoTask Complete. " + inserted + " Inserted");
             repoCursor.close();
 
         } catch (JSONException e) {

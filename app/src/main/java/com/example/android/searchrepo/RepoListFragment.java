@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -124,10 +125,10 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
 
         //Log.v(LOG_TAG, "sortOrder : " + sortOrder);
         if(query == null) {
-            repoTask.execute("stars:>1 language:" + language, sortOrder);
+            repoTask.execute("stars:>1;language:" + language, sortOrder);
         }
         else {
-            repoTask.execute(query + " language:" + language, sortOrder);
+            repoTask.execute(query + ";language:" + language, sortOrder);
         }
         searchView.clearFocus();
 
@@ -147,23 +148,18 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
 
         searchView = (SearchView) rootView.findViewById(R.id.search);
         searchView.setIconifiedByDefault(false);
-        searchView.clearFocus();
+        searchView.setInputType(InputType.TYPE_CLASS_TEXT);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 mQueryText = query;
                 updateRepositories(query);
+                searchView.clearFocus();
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-//                if (!newText.isEmpty()){
-//                    mQueryText = newText;
-//                    updateRepositories(newText);
-//                } else {
-//                    mListView.setAdapter(mRepoAdapter);
-//                }
                 return false;
             }
 
