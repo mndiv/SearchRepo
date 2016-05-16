@@ -18,8 +18,8 @@ public class RepoProvider extends ContentProvider {
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private RepoDbHelper mOpenHelper;
 
-    static final int REPO_LIST = 100;
-    static final int REPO_LIST_ID = 101;
+    private static final int REPO_LIST = 100;
+    private static final int REPO_LIST_ID = 101;
 
     private static UriMatcher buildUriMatcher() {
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);

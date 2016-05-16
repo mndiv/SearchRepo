@@ -29,10 +29,10 @@ import java.util.Vector;
 /**
  * Created by KeerthanaS on 5/10/2016.
  */
-public class FetchRepoTask extends AsyncTask<String, Void, Void> {
+class FetchRepoTask extends AsyncTask<String, Void, Void> {
 
     private final Context mContext;
-    private String mQuery;
+    private final String mQuery;
 
     private final String LOG_TAG = FetchRepoTask.class.getSimpleName();
 
@@ -109,7 +109,7 @@ public class FetchRepoTask extends AsyncTask<String, Void, Void> {
 
 
                 // Insert the new weather information into the database
-                Vector<ContentValues> cVVector = new Vector<ContentValues>(numRepos);
+                Vector<ContentValues> cVVector = new Vector<>(numRepos);
 
                 for (int i = 0; i < numRepos; i++) {
                     String fullName, description, language, updated, pushed;
@@ -186,9 +186,6 @@ public class FetchRepoTask extends AsyncTask<String, Void, Void> {
                 Log.d(LOG_TAG, "FetchRepoTask Complete. " + inserted + " Inserted");
 
             } else {
-
-
-                String empty = null;
                 // Insert the new weather information into the database
                 Vector<ContentValues> cVVector = new Vector<ContentValues>(1);
                 ContentValues RepoValues = new ContentValues();
@@ -298,7 +295,7 @@ public class FetchRepoTask extends AsyncTask<String, Void, Void> {
                 // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
                 // But it does make debugging a *lot* easier if you print out the completed
                 // buffer for debugging.
-                buffer.append(line + "\n");
+                buffer.append(line).append("\n");
             }
 
             if (buffer.length() == 0) {

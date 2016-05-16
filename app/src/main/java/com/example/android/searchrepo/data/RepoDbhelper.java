@@ -9,7 +9,7 @@ import com.example.android.searchrepo.data.RepoContract.RepoEntry;
 /**
  * Created by DivyaM on 5/9/2016.
  */
-public class RepoDbHelper extends SQLiteOpenHelper{
+class RepoDbHelper extends SQLiteOpenHelper{
 
     // If you change the database schema, you must increment the database version.
     private static final int DATABASE_VERSION =1;

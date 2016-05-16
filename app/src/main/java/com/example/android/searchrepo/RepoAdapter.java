@@ -11,7 +11,7 @@ import android.widget.TextView;
 /**
  * Created by KeerthanaS on 5/10/2016.
  */
-public class RepoAdapter extends CursorAdapter {
+class RepoAdapter extends CursorAdapter {
 
     private static final String LOG_TAG = RepoAdapter.class.getSimpleName();
 
@@ -31,26 +31,6 @@ public class RepoAdapter extends CursorAdapter {
             langView = (TextView) view.findViewById(R.id.list_item_lang_textView);
             updateView = (TextView) view.findViewById(R.id.list_item_update_textView);
         }
-    }
-
-
-    /*
-       This is ported from FetchWeatherTask --- but now we go straight from the cursor to the
-       string.
-    */
-    private String convertCursorRowToUXFormat(Cursor cursor) {
-        // get row indices for our cursor
-//        int idx_fullName = cursor.getColumnIndex(RepoContract.MostStarsRepoEntry.COLUMN_FULL_NAME);
-//        int idx_desc = cursor.getColumnIndex(RepoContract.MostStarsRepoEntry.COLUMN_DESCRIPTION);
-//        int idx_lang = cursor.getColumnIndex(RepoContract.MostStarsRepoEntry.COLUMN_LANGUAGE);
-//        int idx_update = cursor.getColumnIndex(RepoContract.MostStarsRepoEntry.COLUMN_UPDATED);
-
-        String result = cursor.getString(RepoListFragment.COL_REPO_FULLNAME) + " - " +
-                cursor.getString(RepoListFragment.COL_REPO_DESC) + " - " +
-                cursor.getString(RepoListFragment.COL_REPO_LANG) +
-                " Updated on " + cursor.getString(RepoListFragment.COL_REPO_PUSHED);
-
-        return result;
     }
 
     @Override
@@ -78,22 +58,22 @@ public class RepoAdapter extends CursorAdapter {
         String updated = cursor.getString(RepoListFragment.COL_REPO_PUSHED);
         String empty = "null";
         // set name on it
-        if(fullName.equals("Validation Failed")){
+        if (fullName.equals("Validation Failed")) {
 
             viewHolder.nameView.setText("We couldn’t find any repositories matching '" + desc + "'");
             viewHolder.descView.setVisibility(View.GONE);
             viewHolder.langView.setVisibility(View.GONE);
             viewHolder.updateView.setVisibility(View.GONE);
 
-        }else {
+        } else {
             viewHolder.nameView.setText(fullName);
             // set description on it
-            if(desc.equals(empty))
+            if (desc.equals(empty))
                 viewHolder.descView.setText("");
             else
                 viewHolder.descView.setText(desc);
             // set language on it
-            if(lang.equals(empty))
+            if (lang.equals(empty))
                 viewHolder.langView.setText("");
             else
                 viewHolder.langView.setText(lang);

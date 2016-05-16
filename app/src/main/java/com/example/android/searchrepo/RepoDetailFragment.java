@@ -70,18 +70,18 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
     // These indices are tied to REPO_MOSTSTARS_COLUMNS.  If REPO_MOSTSTARS_COLUMNS changes, these
     // must change.
     static final int COL_REPO_MOSTSTARS_ID = 0;
-    static final int COL_REPO_FULLNAME = 1;
-    static final int COL_REPO_DESC = 2;
-    static final int COL_REPO_LANG = 3;
-    static final int COL_REPO_PUSHED = 4;
-    static final int COL_REPO_AVATAR_URL = 5;
-    static final int COL_REPO_REPO_URL = 6;
-    static final int COL_REPO_UPDATED = 7;
-    static final int COL_REPO_CREATED = 8;
-    static final int COL_REPO_STARCOUNT = 9;
-    static final int COL_REPO_WATCHCOUNT = 10;
-    static final int COL_REPO_FORKCOUNT = 11;
-    static final int COL_REPO_ISSUECOUNT = 12;
+    private static final int COL_REPO_FULLNAME = 1;
+    private static final int COL_REPO_DESC = 2;
+    private static final int COL_REPO_LANG = 3;
+    private static final int COL_REPO_PUSHED = 4;
+    private static final int COL_REPO_AVATAR_URL = 5;
+    private static final int COL_REPO_REPO_URL = 6;
+    private static final int COL_REPO_UPDATED = 7;
+    private static final int COL_REPO_CREATED = 8;
+    private static final int COL_REPO_STARCOUNT = 9;
+    private static final int COL_REPO_WATCHCOUNT = 10;
+    private static final int COL_REPO_FORKCOUNT = 11;
+    private static final int COL_REPO_ISSUECOUNT = 12;
     private TextView pushedView;
     private TextView updatedView;
     private TextView languageView;

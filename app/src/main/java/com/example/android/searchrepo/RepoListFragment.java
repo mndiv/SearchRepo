@@ -34,8 +34,9 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     private ListView mListView;
     private int mPosition = ListView.INVALID_POSITION;
     private static final String SELECTED_KEY = "selected_position";
+    private static final String QUERY_KEY = "Query";
     private SearchView searchView;
-    public String mQueryText = "";
+    private String mQueryText = "";
 
     // For the Repo view we're showing only a small subset of the stored data.
     // Specify the columns we need.
@@ -82,7 +83,7 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
         /**
          * DetailFragmentCallback for when an item has been selected.
          */
-        public void onItemSelected(Uri dateUri);
+        void onItemSelected(Uri dateUri);
     }
 
     public RepoListFragment() {
@@ -214,6 +215,7 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
             // The listview probably hasn't even been populated yet.  Actually perform the
             // swapout in onLoadFinished.
             mPosition = savedInstanceState.getInt(SELECTED_KEY);
+            mQueryText = savedInstanceState.getString(QUERY_KEY);
         }
 
         updateRepositories(mQueryText);
@@ -234,6 +236,7 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
         // so check for that before storing.
         if (mPosition != ListView.INVALID_POSITION) {
             outState.putInt(SELECTED_KEY, mPosition);
+            outState.putString(QUERY_KEY, mQueryText);
         }
         super.onSaveInstanceState(outState);
     }

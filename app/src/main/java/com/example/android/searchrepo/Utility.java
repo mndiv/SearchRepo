@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 /**
  * Created by KeerthanaS on 5/10/2016.
  */
-public class Utility {
+class Utility {
 
     public static String getSortOption(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
