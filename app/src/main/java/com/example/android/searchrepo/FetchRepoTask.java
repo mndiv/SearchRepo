@@ -32,11 +32,13 @@ import java.util.Vector;
 public class FetchRepoTask extends AsyncTask<String, Void, Void> {
 
     private final Context mContext;
+    private String mQuery;
 
     private final String LOG_TAG = FetchRepoTask.class.getSimpleName();
 
-    public FetchRepoTask(Context context) {
+    public FetchRepoTask(Context context, String query) {
         mContext = context;
+        mQuery = query;
     }
 
     private long timeStringToMilis(String time) {
@@ -191,7 +193,7 @@ public class FetchRepoTask extends AsyncTask<String, Void, Void> {
                 Vector<ContentValues> cVVector = new Vector<ContentValues>(1);
                 ContentValues RepoValues = new ContentValues();
                 RepoValues.put(RepoEntry.COLUMN_FULL_NAME, "Validation Failed");
-                RepoValues.put(RepoEntry.COLUMN_DESCRIPTION, "description");
+                RepoValues.put(RepoEntry.COLUMN_DESCRIPTION, mQuery);
                 RepoValues.put(RepoEntry.COLUMN_LANGUAGE, "language");
                 RepoValues.put(RepoEntry.COLUMN_PUSHED, "pushed");
                 RepoValues.put(RepoEntry.COLUMN_AVATAR_URL, "avatar");

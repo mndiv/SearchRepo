@@ -70,22 +70,30 @@ public class RepoAdapter extends CursorAdapter {
 
         // Read full Name of Repo from cursor
         String fullName = cursor.getString(RepoListFragment.COL_REPO_FULLNAME);
-        // set name on it
-        viewHolder.nameView.setText(fullName);
-
         // Read full Name of Repo from cursor
         String desc = cursor.getString(RepoListFragment.COL_REPO_DESC);
-        // set description on it
-        viewHolder.descView.setText(desc);
+        // set name on it
+        if(fullName.equals("Validation Failed")){
 
-        // Read full Name of Repo from cursor
-        String lang = cursor.getString(RepoListFragment.COL_REPO_LANG);
-        // set language on it
-        viewHolder.langView.setText(lang);
+            viewHolder.nameView.setText("We couldn’t find any repositories matching '" + desc + "'");
+            viewHolder.descView.setVisibility(View.GONE);
+            viewHolder.langView.setVisibility(View.GONE);
+            viewHolder.updateView.setVisibility(View.GONE);
 
-        // Read full Name of Repo from cursor
-        String updated = cursor.getString(RepoListFragment.COL_REPO_UPDATED);
-        // set Updated repo on it
-        viewHolder.updateView.setText("Updated " + updated);
+        }else {
+            viewHolder.nameView.setText(fullName);
+            // set description on it
+            viewHolder.descView.setText(desc);
+
+            // Read full Name of Repo from cursor
+            String lang = cursor.getString(RepoListFragment.COL_REPO_LANG);
+            // set language on it
+            viewHolder.langView.setText(lang);
+
+            // Read full Name of Repo from cursor
+            String updated = cursor.getString(RepoListFragment.COL_REPO_UPDATED);
+            // set Updated repo on it
+            viewHolder.updateView.setText("Updated " + updated);
+        }
     }
 }

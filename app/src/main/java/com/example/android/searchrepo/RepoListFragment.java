@@ -10,6 +10,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,7 +35,7 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     private int mPosition = ListView.INVALID_POSITION;
     private static final String SELECTED_KEY = "selected_position";
     private SearchView searchView;
-    String mQueryText = null;
+    public String mQueryText = null;
 
     // For the Repo view we're showing only a small subset of the stored data.
     // Specify the columns we need.
@@ -118,17 +119,17 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private void updateRepositories(String query) {
-        FetchRepoTask repoTask = new FetchRepoTask(getContext());
+        FetchRepoTask repoTask = new FetchRepoTask(getContext(),mQueryText);
 
         String language = Utility.getLanguageOption(getActivity());
         String sortOrder = Utility.getSortOption(getActivity());
 
         //Log.v(LOG_TAG, "sortOrder : " + sortOrder);
-        if(query == null) {
-            repoTask.execute("stars:>1;language:" + language, sortOrder);
+        if(query.equals("")) {
+            repoTask.execute("stars:>1 language:" + language, sortOrder);
         }
         else {
-            repoTask.execute(query + ";language:" + language, sortOrder);
+            repoTask.execute(query + " language:" + language, sortOrder);
         }
         searchView.clearFocus();
 
@@ -153,13 +154,19 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
             @Override
             public boolean onQueryTextSubmit(String query) {
                 mQueryText = query;
-                updateRepositories(query);
+                updateRepositories(mQueryText);
                 searchView.clearFocus();
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                Log.v(LOG_TAG, "newText : " + newText);
+                if(newText.equals("")){
+                    mQueryText = "";
+                    updateRepositories(mQueryText);
+                    searchView.clearFocus();
+                }
                 return false;
             }
 
@@ -168,12 +175,29 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                mListView.setAdapter(mRepoAdapter);
+                updateRepositories(mQueryText);
                 return false;
             }
         });
 
         searchView.setQuery("",true);
+
+       /* ImageView closeButton = (ImageView)searchView.findViewById(R.id.search_close_btn);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(LOG_TAG, "Search close button clicked");
+                //Find EditText view
+                EditText et = (EditText) searchView.findViewById(R.id.search_src_text);
+
+                //Clear the text from EditText view
+                et.setText("");
+                //Clear query
+                searchView.setQuery("", false);
+                mQueryText = null;
+                updateRepositories("");
+            }
+        });*/
 
 
 
