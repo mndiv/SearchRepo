@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.example.android.searchrepo.data.RepoContract;
 import com.example.android.searchrepo.sync.RepoSyncAdapter;
@@ -264,6 +265,7 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
         // to, do so now.
         mListView.smoothScrollToPosition(mPosition);
         }
+        updateEmptyView();
     }
 
     @Override
@@ -271,6 +273,24 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
 
         mRepoAdapter.swapCursor(null);
 
+    }
+
+    /*
+        Updates the empty list view with contextually relevant information that the user can
+        use to determine why they aren't seeing weather.
+     */
+    private void updateEmptyView() {
+        if ( mRepoAdapter.getCount() == 0 ) {
+            TextView tv = (TextView) getView().findViewById(R.id.listview_repo_empty);
+            if ( null != tv ) {
+                // if cursor is empty, why? do we have an invalid location
+                int message = R.string.empty_Repo_list;
+                if (!Utility.isNetworkAvailable(getActivity()) ) {
+                    message = R.string.empty_repo_list_no_network;
+                }
+                tv.setText(message);
+            }
+        }
     }
 
     // since we read the location when we create the loader, all we need to do is restart things
