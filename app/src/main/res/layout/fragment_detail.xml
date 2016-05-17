@@ -178,26 +178,32 @@
                 android:layout_below="@id/repo_url_layout"
                 android:layout_marginTop="15dp"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginLeft="20dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/back"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/imageback"
-                        android:contentDescription="@string/starView"
-                        android:src="@drawable/ic_star"
-                        android:layout_weight="0.1"/>
+                        android:contentDescription="@string/issueView"
+                        android:src="@drawable/ic_issues"
+                        android:layout_weight="0.1"
+                        android:layout_gravity="left"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Star "
+                        android:text="Issues "
                         android:textStyle="bold"
                         android:textSize="15sp"
                         android:layout_weight="0.3"
@@ -212,7 +218,7 @@
                         android:background="@color/colorPrimary" />
 
                     <TextView
-                        android:id="@+id/star_text"
+                        android:id="@+id/issues_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -230,7 +236,8 @@
                     android:layout_marginRight="15dp"
                     android:background="@drawable/back"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_weight="1">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -238,7 +245,8 @@
                         android:background="@drawable/imageback"
                         android:contentDescription="@string/forkView"
                         android:src="@drawable/ic_fork"
-                        android:layout_weight="0.1"/>
+                        android:layout_weight="0.1"
+                        android:layout_gravity="left"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -276,7 +284,8 @@
                 android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:layout_marginLeft="20dp">
+                android:layout_marginLeft="20dp"
+                android:weightSum="2">
 
 
                 <LinearLayout
@@ -284,7 +293,10 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/back"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="horizontal"
+                    android:layout_weight="1">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -332,14 +344,15 @@
                     android:layout_marginRight="15dp"
                     android:background="@drawable/back"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_weight="1">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/imageback"
-                        android:contentDescription="@string/issueView"
-                        android:src="@drawable/ic_issues"
+                        android:contentDescription="@string/starView"
+                        android:src="@drawable/ic_star"
                         android:layout_weight="0.1"
                         android:layout_gravity="left"
                         />
@@ -347,7 +360,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Issues "
+                        android:text="Star "
                         android:textStyle="bold"
                         android:textSize="15sp"
                         android:layout_weight="0.3"
@@ -362,7 +375,7 @@
                         android:background="@color/colorPrimary" />
 
                     <TextView
-                        android:id="@+id/issues_text"
+                        android:id="@+id/star_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
