@@ -67,4 +67,8 @@
 
     <string name="search_label">Search</string>
     <string name="search_hint">Search Repositories</string>
+
+    <!-- SyncAdapter related -->
+    <string name="sync_account_type">searchrepo.example.com</string>
+    <string name="content_authority">com.example.android.searchrepo</string>
 </resources>

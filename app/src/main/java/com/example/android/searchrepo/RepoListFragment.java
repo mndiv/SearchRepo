@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.example.android.searchrepo.data.RepoContract;
+import com.example.android.searchrepo.sync.RepoSyncAdapter;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -120,18 +121,20 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private void updateRepositories(String query) {
-        FetchRepoTask repoTask = new FetchRepoTask(getContext(),mQueryText);
+//        FetchRepoTask repoTask = new FetchRepoTask(getContext(),mQueryText);
+//
+//        String language = Utility.getLanguageOption(getActivity());
+//        String sortOrder = Utility.getSortOption(getActivity());
+//
+//        //Log.v(LOG_TAG, "sortOrder : " + sortOrder);
+//        if(query.equals("")) {
+//            repoTask.execute("stars:>1 language:" + language, sortOrder);
+//        }
+//        else {
+//            repoTask.execute(query + " language:" + language, sortOrder);
+//        }
 
-        String language = Utility.getLanguageOption(getActivity());
-        String sortOrder = Utility.getSortOption(getActivity());
-
-        //Log.v(LOG_TAG, "sortOrder : " + sortOrder);
-        if(query.equals("")) {
-            repoTask.execute("stars:>1 language:" + language, sortOrder);
-        }
-        else {
-            repoTask.execute(query + " language:" + language, sortOrder);
-        }
+        RepoSyncAdapter.syncImmediately(getActivity());
         searchView.clearFocus();
 
 
