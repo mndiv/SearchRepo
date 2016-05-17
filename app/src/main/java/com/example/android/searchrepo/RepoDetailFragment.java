@@ -224,7 +224,8 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
         descTextView.setText(about);
 
         if(lang.equals("null")){
-            languageView.setText("");
+            //languageView.setText("");
+            languageView.setVisibility(View.GONE);
         }else {
             languageView.setText(lang);
         }

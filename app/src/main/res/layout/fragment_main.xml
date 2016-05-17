@@ -5,13 +5,16 @@
     android:orientation="vertical"
     tools:context="com.example.android.searchrepo.RepoListFragment"
     tools:showIn="@layout/activity_main"
+    android:paddingLeft="@dimen/list_side_margin"
+    android:paddingRight="@dimen/list_side_margin"
     >
 
     <SearchView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/search"
-        android:focusable="false" />
+        android:focusable="false"
+        android:maxWidth="10000dp"/>
 
     <ListView
         style="@style/RepoListStyle"
