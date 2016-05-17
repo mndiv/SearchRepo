@@ -171,8 +171,8 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
                 if(newText.equals("")){
 
                     if(!newText.equals(mQueryText)) {
-                        mQueryText = "";
                         updateRepositories(mQueryText);
+                        mQueryText = "";
                     }
                     searchView.clearFocus();
                 }
@@ -189,7 +189,7 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
             }
         });
 
-        searchView.setQuery("",true);
+        //searchView.setQuery("",true);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -220,13 +220,18 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
             // The listview probably hasn't even been populated yet.  Actually perform the
             // swapout in onLoadFinished.
             mPosition = savedInstanceState.getInt(SELECTED_KEY);
-            mQueryText = savedInstanceState.getString(QUERY_KEY);
+
         }
 
-        updateRepositories(mQueryText);
+        if (savedInstanceState != null && savedInstanceState.containsKey(QUERY_KEY)) {
+             mQueryText = savedInstanceState.getString(QUERY_KEY);
+        }
+        searchView.setQuery(mQueryText, true);
+        //updateRepositories(mQueryText);
 
         return rootView;
     }
+
 
     public static String getQueryText() {
         return mQueryText;
@@ -245,8 +250,9 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
         // so check for that before storing.
         if (mPosition != ListView.INVALID_POSITION) {
             outState.putInt(SELECTED_KEY, mPosition);
-            outState.putString(QUERY_KEY, mQueryText);
+
         }
+        outState.putString(QUERY_KEY, mQueryText);
         super.onSaveInstanceState(outState);
     }
 
