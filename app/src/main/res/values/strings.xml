@@ -71,4 +71,5 @@
     <!-- SyncAdapter related -->
     <string name="sync_account_type">searchrepo.example.com</string>
     <string name="content_authority">com.example.android.searchrepo</string>
+    <string name="empty_Repo_list">No Repository Information Available</string>
 </resources>

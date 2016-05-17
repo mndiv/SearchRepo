@@ -149,6 +149,8 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
         mRepoAdapter = new RepoAdapter(getActivity(), null, 0);
 
         mListView = (ListView) rootView.findViewById(R.id.listitem_repo);
+        View emptyView = rootView.findViewById(R.id.listview_repo_empty);
+        mListView.setEmptyView(emptyView);
         mListView.setAdapter(mRepoAdapter);
 
         searchView = (SearchView) rootView.findViewById(R.id.search);
