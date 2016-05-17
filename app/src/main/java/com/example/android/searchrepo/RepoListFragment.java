@@ -37,7 +37,7 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     private static final String SELECTED_KEY = "selected_position";
     private static final String QUERY_KEY = "Query";
     private SearchView searchView;
-    private String mQueryText = "";
+    public static String mQueryText = "";
 
     // For the Repo view we're showing only a small subset of the stored data.
     // Specify the columns we need.
