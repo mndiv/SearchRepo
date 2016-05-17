@@ -162,7 +162,6 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
             public boolean onQueryTextSubmit(String query) {
                 mQueryText = query;
                 updateRepositories(mQueryText);
-                searchView.clearFocus();
                 return true;
             }
 
@@ -227,6 +226,10 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
         updateRepositories(mQueryText);
 
         return rootView;
+    }
+
+    public static String getQueryText() {
+        return mQueryText;
     }
 
     @Override

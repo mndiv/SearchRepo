@@ -18,7 +18,7 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="Toolbar.ExpandedTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">30sp</item>
     </style>
 
     <style name="Toolbar.CollapsedTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">

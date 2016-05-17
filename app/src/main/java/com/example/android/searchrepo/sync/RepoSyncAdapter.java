@@ -61,10 +61,13 @@ public class RepoSyncAdapter extends AbstractThreadedSyncAdapter {
         String language = Utility.getLanguageOption(getContext());
         String sortOrder = Utility.getSortOption(getContext());
         String query = "stars:>1 language:".concat(language);
-        mQuery = RepoListFragment.mQueryText;
+        mQuery = RepoListFragment.getQueryText();
 
-//        if (!mQuery.equals(""))
-//            query = query + " language:".concat(language);
+        Log.v(LOG_TAG, "query from repolistfragment" + mQuery);
+        if (!mQuery.equals("")) {
+            query = "";
+            query = mQuery + " language:".concat(language);
+        }
 
 
         // These two need to be declared outside the try/catch
