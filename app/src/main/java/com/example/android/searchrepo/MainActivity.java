@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.android.searchrepo.sync.RepoSyncAdapter;
 import com.facebook.stetho.Stetho;
 
 public class MainActivity extends AppCompatActivity implements RepoListFragment.Callback {
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements RepoListFragment.
             mTwoPane = false;
             getSupportActionBar().setElevation(0f);
         }
+        RepoSyncAdapter.initializeSyncAdapter(this);
     }
 
     @Override
