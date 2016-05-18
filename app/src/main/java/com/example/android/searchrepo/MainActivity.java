@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.android.searchrepo.sync.RepoSyncAdapter;
-import com.facebook.stetho.Stetho;
 
 public class MainActivity extends AppCompatActivity implements RepoListFragment.Callback {
 
@@ -28,23 +27,6 @@ public class MainActivity extends AppCompatActivity implements RepoListFragment.
 
         mSortOrder = Utility.getSortOption(this);
         mLang = Utility.getLanguageOption(this);
-
-
-
-        Stetho.initialize(Stetho.newInitializerBuilder(getApplicationContext())
-                .enableDumpapp(Stetho.defaultDumperPluginsProvider(getApplicationContext()))
-                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(getApplicationContext()))
-                .build());
-
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         if(findViewById(R.id.repo_detail_container) != null){
             // The detail container view will be present only in the large-screen layouts
