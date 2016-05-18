@@ -127,22 +127,24 @@ public class RepoDetailFragment extends Fragment implements LoaderManager.Loader
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        inflater.inflate(R.menu.repodetailfragment, menu);
+        if ( getActivity() instanceof DetailActivity ) {
+            // Inflate the menu; this adds items to the action bar if it is present.
+            inflater.inflate(R.menu.repodetailfragment, menu);
 
-        // Retrieve the share menu item
-        MenuItem menuItem = menu.findItem(R.id.action_share);
+            // Retrieve the share menu item
+            MenuItem menuItem = menu.findItem(R.id.action_share);
 
-        // Get the provider and hold onto it to set/change the share intent.
-        mShareActionProvider =
-                (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
+            // Get the provider and hold onto it to set/change the share intent.
+            mShareActionProvider =
+                    (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
 
-        // Attach an intent to this ShareActionProvider.  You can update this at any time,
-        // like when the user selects a new piece of data they might like to share.
-        if (mRepoStr != null) {
-            mShareActionProvider.setShareIntent(createShareRepoIntent());
-        } else {
-            Log.d(LOG_TAG, "Share Action Provider is null?");
+            // Attach an intent to this ShareActionProvider.  You can update this at any time,
+            // like when the user selects a new piece of data they might like to share.
+            if (mRepoStr != null) {
+                mShareActionProvider.setShareIntent(createShareRepoIntent());
+            } else {
+                Log.d(LOG_TAG, "Share Action Provider is null?");
+            }
         }
     }
 
