@@ -1,6 +1,8 @@
 package com.example.android.searchrepo;
 
 import android.content.ContentUris;
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -34,7 +37,7 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     private static final int REPO_LOADER = 0;
     private RepoAdapter mRepoAdapter;
     private ListView mListView;
-    private int mPosition = ListView.INVALID_POSITION;
+    //private int mPosition = ListView.INVALID_POSITION;
     private static final String SELECTED_KEY = "selected_position";
     private static final String QUERY_KEY = "Query";
     private SearchView searchView;
@@ -74,6 +77,7 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     static final int COL_REPO_WATCHCOUNT = 10;
     static final int COL_REPO_FORKCOUNT = 11;
     static final int COL_REPO_ISSUECOUNT = 12;
+    private String mInitialSelectedRepo = "";
 
 
     /**
@@ -97,6 +101,12 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
         setHasOptionsMenu(true);
     }
 
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        updateRepositories();
+//    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.repofragment, menu);
@@ -116,6 +126,19 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private void updateRepositories(String query) {
+//        FetchRepoTask repoTask = new FetchRepoTask(getContext(),mQueryText);
+//
+//        String language = Utility.getLanguageOption(getActivity());
+//        String sortOrder = Utility.getSortOption(getActivity());
+//
+//        //Log.v(LOG_TAG, "sortOrder : " + sortOrder);
+//        if(query.equals("")) {
+//            repoTask.execute("stars:>1 language:" + language, sortOrder);
+//        }
+//        else {
+//            repoTask.execute(query + " language:" + language, sortOrder);
+//        }
+
         RepoSyncAdapter.syncImmediately(getActivity());
         searchView.clearFocus();
 
@@ -188,7 +211,7 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
 
                     //startActivity(detailIntent);
                 }
-                mPosition = position;
+                //mPosition = position;
             }
         });
 
@@ -197,13 +220,13 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
         // does crazy lifecycle related things.  It should feel like some stuff stretched out,
         // or magically appeared to take advantage of room, but data or place in the app was never
         // actually *lost*.
-        if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)) {
+       /* if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)) {
             // The listview probably hasn't even been populated yet.  Actually perform the
             // swapout in onLoadFinished.
             mPosition = savedInstanceState.getInt(SELECTED_KEY);
 
         }
-
+*/
         if (savedInstanceState != null && savedInstanceState.containsKey(QUERY_KEY)) {
              mQueryText = savedInstanceState.getString(QUERY_KEY);
         }
@@ -224,15 +247,19 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
         super.onActivityCreated(savedInstanceState);
     }
 
+    public void setInitialSelectedRepo(String initialSelectedRepo) {
+        mInitialSelectedRepo = initialSelectedRepo;
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         // When tablets rotate, the currently selected list item needs to be saved.
         // When no item is selected, mPosition will be set to Listview.INVALID_POSITION,
         // so check for that before storing.
-        if (mPosition != ListView.INVALID_POSITION) {
+        /*if (mPosition != ListView.INVALID_POSITION) {
             outState.putInt(SELECTED_KEY, mPosition);
 
-        }
+        }*/
         outState.putString(QUERY_KEY, mQueryText);
         super.onSaveInstanceState(outState);
     }
@@ -250,12 +277,41 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mRepoAdapter.swapCursor(data);
-        if (mPosition != ListView.INVALID_POSITION) {
+        /*if (mPosition != ListView.INVALID_POSITION) {
        // If we don't need to restart the loader, and there's a desired position to restore
         // to, do so now.
         mListView.smoothScrollToPosition(mPosition);
-        }
+        }*/
         updateEmptyView();
+
+       mListView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+           @Override
+           public boolean onPreDraw() {
+               if (mListView.getChildCount() > 0) {
+                   mListView.getViewTreeObserver().removeOnPreDrawListener(this);
+
+                   int position = mListView.getSelectedItemPosition();
+                   if (position != ListView.INVALID_POSITION && !mInitialSelectedRepo.equals("")) {
+                       Cursor data = mRepoAdapter.getCursor();
+                       int count = data.getCount();
+                       int name_id = data.getColumnIndex(RepoContract.RepoEntry.COLUMN_FULL_NAME);
+                       for (int i = 0; i < count; i++) {
+                           data.moveToPosition(i);
+                           if (data.getString(name_id).equals(mInitialSelectedRepo)) {
+                               position = i;
+                               break;
+                           }
+                       }
+                   }
+                   if (position == ListView.INVALID_POSITION)
+                       position = 0;
+                   mListView.smoothScrollToPosition(position);
+
+                   return true;
+               }
+            return false;
+           }
+       });
     }
 
     @Override
@@ -281,6 +337,14 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
                 tv.setText(message);
             }
         }
+    }
+
+    private void updateWidgets() {
+        Context context = getContext();
+        // Setting the package ensures that only components in our app will receive the broadcast
+        Intent dataUpdatedIntent = new Intent(RepoSyncAdapter.ACTION_DATA_UPDATED)
+                .setPackage(context.getPackageName());
+        context.sendBroadcast(dataUpdatedIntent);
     }
 
     // since we read the location when we create the loader, all we need to do is restart things

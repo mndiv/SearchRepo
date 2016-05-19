@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.android.searchrepo.data.RepoContract;
 import com.example.android.searchrepo.sync.RepoSyncAdapter;
 
 public class MainActivity extends AppCompatActivity implements RepoListFragment.Callback {
@@ -17,9 +18,11 @@ public class MainActivity extends AppCompatActivity implements RepoListFragment.
 
     private String mSortOrder, mLang;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Uri contentUri = getIntent() != null ? getIntent().getData() : null;
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -29,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements RepoListFragment.
         mLang = Utility.getLanguageOption(this);
 
 
-        if(findViewById(R.id.repo_detail_container) != null){
+        if (findViewById(R.id.repo_detail_container) != null) {
             // The detail container view will be present only in the large-screen layouts
             // (res/layout-sw600dp-land). If this view is present, then the activity should be
             // in two-pane mode.
@@ -38,13 +41,26 @@ public class MainActivity extends AppCompatActivity implements RepoListFragment.
             // adding or replacing the detail fragment using a
             // fragment transaction.
             if (savedInstanceState == null) {
+
+                RepoDetailFragment fragment = new RepoDetailFragment();
+                if (contentUri != null) {
+                        Bundle args = new Bundle();
+                        args.putParcelable(RepoDetailFragment.DETAIL_URI, contentUri);
+                        fragment.setArguments(args);
+                    }
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.repo_detail_container, new RepoDetailFragment(), DETAILFRAGMENT_TAG)
+                        .replace(R.id.repo_detail_container, fragment, DETAILFRAGMENT_TAG)
                         .commit();
             }
-        }else{
+        } else {
             mTwoPane = false;
             getSupportActionBar().setElevation(0f);
+        }
+
+        RepoListFragment repoFragment =  ((RepoListFragment)getSupportFragmentManager()
+                .findFragmentById(R.id.fragment_repo));
+        if(contentUri != null){
+            repoFragment.setInitialSelectedRepo(RepoContract.RepoEntry.getNameFromUri(contentUri));
         }
         RepoSyncAdapter.initializeSyncAdapter(this);
     }
@@ -79,9 +95,9 @@ public class MainActivity extends AppCompatActivity implements RepoListFragment.
         String sortOrder = Utility.getSortOption(this);
         String lang = Utility.getLanguageOption(this);
         //update the sortOrder in our second pane using the fragment manager
-        if((sortOrder != null && !sortOrder.equals(mSortOrder)) || ( lang != null && !lang.equals(mLang))){
-            RepoListFragment rf = (RepoListFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_repo);
-            if(null != rf){
+        if ((sortOrder != null && !sortOrder.equals(mSortOrder)) || (lang != null && !lang.equals(mLang))) {
+            RepoListFragment rf = (RepoListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_repo);
+            if (null != rf) {
                 rf.onSettingsChanged();
             }
             mSortOrder = sortOrder;
@@ -105,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements RepoListFragment.
                     .replace(R.id.repo_detail_container, fragment, DETAILFRAGMENT_TAG)
                     .commit();
         } else {
-            Intent intent = new Intent(this,DetailActivity.class)
+            Intent intent = new Intent(this, DetailActivity.class)
                     .setData(contentUri);
             startActivity(intent);
         }
