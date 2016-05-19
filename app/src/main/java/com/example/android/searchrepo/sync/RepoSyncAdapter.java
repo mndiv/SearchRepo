@@ -45,7 +45,7 @@ public class RepoSyncAdapter extends AbstractThreadedSyncAdapter {
     String mQuery;
 
     public static final String ACTION_DATA_UPDATED =
-            "com.example.android.sunshine.app.ACTION_DATA_UPDATED";
+            "com.example.android.searchrepo.app.ACTION_DATA_UPDATED";
 
     // Interval at which to sync with the weather, in seconds.
     // 60 seconds (1 minute) * 180 = 3 hours
