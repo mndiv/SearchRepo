@@ -7,4 +7,9 @@
 <color name="button_bg"> #E0E0E0 </color>
     <color name="sunshine_light_blue">#ff64c2f4</color>
     <color name="grey">#cccccc</color>
+
+    <!-- the activated state color -->
+    <color name="activated">#E0E0E0</color>
+
+    <color name="white">#FFFFFF</color>
 </resources>

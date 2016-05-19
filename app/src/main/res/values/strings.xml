@@ -83,4 +83,7 @@
     <string name="fork">Fork</string>
     <string name="watch">Watch</string>
     <string name="star">Star</string>
+
+    <!-- Strings related to Widgets -->
+    +    <string name="title_widget_repo">Repositories</string>
 </resources>

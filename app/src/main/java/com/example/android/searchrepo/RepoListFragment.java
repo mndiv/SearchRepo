@@ -97,12 +97,6 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
         setHasOptionsMenu(true);
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        updateRepositories();
-//    }
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.repofragment, menu);
@@ -122,19 +116,6 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private void updateRepositories(String query) {
-//        FetchRepoTask repoTask = new FetchRepoTask(getContext(),mQueryText);
-//
-//        String language = Utility.getLanguageOption(getActivity());
-//        String sortOrder = Utility.getSortOption(getActivity());
-//
-//        //Log.v(LOG_TAG, "sortOrder : " + sortOrder);
-//        if(query.equals("")) {
-//            repoTask.execute("stars:>1 language:" + language, sortOrder);
-//        }
-//        else {
-//            repoTask.execute(query + " language:" + language, sortOrder);
-//        }
-
         RepoSyncAdapter.syncImmediately(getActivity());
         searchView.clearFocus();
 
