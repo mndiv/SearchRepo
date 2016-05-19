@@ -88,7 +88,8 @@
     <!-- Widget -->
     <receiver
         android:name=".widget.RepoWidgetProvider"
-        android:label="@string/title_widget_repo" >
+        android:label="@string/title_widget_repo"
+        android:enabled="@bool/widget_detail_enabled">
         <intent-filter>
             <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             <action android:name="com.example.android.searchrepo.app.ACTION_DATA_UPDATED" />
@@ -96,7 +97,11 @@
         <meta-data android:name="android.appwidget.provider"
             android:resource="@xml/widget_info_repo" />
     </receiver>
-    <service android:name=".widget.RepoWidgetIntentService" />
+        <service
+            android:name=".widget.RepoWidgetIntentService"
+            android:enabled="@bool/widget_detail_enabled"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>
