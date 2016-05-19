@@ -8,14 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.android.searchrepo.data.RepoContract;
 import com.example.android.searchrepo.sync.RepoSyncAdapter;
 
 public class MainActivity extends AppCompatActivity implements RepoListFragment.Callback {
 
     private static final String DETAILFRAGMENT_TAG = "DFTAG";
     private boolean mTwoPane;
-
     private String mSortOrder, mLang;
 
 
@@ -28,41 +26,18 @@ public class MainActivity extends AppCompatActivity implements RepoListFragment.
         setSupportActionBar(toolbar);
         toolbar.showOverflowMenu();
 
+
+
+
         mSortOrder = Utility.getSortOption(this);
         mLang = Utility.getLanguageOption(this);
 
 
-        if (findViewById(R.id.repo_detail_container) != null) {
-            // The detail container view will be present only in the large-screen layouts
-            // (res/layout-sw600dp-land). If this view is present, then the activity should be
-            // in two-pane mode.
-            mTwoPane = true;
-            // In two-pane mode, show the detail view in this activity by
-            // adding or replacing the detail fragment using a
-            // fragment transaction.
-            if (savedInstanceState == null) {
 
-                RepoDetailFragment fragment = new RepoDetailFragment();
-                if (contentUri != null) {
-                        Bundle args = new Bundle();
-                        args.putParcelable(RepoDetailFragment.DETAIL_URI, contentUri);
-                        fragment.setArguments(args);
-                    }
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.repo_detail_container, fragment, DETAILFRAGMENT_TAG)
-                        .commit();
-            }
-        } else {
-            mTwoPane = false;
-            getSupportActionBar().setElevation(0f);
-        }
 
-        RepoListFragment repoFragment =  ((RepoListFragment)getSupportFragmentManager()
-                .findFragmentById(R.id.fragment_repo));
-        if(contentUri != null){
-            repoFragment.setInitialSelectedRepo(RepoContract.RepoEntry.getNameFromUri(contentUri));
-        }
-        RepoSyncAdapter.initializeSyncAdapter(this);
+        RepoSyncAdapter.initializeSyncAdapter(getApplicationContext());
+
+
     }
 
     @Override

@@ -27,6 +27,8 @@ import android.widget.TextView;
 
 import com.example.android.searchrepo.data.RepoContract;
 import com.example.android.searchrepo.sync.RepoSyncAdapter;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -149,6 +151,14 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
+
+        AdView mAdView = (AdView) rootView.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("E73FCBCE792D2E61BFECA6E585A35374")
+                .build();
+        mAdView.loadAd(adRequest);
+
 
         // The CursorAdapter will take data from our cursor and populate the ListView.
         mRepoAdapter = new RepoAdapter(getActivity(), null, 0);
