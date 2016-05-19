@@ -1,10 +1,12 @@
 package com.example.android.searchrepo.widget;
 
+import android.annotation.TargetApi;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Binder;
+import android.os.Build;
 import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.RemoteViews;
@@ -16,6 +18,7 @@ import com.example.android.searchrepo.data.RepoContract;
 /**
  * Created by KeerthanaS on 5/18/2016.
  */
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class RepoWidgetRemoteViewsService extends RemoteViewsService {
 
     private static final String[] REPO_COLUMNS = {
@@ -127,7 +130,7 @@ public class RepoWidgetRemoteViewsService extends RemoteViewsService {
 
             @Override
             public boolean hasStableIds() {
-                return false;
+                return true;
             }
 
 

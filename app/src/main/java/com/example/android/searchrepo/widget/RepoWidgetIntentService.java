@@ -77,8 +77,8 @@ public class RepoWidgetIntentService extends IntentService {
 
             views.setTextViewText(R.id.widget_repo_name, repoName);
             views.setTextViewText(R.id.widget_repo_desc, repoDesc);
-            views.setTextViewText(R.id.widget_repo_language, repoLanguage);
-            views.setTextViewText(R.id.widget_repo_updated, repoUpdated);
+//            views.setTextViewText(R.id.widget_repo_language, repoLanguage);
+//            views.setTextViewText(R.id.widget_repo_updated, repoUpdated);
 
             // Create an Intent to launch MainActivity
             Intent launchIntent = new Intent(this, MainActivity.class);

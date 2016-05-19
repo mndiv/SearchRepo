@@ -96,7 +96,7 @@
                 <action android:name="com.example.android.searchrepo.app.ACTION_DATA_UPDATED" />
             </intent-filter>
             <meta-data android:name="android.appwidget.provider"
-                android:resource="@xml/widget_info_repo" />
+                android:resource="@xml/widget_info_smallrepo" />
         </receiver>
         <service android:name=".widget.RepoWidgetIntentService" />
 

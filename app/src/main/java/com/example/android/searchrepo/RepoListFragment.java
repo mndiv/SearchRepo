@@ -352,5 +352,6 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
 
         updateRepositories(mQueryText);
         getLoaderManager().restartLoader(REPO_LOADER, null, this);
+        updateWidgets();
     }
 }

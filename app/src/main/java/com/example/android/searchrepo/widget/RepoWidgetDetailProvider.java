@@ -20,6 +20,7 @@ import com.example.android.searchrepo.sync.RepoSyncAdapter;
 /**
  * Created by KeerthanaS on 5/18/2016.
  */
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class RepoWidgetDetailProvider extends AppWidgetProvider {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
