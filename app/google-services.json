@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "526019072024",
+    "project_id": "gitsearchrepo"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526019072024:android:6b0eba2c90753f2f",
+        "android_client_info": {
+          "package_name": "com.example.android.searchrepo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXuMcZoqvuWkjVM5DD9qS43_3sKD2RIwI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-77991765-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

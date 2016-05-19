@@ -26,8 +26,7 @@ public class MainActivity extends AppCompatActivity implements RepoListFragment.
         setSupportActionBar(toolbar);
         toolbar.showOverflowMenu();
 
-
-
+        ((MyApplication) getApplication()).startTracking();
 
         mSortOrder = Utility.getSortOption(this);
         mLang = Utility.getLanguageOption(this);
