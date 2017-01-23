@@ -7,33 +7,29 @@
 
     <LinearLayout
         android:id="@+id/widget"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/touch_selector_white"
         android:orientation="horizontal"
-        android:padding="4dp"
-        android:weightSum="3"
-        android:layout_gravity="center_horizontal">
+        android:padding="4dp">
 
-        <ImageView
-             android:id="@+id/widget_icon"
-             android:layout_width="wrap_content"
-             android:layout_height="match_parent"
-             android:layout_gravity="center_horizontal"
-             android:layout_weight="1"
-             android:src="@mipmap/ic_launcher" />
+       <!-- <ImageView
+            android:id="@+id/widget_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            tools:src="@drawable/ic_star" />-->
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:fontFamily="sans-serif"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="@color/colorPrimary"
-            tools:text="48"
-            android:id="@+id/widget_repo_name"
-            android:layout_weight="1"
-
-            />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textColor="@color/colorPrimary"
+        tools:text="48"
+        android:id="@+id/widget_repo_name"
+        />
 
         <TextView
             android:layout_width="wrap_content"
@@ -43,9 +39,25 @@
             android:textColor="@color/colorPrimary"
             tools:text="48"
             android:id="@+id/widget_repo_desc"
-            android:layout_weight="1"
             />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@color/colorPrimary"
+            tools:text="48"
+            android:id="@+id/widget_repo_language"
+            />
+        <TextView
+            android:id="@+id/widget_repo_updated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
+            android:fontFamily="sans-serif"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@color/colorPrimary"
+            tools:text="48" />
     </LinearLayout>
 </FrameLayout>
