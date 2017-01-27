@@ -72,7 +72,7 @@
     <string name="sync_account_type">searchrepo.example.com</string>
     <string name="content_authority">com.example.android.searchrepo</string>
     <string name="empty_Repo_list">No Repository Information Available</string>
-    <string name="empty_repo_list_no_network">No weather information available. The network is not available to fetch Repository data.</string>
+    <string name="empty_repo_list_no_network">No Repository information available. The network is not available to fetch Repository data.</string>
     <string name="avatar">Avatar of user</string>
     <string name="description">Description:</string>
     <string name="language">Language:</string>
