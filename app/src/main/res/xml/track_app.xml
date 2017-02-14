@@ -2,6 +2,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <string name="ga_trackingId">UA-77991765-1</string>
     <bool name="ga_autoActivityTracking">true</bool>
-    <screenName name="com.example.android.searchrepo.MainActivity">List of Repositories</screenName>
-    <screenName name="com.example.android.searchrepo.DetailActivity">Details of Repository</screenName>
+    <screenName name="com.iloveandrroid.divya.searchrepo.MainActivity">List of Repositories</screenName>
+    <screenName name="com.iloveandrroid.divya.searchrepo.DetailActivity">Details of Repository</screenName>
 </resources>

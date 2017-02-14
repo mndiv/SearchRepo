@@ -12,11 +12,12 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
     defaultConfig {
-        applicationId "com.example.android.searchrepo"
+        applicationId "com.iloveandrroid.divya.searchrepo"
         minSdkVersion 18
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {

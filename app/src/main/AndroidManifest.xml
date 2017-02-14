@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android.searchrepo">
+    package="com.iloveandrroid.divya.searchrepo">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -19,9 +19,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".MyApplication">
+        android:name="com.iloveandrroid.divya.searchrepo.MyApplication">
         <activity
-            android:name=".MainActivity"
+            android:name="com.iloveandrroid.divya.searchrepo.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -37,25 +37,25 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".DetailActivity"
+            android:name="com.iloveandrroid.divya.searchrepo.DetailActivity"
             android:label="@string/title_activity_detail"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="com.iloveandrroid.divya.searchrepo.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.searchrepo.MainActivity" />
+                android:value="com.iloveandrroid.divya.searchrepo.MainActivity" />
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.iloveandrroid.divya.searchrepo.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName="com.iloveandrroid.divya.searchrepo.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.searchrepo.MainActivity" />
+                android:value="com.iloveandrroid.divya.searchrepo.MainActivity" />
         </activity>
 
         <provider
-            android:name=".data.RepoProvider"
+            android:name="com.iloveandrroid.divya.searchrepo.data.RepoProvider"
             android:authorities="@string/content_authority"
             android:enabled="true"
             android:exported="false"
@@ -63,7 +63,7 @@
         </provider>
 
         <!-- SyncAdapter's dummy authentication service -->
-        <service android:name=".sync.RepoAuthenticatorService">
+        <service android:name="com.iloveandrroid.divya.searchrepo.sync.RepoAuthenticatorService">
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
@@ -74,7 +74,7 @@
 
         <!-- The SyncAdapter service -->
         <service
-            android:name=".sync.RepoSyncService"
+            android:name="com.iloveandrroid.divya.searchrepo.sync.RepoSyncService"
             android:exported="true"
             >
             <intent-filter>
@@ -90,30 +90,30 @@
 
         <!-- Widget -->
         <receiver
-            android:name=".widget.RepoWidgetProvider"
+            android:name="com.iloveandrroid.divya.searchrepo.widget.RepoWidgetProvider"
             android:label="@string/title_widget_repo" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-                <action android:name="com.example.android.searchrepo.app.ACTION_DATA_UPDATED" />
+                <action android:name="com.iloveandrroid.divya.searchrepo.app.ACTION_DATA_UPDATED" />
             </intent-filter>
             <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/widget_info_smallrepo" />
         </receiver>
-        <service android:name=".widget.RepoWidgetIntentService" />
+        <service android:name="com.iloveandrroid.divya.searchrepo.widget.RepoWidgetIntentService" />
 
     <receiver
-        android:name=".widget.RepoWidgetDetailProvider"
+        android:name="com.iloveandrroid.divya.searchrepo.widget.RepoWidgetDetailProvider"
         android:label="@string/title_widget_repo"
         android:enabled="@bool/widget_detail_enabled">
         <intent-filter>
             <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-            <action android:name="com.example.android.searchrepo.app.ACTION_DATA_UPDATED" />
+            <action android:name="com.iloveandrroid.divya.searchrepo.app.ACTION_DATA_UPDATED" />
         </intent-filter>
         <meta-data android:name="android.appwidget.provider"
             android:resource="@xml/widget_info_repo" />
     </receiver>
         <service
-            android:name=".widget.RepoWidgetRemoteViewsService"
+            android:name="com.iloveandrroid.divya.searchrepo.widget.RepoWidgetRemoteViewsService"
             android:enabled="@bool/widget_detail_enabled"
             android:exported="false"
             android:permission="android.permission.BIND_REMOTEVIEWS" />

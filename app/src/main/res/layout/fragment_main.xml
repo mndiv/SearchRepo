@@ -11,7 +11,7 @@
         android:orientation="vertical"
         android:paddingLeft="@dimen/list_side_margin"
         android:paddingRight="@dimen/list_side_margin"
-        tools:context="com.example.android.searchrepo.RepoListFragment"
+        tools:context="com.iloveandrroid.divya.searchrepo.RepoListFragment"
         tools:showIn="@layout/activity_main">
 
         <SearchView
