@@ -8,9 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.iloveandrroid.divya.searchrepo.MyApplication;
-import com.iloveandrroid.divya.searchrepo.R;
-import com.iloveandrroid.divya.searchrepo.RepoListFragment;
 import com.iloveandrroid.divya.searchrepo.sync.RepoSyncAdapter;
 
 public class MainActivity extends AppCompatActivity implements RepoListFragment.Callback {
@@ -27,19 +24,16 @@ public class MainActivity extends AppCompatActivity implements RepoListFragment.
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.showOverflowMenu();
+        if (toolbar != null) {
+            toolbar.showOverflowMenu();
+        }
 
         ((MyApplication) getApplication()).startTracking();
 
         mSortOrder = Utility.getSortOption(this);
         mLang = Utility.getLanguageOption(this);
 
-
-
-
         RepoSyncAdapter.initializeSyncAdapter(getApplicationContext());
-
-
     }
 
     @Override
