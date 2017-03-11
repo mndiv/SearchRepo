@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:orientation="vertical"
-
     android:background="@drawable/touch_selector">
 
     <TextView
@@ -28,19 +27,35 @@
     </TextView>
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/list_item_lang_textView"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/list_item_update_textView"
+            android:orientation="horizontal"
+            android:id="@+id/langView_linear"
+            >
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/circle"
+            android:id="@+id/circle_id"
+            android:layout_weight="0.05"
+
+
+        />
+        <TextView
+            android:id="@+id/list_item_lang_textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:textStyle="bold"
             android:fontFamily="sans-serif-condensed"
-            android:textAppearance="?android:textAppearanceSmall"/>
+            android:textAppearance="?android:textAppearanceSmall"
+            android:layout_weight="0.95"/>
 
+        </LinearLayout>
         <TextView
             android:id="@+id/list_item_update_textView"
             android:layout_width="wrap_content"

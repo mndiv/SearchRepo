@@ -2,6 +2,7 @@ package com.iloveandrroid.divya.searchrepo;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +25,14 @@ class RepoAdapter extends CursorAdapter {
         public final TextView descView;
         public final TextView langView;
         public final TextView updateView;
+        public final View circleLangView;
 
         public ViewHolder(View view) {
             nameView = (TextView) view.findViewById(R.id.list_item_fullName_textView);
             descView = (TextView) view.findViewById(R.id.list_item_desc_textView);
             langView = (TextView) view.findViewById(R.id.list_item_lang_textView);
             updateView = (TextView) view.findViewById(R.id.list_item_update_textView);
+            circleLangView=view.findViewById(R.id.circle_id);
         }
     }
 
@@ -64,6 +67,7 @@ class RepoAdapter extends CursorAdapter {
             viewHolder.descView.setVisibility(View.GONE);
             viewHolder.langView.setVisibility(View.GONE);
             viewHolder.updateView.setVisibility(View.GONE);
+            viewHolder.circleLangView.setVisibility(View.GONE);
 
         } else {
             viewHolder.nameView.setText(fullName);
@@ -73,10 +77,18 @@ class RepoAdapter extends CursorAdapter {
             else
                 viewHolder.descView.setText(desc);
             // set language on it
-            if (lang.equals(empty))
+            if (lang.equals(empty)) {
                 viewHolder.langView.setText("");
-            else
+                viewHolder.circleLangView.setVisibility(View.GONE);
+            }
+            else {
                 viewHolder.langView.setText(lang);
+
+                if(lang.equals("JavaScript")) {
+                    final GradientDrawable shape = (GradientDrawable) viewHolder.circleLangView.getBackground();
+                    shape.setColor(context.getResources().getColor(R.color.colorRed));
+                }
+            }
             // set Updated repo on it
             viewHolder.updateView.setText("Updated on " + updated);
         }
