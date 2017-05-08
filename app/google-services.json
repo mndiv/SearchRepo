@@ -1,35 +1,47 @@
 {
   "project_info": {
-    "project_number": "526019072024",
-    "project_id": "gitsearchrepo"
+    "project_number": "381183923432",
+    "firebase_url": "https://gitsearchrepo-e85c2.firebaseio.com",
+    "project_id": "gitsearchrepo-e85c2",
+    "storage_bucket": "gitsearchrepo-e85c2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:526019072024:android:6b0eba2c90753f2f",
+        "mobilesdk_app_id": "1:381183923432:android:f1608ec43b24d59d",
         "android_client_info": {
           "package_name": "com.iloveandrroid.divya.searchrepo"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "381183923432-47kt2b1fmq3tp282loltrjmmpg3tiuv1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iloveandrroid.divya.searchrepo",
+            "certificate_hash": "3d38e0bcb71ccfe50126ced3df4fa6a05b26a566"
+          }
+        },
+        {
+          "client_id": "381183923432-9j99o46ch49n7a806132p08s08o6qbfp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyCXuMcZoqvuWkjVM5DD9qS43_3sKD2RIwI"
+          "current_key": "AIzaSyCL3bwsQc6k8dX6B0qY-sC_Riyv6kUvY_s"
         }
       ],
       "services": {
         "analytics_service": {
-          "status": 2,
-          "analytics_property": {
-            "tracking_id": "UA-77991765-1"
-          }
+          "status": 1
         },
         "appinvite_service": {
           "status": 1,
           "other_platform_oauth_client": []
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }

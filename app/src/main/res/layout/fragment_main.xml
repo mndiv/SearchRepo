@@ -19,14 +19,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="false"
-            android:maxWidth="10000dp" />
+            android:queryHint="@string/search_hint"/>
 
         <ListView
             android:id="@+id/listitem_repo"
             style="@style/RepoListStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="100dp"/>
+            android:paddingBottom="50dp"/>
 
 
         <!-- empty list -->
@@ -41,8 +41,8 @@
             android:paddingTop="@dimen/activity_vertical_margin"
             android:text="@string/empty_Repo_list" />
 
-    </LinearLayout>
 
+    </LinearLayout>
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="match_parent"
@@ -51,4 +51,5 @@
         android:layout_centerHorizontal="true"
         ads:adSize="BANNER"
         ads:adUnitId="@string/banner_ad_unit_id" />
+
 </RelativeLayout>

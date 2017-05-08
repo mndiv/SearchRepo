@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?><!-- Layout for Repositories list item-->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="?android:attr/listPreferredItemHeight"
-    android:orientation="vertical"
-    android:background="@drawable/touch_selector">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/touch_selector"
+              android:minHeight="?android:attr/listPreferredItemHeight"
+              android:orientation="vertical">
 
     <TextView
         android:id="@+id/list_item_fullName_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textStyle="bold"
         android:fontFamily="sans-serif-condensed"
-        android:textAppearance="?android:textAppearanceLarge"/>
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/list_item_desc_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxLines="2"
         android:ellipsize="end"
         android:fontFamily="sans-serif-condensed"
+        android:maxLines="2"
         android:textAppearance="?android:textAppearanceMedium">
     </TextView>
 
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
+        <!--LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -44,24 +44,28 @@
             android:layout_weight="0.05"
 
 
-        />
+        /-->
         <TextView
             android:id="@+id/list_item_lang_textView"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:textStyle="bold"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/list_item_update_textView"
             android:fontFamily="sans-serif-condensed"
             android:textAppearance="?android:textAppearanceSmall"
-            android:layout_weight="0.95"/>
+            android:textColor="@color/colorPrimaryLight"
+            android:textStyle="bold"
+            />
 
-        </LinearLayout>
+        <!--/LinearLayout-->
         <TextView
             android:id="@+id/list_item_update_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:fontFamily="sans-serif-condensed"
-        android:textAppearance="?android:textAppearanceSmall"/>
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@color/colorPrimaryLight"
+            />
     </RelativeLayout>
 </LinearLayout>

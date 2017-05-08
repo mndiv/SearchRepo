@@ -90,7 +90,7 @@ public class RepoSyncAdapter extends AbstractThreadedSyncAdapter {
 
             // URL url = new URL("https://api.github.com/search/repositories?q=stars:>1");
 
-            final String REPO_BASE_URL = "https://api.github.com/search/repositories?";
+            final String REPO_BASE_URL = "https://api.github.com/search/repositories?per_page=100";
             final String QUERY_PARAM = "q";
             final String SORT_PARAM = "sort";
             final String ORDER_PARAM = "order";
@@ -302,6 +302,7 @@ public class RepoSyncAdapter extends AbstractThreadedSyncAdapter {
                 }
 
                 Log.v(LOG_TAG, "ResultStrs : " + resultStrs[0]);
+                Log.v(LOG_TAG, "numRepos:" + numRepos);
 
                 int inserted = 0;
                 // add to database
@@ -311,7 +312,7 @@ public class RepoSyncAdapter extends AbstractThreadedSyncAdapter {
                     inserted = getContext().getContentResolver().bulkInsert(RepoContract.RepoEntry.CONTENT_URI, cvArray);
                 }
 
-                Log.d(LOG_TAG, "FetchRepoTask Complete. " + inserted + " Inserted");
+                Log.d(LOG_TAG, "RepoSync Complete. " + inserted + " Inserted");
 
             } else {
                 // Insert the new weather information into the database
@@ -339,7 +340,7 @@ public class RepoSyncAdapter extends AbstractThreadedSyncAdapter {
                     cVVector.toArray(cvArray);
                     inserted = getContext().getContentResolver().bulkInsert(RepoContract.RepoEntry.CONTENT_URI, cvArray);
                 }
-                Log.d(LOG_TAG, "FetchRepoTask Complete. " + inserted + " Inserted");
+                Log.d(LOG_TAG, "Reposync Complete. " + inserted + " Inserted");
                 repoCursor.close();
                 updateWidgets();
             }

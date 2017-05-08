@@ -28,6 +28,12 @@ public class MainActivity extends AppCompatActivity implements RepoListFragment.
             toolbar.showOverflowMenu();
         }
 
+        /*Stetho.initialize(Stetho.newInitializerBuilder(getApplicationContext())
+                .enableDumpapp(Stetho.defaultDumperPluginsProvider(getApplicationContext()))
+                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(getApplicationContext()))
+                .build());
+*/
+
         ((MyApplication) getApplication()).startTracking();
 
         mSortOrder = Utility.getSortOption(this);

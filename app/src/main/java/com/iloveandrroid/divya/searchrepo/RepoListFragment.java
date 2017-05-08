@@ -25,11 +25,10 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
-import com.iloveandrroid.divya.searchrepo.R;
-import com.iloveandrroid.divya.searchrepo.data.RepoContract;
-import com.iloveandrroid.divya.searchrepo.sync.RepoSyncAdapter;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.iloveandrroid.divya.searchrepo.data.RepoContract;
+import com.iloveandrroid.divya.searchrepo.sync.RepoSyncAdapter;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -156,7 +155,7 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
 
         AdView mAdView = (AdView) rootView.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("E73FCBCE792D2E61BFECA6E585A35374")
+                //.addTestDevice("E73FCBCE792D2E61BFECA6E585A35374")
                 .build();
         mAdView.loadAd(adRequest);
 
@@ -214,7 +213,7 @@ public class RepoListFragment extends Fragment implements LoaderManager.LoaderCa
                 Cursor cursor = (Cursor) adapterView.getItemAtPosition(position);
                 if (cursor != null) {
 
-//                    Intent detailIntent = new Intent(getContext(), DetailActivity.class)
+//                    Intent detailIntent = new Intentads(getContext(), DetailActivity.class)
 //                            .setData(ContentUris.withAppendedId(RepoContract.RepoEntry.CONTENT_URI,position+1));
 
                     ((Callback) getActivity())

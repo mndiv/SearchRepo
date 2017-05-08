@@ -12,7 +12,7 @@ import com.iloveandrroid.divya.searchrepo.data.RepoContract.RepoEntry;
 public class RepoDbHelper extends SQLiteOpenHelper{
 
     // If you change the database schema, you must increment the database version.
-    private static final int DATABASE_VERSION =1;
+    private static final int DATABASE_VERSION =2;
 
     static final String DATABASE_NAME = "repositories.db";
 

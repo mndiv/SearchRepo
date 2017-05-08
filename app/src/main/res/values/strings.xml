@@ -66,7 +66,7 @@
     </string-array>
 
     <string name="search_label">Search</string>
-    <string name="search_hint">Search Repositories</string>
+    <string name="search_hint">search for repositories</string>
 
     <!-- SyncAdapter related -->
     <string name="sync_account_type">searchrepo.example.com</string>
@@ -87,5 +87,5 @@
     <!-- Strings related to Widgets -->
     <string name="title_widget_repo">Search Repositories</string>
 
-    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_unit_id">ca-app-pub-6791404200619152/3472843025</string>
 </resources>
